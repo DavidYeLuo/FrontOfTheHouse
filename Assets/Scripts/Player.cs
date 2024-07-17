@@ -1,8 +1,10 @@
 using UnityEngine;
+using PlayerAction;
+using Interactable;
 
 namespace Player
 {
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, IInteractor
     {
         [SerializeField]
         private float force;
@@ -26,17 +28,38 @@ namespace Player
             // Interact Button
             RaycastHit hit;
             float INTERACTION_RANGE = 3.0f;
-            if (Input.GetKeyUp(KeyCode.J) &&
-                Physics.Raycast(transform.position,
-                                transform.position +
-                                    transform.forward * INTERACTION_RANGE,
-                                out hit, INTERACTION_RANGE))
+            if (Input.GetKeyUp(KeyCode.J))
             {
-                Debug.DrawLine(transform.position,
-                               transform.position + transform.forward * hit.distance,
-                               Color.green);
-                Debug.Log("Hit");
+                if (Physics.Raycast(transform.position,
+                                    transform.position +
+                                        transform.forward * INTERACTION_RANGE,
+                                    out hit, INTERACTION_RANGE))
+                {
+                    Debug.DrawLine(transform.position,
+                                   transform.position + transform.forward * hit.distance,
+                                   Color.green);
+                    Debug.Log("Hit");
+
+                    {
+                        IInteractable interactable =
+                            hit.collider.GetComponent<IInteractable>();
+                        if (interactable != null)
+                            interactable.Accept(this);
+                    }
+                }
+                else
+                {
+                    Debug.DrawLine(transform.position,
+                                   transform.position +
+                                       transform.forward * INTERACTION_RANGE,
+                                   Color.red);
+                }
             }
+        }
+        public void Interact(UtensilBox util)
+        {
+            Debug.Log("[Interact] UnsortedUtensils");
+            util.Sort();
         }
     }
 }
