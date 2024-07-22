@@ -13,10 +13,11 @@ public class FirstLevel : MonoBehaviour {
   public bool didPlayerWin() { return didWin; }
 
   private void WinWhenUtensilBoxIsSorted(bool isSorted) {
-    // Bool check to prevents winning multiple times
-    if (!didWin && !isSorted)
+    // didWin prevents winning multiple times
+    if (didWin || !isSorted)
       return;
     Debug.Log("[Event invoke, FirstLevel] UtensilBox sorted! You Win!");
+    didWin = true;
     winGameHandler?.Invoke();
   }
 
