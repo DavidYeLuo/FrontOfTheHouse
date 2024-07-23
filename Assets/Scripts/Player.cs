@@ -3,7 +3,9 @@ using PlayerAction;
 using Interactable;
 
 namespace Player {
+public delegate void PauseHandler();
 public class Player : MonoBehaviour, IInteractor {
+  public PauseHandler pauseHandler;
   [SerializeField]
   private float force;
   [SerializeField]
@@ -47,6 +49,13 @@ public class Player : MonoBehaviour, IInteractor {
                            transform.forward * INTERACTION_RANGE,
                        Color.red);
       }
+    }
+  }
+  private void Update() {
+    // NOTE: The reason why we use Update instead of FixedUpdate is because
+    // fixed update doesn't run when the game is paused.
+    if (Input.GetKeyUp(KeyCode.Escape)) {
+      pauseHandler.Invoke();
     }
   }
   public void Interact(UtensilBox util) {
