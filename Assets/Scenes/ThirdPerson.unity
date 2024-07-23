@@ -1482,9 +1482,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00581d747af9fd17ba30efa383c8f3b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraOffset: 10
+  transitionTime: 5
   player: {fileID: 426056601}
   utensilBox: {fileID: 1384983128}
-  gameManager: {fileID: 1255440531}
 --- !u!4 &1152857882
 Transform:
   m_ObjectHideFlags: 0

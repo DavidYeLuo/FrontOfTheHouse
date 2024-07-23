@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Level;
-using UI;
 
 public delegate void BoolHandler(bool value);
 public class GameManager : MonoBehaviour {
@@ -30,7 +26,6 @@ public class GameManager : MonoBehaviour {
     if (didWin)
       return;
     didWin = true;
-    // uiManager.SetWinUI(didWin);
     winGameHandler?.Invoke(didWin);
   }
 
@@ -43,7 +38,6 @@ public class GameManager : MonoBehaviour {
     } else {
       Time.timeScale = 1;
     }
-    // uiManager.SetPauseUI(isPaused);
     pauseHandler?.Invoke(isPaused);
   }
 }
