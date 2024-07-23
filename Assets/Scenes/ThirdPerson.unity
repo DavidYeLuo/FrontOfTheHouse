@@ -1483,7 +1483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraOffset: 10
-  transitionTime: 5
+  transitionTime: 0.5
   player: {fileID: 426056601}
   utensilBox: {fileID: 1384983128}
 --- !u!4 &1152857882

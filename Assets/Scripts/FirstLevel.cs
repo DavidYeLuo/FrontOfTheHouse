@@ -19,7 +19,8 @@ public class FirstLevel : MonoBehaviour {
   private Camera cam;
   private GameManager gameManager;
 
-  // TODO: Instead of the level handling the animation cutscene, let's offload it to another gameobject
+  // TODO: Instead of the level handling the animation cutscene, let's offload
+  // it to another gameobject
   private IEnumerator Start() {
     gameManager = GameManager.Instance();
     cam = Camera.main;
@@ -31,6 +32,8 @@ public class FirstLevel : MonoBehaviour {
     cam.transform.position -= cameraOffset * cam.transform.forward;
 
     // Start Cutscene
+    // BUG: when disabling playerscript, it prevents the user to pause in mid
+    // cutscene
     player.enabled = false; // Disables input while in cutscene
     const float INTERVAL = 60;
     float wait = transitionTime / INTERVAL;
@@ -48,7 +51,6 @@ public class FirstLevel : MonoBehaviour {
                                    // Might not be needed.
     player.enabled = true;         // Enables input while in cutscene
 
-    Debug.Log("Waited for 5 seconds.");
     yield return null;
   }
 
