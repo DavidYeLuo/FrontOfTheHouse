@@ -766,7 +766,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7466ba50a9be04f7ea9e454192884bdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPaused: 0
   force: 15
   rb: {fileID: 426056602}
 --- !u!54 &426056602
@@ -1484,8 +1483,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 426056601}
-  didWin: 0
   utensilBox: {fileID: 1384983128}
+  gameManager: {fileID: 1255440531}
 --- !u!4 &1152857882
 Transform:
   m_ObjectHideFlags: 0
@@ -1530,8 +1529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ce41a466146485fba859433b83f392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstLevel: {fileID: 1152857881}
-  uiManager: {fileID: 474519948}
+  isPaused: 0
 --- !u!4 &1255440532
 Transform:
   m_ObjectHideFlags: 0
