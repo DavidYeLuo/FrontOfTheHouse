@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public delegate void BoolHandler(bool value);
 public class GameManager : MonoBehaviour {
@@ -29,10 +30,9 @@ public class GameManager : MonoBehaviour {
     winGameHandler?.Invoke(didWin);
   }
 
-  public void TogglePause() {
+  public void SetPause(bool isPaused) {
     if (didWin)
       return;
-    isPaused = !isPaused;
     if (isPaused) {
       Time.timeScale = 0;
     } else {
@@ -40,4 +40,10 @@ public class GameManager : MonoBehaviour {
     }
     pauseHandler?.Invoke(isPaused);
   }
+  public void TogglePause() {
+    isPaused = !isPaused;
+    SetPause(isPaused);
+  }
+
+  public void TransitionScene(string scene) { SceneManager.LoadScene(scene); }
 }
