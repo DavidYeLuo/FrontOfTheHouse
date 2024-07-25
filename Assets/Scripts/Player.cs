@@ -1,6 +1,7 @@
 using UnityEngine;
 using PlayerAction;
 using Interactable;
+using UI;
 
 namespace Player {
 public delegate void PauseHandler();
@@ -10,6 +11,9 @@ public class Player : MonoBehaviour, IInteractor {
   private float force;
   [SerializeField]
   private Rigidbody rb;
+  [SerializeField]
+  private ProgressBarUI progressBarUI;
+
   private void Start() { rb = GetComponent<Rigidbody>(); }
   private void FixedUpdate() {
     float horizontal = Input.GetAxis("Horizontal");
@@ -60,7 +64,9 @@ public class Player : MonoBehaviour, IInteractor {
   }
   public void Interact(UtensilBox util) {
     Debug.Log("[Interact, Player] Player interacted with utensil box.");
-    util.Sort();
+    progressBarUI.finishProgressBarHandler += util.Sort;
+    progressBarUI.BeginTask(util.secondsToSort);
+    // util.Sort();
   }
 }
 }

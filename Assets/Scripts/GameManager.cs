@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour {
     if (instance == null) {
       instance = this;
     } else {
+      Debug.Log("Game Manager already Exist, destroying self.");
       Destroy(this);
     }
   }

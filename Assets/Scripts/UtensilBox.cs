@@ -13,6 +13,7 @@ public class UtensilBox : MonoBehaviour, IInteractable {
   private BoxState state;
   public GameObject unsortedObject;
   public GameObject sortedObject;
+  public float secondsToSort;
 
   private void Start() {
     if (startAsSorted) {
