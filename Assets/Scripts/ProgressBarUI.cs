@@ -1,36 +1,51 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
+using System.Collections.Generic;
 
 namespace UI {
 public delegate void FinishProgressHandler();
 public class ProgressBarUI : MonoBehaviour {
+  private static List<ProgressBarUI> instances = new List<ProgressBarUI>();
   public event FinishProgressHandler finishProgressBarHandler;
 
   [Header("Dependencies")]
   [SerializeField]
   private Image
       progressBar; // NOTE: turning this off will leave the background intact so
-                   // we should turn off a group of gameobject insteadj
+                   // we should turn off a group of gameobject instead
   [SerializeField]
-  private Canvas canvas; // GameObject that represents the progress bar TODO:
-                         // use a game object instead
+  private GameObject components; // GameObject that represents the progress bar
+                                 // TODO: use a game object instead
 
   private float targetSeconds;
   private float progressSeconds;
 
+  [MenuItem("UI/ProgressBarUI/CancelAllTasks")]
+  public static void CancelAllTasks() {
+    Debug.Log("Cancelling all tasks");
+    foreach (ProgressBarUI item in instances) {
+      item.CancelTask();
+    }
+  }
   public void BeginTask(float targetSeconds) {
     this.targetSeconds = targetSeconds;
     progressSeconds = 0;
-    canvas.gameObject.SetActive(true);
+    components.gameObject.SetActive(true);
   }
-  public void CancelTask() {}
-  // private void Start() { progressBar = GetComponent<Image>(); }
+  public void CancelTask() {
+    Debug.Log("Task cancelled");
+    components.gameObject.SetActive(false);
+    finishProgressBarHandler = null;
+  }
+  private void Start() { instances.Add(this); }
   private void Update() {
-    Debug.Log(progressSeconds);
     if (progressSeconds > targetSeconds) {
       progressBar.fillAmount = 1.0f;
       finishProgressBarHandler?.Invoke();
-      canvas.gameObject.SetActive(false);
+      finishProgressBarHandler = null;
+      components.gameObject.SetActive(false);
     }
     progressBar.fillAmount = progressSeconds / targetSeconds;
     progressSeconds += Time.deltaTime;
