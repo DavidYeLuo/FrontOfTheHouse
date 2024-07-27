@@ -9,6 +9,7 @@ public delegate void FinishProgressHandler();
 public class ProgressBarUI : MonoBehaviour {
   private static List<ProgressBarUI> instances = new List<ProgressBarUI>();
   public event FinishProgressHandler finishProgressBarHandler;
+  private Player.Player player;
 
   [Header("Dependencies")]
   [SerializeField]
@@ -29,7 +30,7 @@ public class ProgressBarUI : MonoBehaviour {
       item.CancelTask();
     }
   }
-  public void BeginTask(float targetSeconds) {
+  public void BeginTask(GameObject player, float targetSeconds) {
     this.targetSeconds = targetSeconds;
     progressSeconds = 0;
     components.gameObject.SetActive(true);
