@@ -15,6 +15,8 @@ public class Player : MonoBehaviour, IInteractor {
   [SerializeField]
   private ProgressBarUI progressBarUI;
   [SerializeField]
+  private GameObject buildingParticleSystem;
+  [SerializeField]
   private NotifyOnLeaveTrigger
       interactionRange; // Cancel the task when leaving the interaction range
 
@@ -77,9 +79,10 @@ public class Player : MonoBehaviour, IInteractor {
   private void CheckThenCancelTask(GameObject obj) {
     if (obj != lastInteractedObject?.gameObject)
       return;
+    buildingParticleSystem.SetActive(false);
     progressBarUI
         .CancelTask(); // NOTE: UI shouldn't be handling the logic but I also
-                       // didn't wanted to add the progress update in this class
+    // didn't wanted to add the progress update in this class
   }
 
   private void Update() {
@@ -92,7 +95,12 @@ public class Player : MonoBehaviour, IInteractor {
   public void Interact(UtensilBox util) {
     Debug.Log("[Interact, Player] Player interacted with utensil box.");
     progressBarUI.finishProgressBarHandler += util.Sort;
+    void DeactivateParticleSystem() { buildingParticleSystem.SetActive(false); }
+    progressBarUI.finishProgressBarHandler +=
+        DeactivateParticleSystem; // Otherwise, the particle will still be
+                                  // active after winning
     progressBarUI.BeginTask(this.gameObject, util.secondsToSort);
+    buildingParticleSystem.SetActive(true);
     Debug.Log(gameObject + " Entered");
   }
 }
