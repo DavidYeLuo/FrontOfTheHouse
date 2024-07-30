@@ -39,7 +39,7 @@ public class Player : MonoBehaviour, IInteractor {
     // Interact Button
     RaycastHit hit;
     float INTERACTION_RANGE = 3.0f;
-    if (Input.GetKeyUp(KeyCode.J)) {
+    if (Input.GetKeyDown(KeyCode.J)) {
       if (Physics.Raycast(transform.position,
                           transform.position +
                               transform.forward * INTERACTION_RANGE,
@@ -65,8 +65,13 @@ public class Player : MonoBehaviour, IInteractor {
                        Color.red);
       }
     }
+    if (Input.GetKeyUp(KeyCode.J)) {
+      if (lastInteractedObject != null) {
+        buildingParticleSystem.SetActive(false);
+        progressBarUI.CancelTask();
+      }
+    }
   }
-  // TODO: CancelTask
   private void OnEnable() {
     interactionRange.objectLeftHandler += CheckThenCancelTask;
   }
