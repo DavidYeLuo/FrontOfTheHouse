@@ -13,7 +13,7 @@ public class Player : MonoBehaviour, IInteractor {
   [SerializeField]
   private Rigidbody rb;
   [SerializeField]
-  private ProgressBarUI progressBarUI;
+  private ProgressBarUI progressBarUI; // TODO: Abstract UI somewhere else
   [SerializeField]
   private GameObject buildingParticleSystem;
   [SerializeField]
@@ -41,10 +41,8 @@ public class Player : MonoBehaviour, IInteractor {
     RaycastHit hit;
     float INTERACTION_RANGE = 3.0f;
     if (Input.GetKeyDown(KeyCode.J)) {
-      if (Physics.Raycast(transform.position,
-                          transform.position +
-                              transform.forward * INTERACTION_RANGE,
-                          out hit, INTERACTION_RANGE)) {
+      if (Physics.Raycast(transform.position, transform.forward, out hit,
+                          INTERACTION_RANGE)) {
         Debug.DrawLine(transform.position,
                        transform.position + transform.forward * hit.distance,
                        Color.green);
