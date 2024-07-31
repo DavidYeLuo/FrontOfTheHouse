@@ -27,6 +27,7 @@ public class Player : MonoBehaviour, IInteractor {
     float horizontal = Input.GetAxis("Horizontal");
     float vertical = Input.GetAxis("Vertical");
 
+    // Used to map user input to the xz-plane
     Vector3 h_vector = horizontal * Vector3.right;
     Vector3 v_vector = vertical * Vector3.forward;
 
@@ -96,6 +97,18 @@ public class Player : MonoBehaviour, IInteractor {
     if (Input.GetKeyUp(KeyCode.Escape)) {
       pauseHandler.Invoke();
     }
+
+    // Looks smoother when rotating in Update than FixedUpdate
+    // Rotates the player based on player input
+    float horizontal = Input.GetAxis("Horizontal");
+    float vertical = Input.GetAxis("Vertical");
+    // Used to map user input to the xz-plane
+    Vector3 h_vector = horizontal * Vector3.right;
+    Vector3 v_vector = vertical * Vector3.forward;
+    Vector3 sum_vector = h_vector + v_vector;
+    if (sum_vector == Vector3.zero)
+      return;
+    transform.rotation = Quaternion.LookRotation(sum_vector);
   }
   public void Interact(UtensilBox util) {
     Debug.Log("[Interact, Player] Player interacted with utensil box.");
