@@ -8,19 +8,28 @@ namespace Player {
 public delegate void PauseHandler();
 public class Player : MonoBehaviour, IInteractor {
   public PauseHandler pauseHandler;
+
+  [Header("Movement")]
   [SerializeField]
   private float force;
+  [Tooltip("Object to apply force to")]
   [SerializeField]
   private Rigidbody rb;
+
+  [Header("Interaction")]
   [SerializeField]
   private ProgressBarUI progressBarUI; // TODO: Abstract UI somewhere else
   [SerializeField]
   private GameObject buildingParticleSystem;
+
+  [Header("Handhold")]
+  [SerializeField]
+  private GameObject goldenSpoonUtensil;
+
+  [Header("Sensory")]
   [SerializeField]
   private NotifyOnLeaveTrigger
       interactionRange; // Cancel the task when leaving the interaction range
-  [SerializeField]
-  private GameObject goldenSpoonUtensil;
 
   private GameObject lastInteractedObject;
 
@@ -113,8 +122,8 @@ public class Player : MonoBehaviour, IInteractor {
     transform.rotation = Quaternion.LookRotation(sum_vector);
   }
   public void Interact(UtensilBox util) {
-    // TODO: Hand utensil to user when the box is already sorted
     if (util.IsSorted()) {
+      // TODO: Handle when user is holding something else
       goldenSpoonUtensil.SetActive(true);
       return;
     }
