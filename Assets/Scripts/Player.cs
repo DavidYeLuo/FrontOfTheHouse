@@ -19,6 +19,8 @@ public class Player : MonoBehaviour, IInteractor {
   [SerializeField]
   private NotifyOnLeaveTrigger
       interactionRange; // Cancel the task when leaving the interaction range
+  [SerializeField]
+  private GameObject goldenSpoonUtensil;
 
   private GameObject lastInteractedObject;
 
@@ -40,6 +42,8 @@ public class Player : MonoBehaviour, IInteractor {
     // Interact Button
     RaycastHit hit;
     float INTERACTION_RANGE = 3.0f;
+    // NOTE: It might be better if we handle key presses in Update() instead
+    // and having the logics here
     if (Input.GetKeyDown(KeyCode.J)) {
       if (Physics.Raycast(transform.position, transform.forward, out hit,
                           INTERACTION_RANGE)) {
@@ -109,6 +113,11 @@ public class Player : MonoBehaviour, IInteractor {
     transform.rotation = Quaternion.LookRotation(sum_vector);
   }
   public void Interact(UtensilBox util) {
+    // TODO: Hand utensil to user when the box is already sorted
+    if (util.IsSorted()) {
+      goldenSpoonUtensil.SetActive(true);
+      return;
+    }
     Debug.Log("[Interact, Player] Player interacted with utensil box.");
     progressBarUI.finishProgressBarHandler += util.Sort;
     void DeactivateParticleSystem() { buildingParticleSystem.SetActive(false); }
