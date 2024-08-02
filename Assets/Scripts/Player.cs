@@ -139,6 +139,8 @@ public class Player : MonoBehaviour, IInteractor {
   }
   public void Interact(LandfillCan can) {
     // TODO: Don't add item when the player doesn't have anything
+    if (!goldenSpoonUtensil.activeSelf || can.IsFull())
+      return;
     can.AddItem();
     goldenSpoonUtensil.SetActive(
         false); // TODO: Apply to other objects aswell. Currently, it only throw

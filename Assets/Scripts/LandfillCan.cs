@@ -27,6 +27,7 @@ public class LandfillCan : MonoBehaviour, IInteractable {
 
   public int GetNumItems() { return numItems; }
   public int GetCapacity() { return maxCapacity; }
+  public bool IsFull() { return numItems == maxCapacity; }
   public void SetMaxCapacity(int capacity) {
     this.maxCapacity = capacity;
     UpdateCapacity();
