@@ -137,5 +137,12 @@ public class Player : MonoBehaviour, IInteractor {
     buildingParticleSystem.SetActive(true);
     Debug.Log(gameObject + " Entered");
   }
+  public void Interact(LandfillCan can) {
+    // TODO: Don't add item when the player doesn't have anything
+    can.AddItem();
+    goldenSpoonUtensil.SetActive(
+        false); // TODO: Apply to other objects aswell. Currently, it only throw
+                // away the golden spoon.
+  }
 }
 }
