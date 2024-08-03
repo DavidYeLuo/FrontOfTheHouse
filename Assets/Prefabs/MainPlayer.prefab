@@ -5945,8 +5945,9 @@ MonoBehaviour:
   rb: {fileID: 7150040902995997632}
   progressBarUI: {fileID: 7418567690987666147}
   buildingParticleSystem: {fileID: 5240286424586149106}
-  interactionRange: {fileID: 8835578690901692589}
   goldenSpoonUtensil: {fileID: 1619510709549424639}
+  interactionRange: {fileID: 8835578690901692589}
+  interactKey: 106
 --- !u!54 &7150040902995997632
 Rigidbody:
   m_ObjectHideFlags: 0

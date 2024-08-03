@@ -3,6 +3,8 @@ using PlayerAction;
 using Interactable;
 using UI;
 using ObjectDetection;
+using System;
+using System.Collections.Generic;
 
 namespace Player {
 public delegate void PauseHandler();
@@ -31,7 +33,13 @@ public class Player : MonoBehaviour, IInteractor {
   private NotifyOnLeaveTrigger
       interactionRange; // Cancel the task when leaving the interaction range
 
+  [Header("Input")]
+  public KeyCode interactKey;
+
   private GameObject lastInteractedObject;
+
+  // Ensures that each key is handled in the FixedUpdate
+  private Queue<InputEvent> inputQueue = new Queue<InputEvent>();
 
   private void Start() { rb = GetComponent<Rigidbody>(); }
   private void FixedUpdate() {
@@ -53,34 +61,41 @@ public class Player : MonoBehaviour, IInteractor {
     float INTERACTION_RANGE = 3.0f;
     // NOTE: It might be better if we handle key presses in Update() instead
     // and having the logics here
-    if (Input.GetKeyDown(KeyCode.J)) {
-      if (Physics.Raycast(transform.position, transform.forward, out hit,
-                          INTERACTION_RANGE)) {
-        Debug.DrawLine(transform.position,
-                       transform.position + transform.forward * hit.distance,
-                       Color.green);
-        Debug.Log("[RayCast, Player] Player raycast hit something.");
 
-        {
-          IInteractable interactable =
-              hit.collider.GetComponent<IInteractable>();
-          if (interactable != null) {
-            interactable.Accept(this);
-            lastInteractedObject =
-                hit.collider.gameObject; // Used for cancelling task
+    InputEvent inputEvent;
+    while (inputQueue.Count > 0) {
+      inputEvent = inputQueue.Dequeue();
+      if (inputEvent.key == interactKey &&
+          inputEvent.type == InputType.KEY_DOWN) {
+        if (Physics.Raycast(transform.position, transform.forward, out hit,
+                            INTERACTION_RANGE)) {
+          Debug.DrawLine(transform.position,
+                         transform.position + transform.forward * hit.distance,
+                         Color.green);
+          Debug.Log("[RayCast, Player] Player raycast hit something.");
+
+          {
+            IInteractable interactable =
+                hit.collider.GetComponent<IInteractable>();
+            if (interactable != null) {
+              interactable.Accept(this);
+              lastInteractedObject =
+                  hit.collider.gameObject; // Used for cancelling task
+            }
           }
+        } else {
+          Debug.DrawLine(transform.position,
+                         transform.position +
+                             transform.forward * INTERACTION_RANGE,
+                         Color.red);
         }
-      } else {
-        Debug.DrawLine(transform.position,
-                       transform.position +
-                           transform.forward * INTERACTION_RANGE,
-                       Color.red);
       }
-    }
-    if (Input.GetKeyUp(KeyCode.J)) {
-      if (lastInteractedObject != null) {
-        buildingParticleSystem.SetActive(false);
-        progressBarUI.CancelTask();
+      if (inputEvent.key == interactKey &&
+          inputEvent.type == InputType.KEY_UP) {
+        if (lastInteractedObject != null) {
+          buildingParticleSystem.SetActive(false);
+          progressBarUI.CancelTask();
+        }
       }
     }
   }
@@ -107,6 +122,19 @@ public class Player : MonoBehaviour, IInteractor {
     // fixed update doesn't run when the game is paused.
     if (Input.GetKeyUp(KeyCode.Escape)) {
       pauseHandler.Invoke();
+    }
+    InputEvent keyEvent;
+    if (Input.GetKeyDown(interactKey)) {
+      keyEvent = new InputEvent();
+      keyEvent.key = interactKey;
+      keyEvent.type = InputType.KEY_DOWN;
+      inputQueue.Enqueue(keyEvent);
+    }
+    if (Input.GetKeyUp(interactKey)) {
+      keyEvent = new InputEvent();
+      keyEvent.key = interactKey;
+      keyEvent.type = InputType.KEY_UP;
+      inputQueue.Enqueue(keyEvent);
     }
 
     // Looks smoother when rotating in Update than FixedUpdate
@@ -138,7 +166,6 @@ public class Player : MonoBehaviour, IInteractor {
     Debug.Log(gameObject + " Entered");
   }
   public void Interact(LandfillCan can) {
-    // TODO: Don't add item when the player doesn't have anything
     if (!goldenSpoonUtensil.activeSelf || can.IsFull())
       return;
     can.AddItem();
@@ -146,5 +173,11 @@ public class Player : MonoBehaviour, IInteractor {
         false); // TODO: Apply to other objects aswell. Currently, it only throw
                 // away the golden spoon.
   }
+}
+
+public enum InputType { KEY_DOWN, KEY_UP }
+struct InputEvent {
+  public KeyCode key;
+  public InputType type;
 }
 }
