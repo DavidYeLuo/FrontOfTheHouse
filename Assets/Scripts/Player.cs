@@ -23,6 +23,8 @@ public class Player : MonoBehaviour, IInteractor {
   private ProgressBarUI progressBarUI; // TODO: Abstract UI somewhere else
   [SerializeField]
   private GameObject buildingParticleSystem;
+  [SerializeField]
+  private GameObject footprintParticleSystem;
 
   [Header("Handhold")]
   [SerializeField]
@@ -175,9 +177,12 @@ public class Player : MonoBehaviour, IInteractor {
     Vector3 h_vector = horizontal * Vector3.right;
     Vector3 v_vector = vertical * Vector3.forward;
     Vector3 sum_vector = h_vector + v_vector;
-    if (sum_vector == Vector3.zero)
+    if (sum_vector == Vector3.zero) {
+      footprintParticleSystem.SetActive(false);
       return;
+    }
     transform.rotation = Quaternion.LookRotation(sum_vector.normalized);
+    footprintParticleSystem.SetActive(true);
   }
   public void Interact(UtensilBox util) {
     if (util.IsSorted()) {
