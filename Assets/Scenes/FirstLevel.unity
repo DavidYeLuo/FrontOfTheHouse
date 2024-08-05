@@ -1110,6 +1110,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8681057493557513572, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
+      propertyPath: moveUpKey
+      value: 119
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681057493557513572, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
+      propertyPath: moveDownKey
+      value: 115
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681057493557513572, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
+      propertyPath: moveLeftKey
+      value: 97
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681057493557513572, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
+      propertyPath: moveRightKey
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 8830339556231689558, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
       propertyPath: m_Name
       value: MainPlayer

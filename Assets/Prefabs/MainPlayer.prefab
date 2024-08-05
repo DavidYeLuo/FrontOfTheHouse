@@ -5947,7 +5947,12 @@ MonoBehaviour:
   buildingParticleSystem: {fileID: 5240286424586149106}
   goldenSpoonUtensil: {fileID: 1619510709549424639}
   interactionRange: {fileID: 8835578690901692589}
+  moveLeftKey: 97
+  moveRightKey: 100
+  moveUpKey: 119
+  moveDownKey: 115
   interactKey: 106
+  pauseKey: 27
 --- !u!54 &7150040902995997632
 Rigidbody:
   m_ObjectHideFlags: 0

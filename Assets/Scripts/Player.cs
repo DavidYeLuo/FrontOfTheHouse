@@ -34,17 +34,23 @@ public class Player : MonoBehaviour, IInteractor {
       interactionRange; // Cancel the task when leaving the interaction range
 
   [Header("Input")]
+  public KeyCode moveLeftKey;
+  public KeyCode moveRightKey;
+  public KeyCode moveUpKey;
+  public KeyCode moveDownKey;
   public KeyCode interactKey;
+  public KeyCode pauseKey;
 
   private GameObject lastInteractedObject;
 
   // Ensures that each key is handled in the FixedUpdate
   private Queue<InputEvent> inputQueue = new Queue<InputEvent>();
 
+  private float horizontal = 0.0f;
+  private float vertical = 0.0f;
+
   private void Start() { rb = GetComponent<Rigidbody>(); }
   private void FixedUpdate() {
-    float horizontal = Input.GetAxis("Horizontal");
-    float vertical = Input.GetAxis("Vertical");
 
     // Used to map user input to the xz-plane
     Vector3 h_vector = horizontal * Vector3.right;
@@ -120,7 +126,7 @@ public class Player : MonoBehaviour, IInteractor {
   private void Update() {
     // NOTE: The reason why we use Update instead of FixedUpdate is because
     // fixed update doesn't run when the game is paused.
-    if (Input.GetKeyUp(KeyCode.Escape)) {
+    if (Input.GetKeyDown(pauseKey)) {
       pauseHandler.Invoke();
     }
     InputEvent keyEvent;
@@ -137,17 +143,41 @@ public class Player : MonoBehaviour, IInteractor {
       inputQueue.Enqueue(keyEvent);
     }
 
+    if (Input.GetKeyDown(moveLeftKey)) {
+      horizontal += -1.0f;
+    }
+    if (Input.GetKeyUp(moveLeftKey)) {
+      horizontal += 1.0f;
+    }
+    if (Input.GetKeyDown(moveRightKey)) {
+      horizontal += 1.0f;
+    }
+    if (Input.GetKeyUp(moveRightKey)) {
+      horizontal += -1.0f;
+    }
+    if (Input.GetKeyDown(moveUpKey)) {
+      vertical += 1.0f;
+    }
+    if (Input.GetKeyUp(moveUpKey)) {
+      vertical += -1.0f;
+    }
+    if (Input.GetKeyDown(moveDownKey)) {
+      vertical += -1.0f;
+    }
+    if (Input.GetKeyUp(moveDownKey)) {
+      vertical += 1.0f;
+    }
+
     // Looks smoother when rotating in Update than FixedUpdate
     // Rotates the player based on player input
-    float horizontal = Input.GetAxis("Horizontal");
-    float vertical = Input.GetAxis("Vertical");
+    //
     // Used to map user input to the xz-plane
     Vector3 h_vector = horizontal * Vector3.right;
     Vector3 v_vector = vertical * Vector3.forward;
     Vector3 sum_vector = h_vector + v_vector;
     if (sum_vector == Vector3.zero)
       return;
-    transform.rotation = Quaternion.LookRotation(sum_vector);
+    transform.rotation = Quaternion.LookRotation(sum_vector.normalized);
   }
   public void Interact(UtensilBox util) {
     if (util.IsSorted()) {
