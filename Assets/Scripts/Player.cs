@@ -22,9 +22,9 @@ public class Player : MonoBehaviour, IInteractor {
   [SerializeField]
   private ProgressBarUI progressBarUI; // TODO: Abstract UI somewhere else
   [SerializeField]
-  private GameObject buildingParticleSystem;
+  private ParticleSystem buildingParticleSystem;
   [SerializeField]
-  private GameObject footprintParticleSystem;
+  private ParticleSystem footprintParticleSystem;
 
   [Header("Handhold")]
   [SerializeField]
@@ -51,7 +51,10 @@ public class Player : MonoBehaviour, IInteractor {
   private float horizontal = 0.0f;
   private float vertical = 0.0f;
 
-  private void Start() { rb = GetComponent<Rigidbody>(); }
+  private void Start() {
+    rb = GetComponent<Rigidbody>();
+    buildingParticleSystem.Stop();
+  }
   private void FixedUpdate() {
 
     // Used to map user input to the xz-plane
@@ -101,7 +104,7 @@ public class Player : MonoBehaviour, IInteractor {
       if (inputEvent.key == interactKey &&
           inputEvent.type == InputType.KEY_UP) {
         if (lastInteractedObject != null) {
-          buildingParticleSystem.SetActive(false);
+          buildingParticleSystem.Stop();
           progressBarUI.CancelTask();
         }
       }
@@ -119,7 +122,7 @@ public class Player : MonoBehaviour, IInteractor {
   private void CheckThenCancelTask(GameObject obj) {
     if (obj != lastInteractedObject?.gameObject)
       return;
-    buildingParticleSystem.SetActive(false);
+    buildingParticleSystem.Stop();
     progressBarUI
         .CancelTask(); // NOTE: UI shouldn't be handling the logic but I also
     // didn't wanted to add the progress update in this class
@@ -178,11 +181,14 @@ public class Player : MonoBehaviour, IInteractor {
     Vector3 v_vector = vertical * Vector3.forward;
     Vector3 sum_vector = h_vector + v_vector;
     if (sum_vector == Vector3.zero) {
-      footprintParticleSystem.SetActive(false);
+      footprintParticleSystem.Stop();
       return;
     }
     transform.rotation = Quaternion.LookRotation(sum_vector.normalized);
-    footprintParticleSystem.SetActive(true);
+
+    // BUG: sometimes the footprint will show up
+    if (!footprintParticleSystem.isPlaying)
+      footprintParticleSystem.Play();
   }
   public void Interact(UtensilBox util) {
     if (util.IsSorted()) {
@@ -192,12 +198,12 @@ public class Player : MonoBehaviour, IInteractor {
     }
     Debug.Log("[Interact, Player] Player interacted with utensil box.");
     progressBarUI.finishProgressBarHandler += util.Sort;
-    void DeactivateParticleSystem() { buildingParticleSystem.SetActive(false); }
+    void DeactivateParticleSystem() { buildingParticleSystem.Stop(); }
     progressBarUI.finishProgressBarHandler +=
         DeactivateParticleSystem; // Otherwise, the particle will still be
                                   // active after winning
     progressBarUI.BeginTask(this.gameObject, util.secondsToSort);
-    buildingParticleSystem.SetActive(true);
+    buildingParticleSystem.Play();
     Debug.Log(gameObject + " Entered");
   }
   public void Interact(LandfillCan can) {

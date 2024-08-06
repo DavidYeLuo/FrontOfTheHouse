@@ -971,6 +971,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3521464424387001881, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
+      propertyPath: prewarm
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521464424387001881, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521464424387001881, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
+      propertyPath: EmissionModule.rateOverDistance.scalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4570419482379512967, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
+      propertyPath: prewarm
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4570419482379512967, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4570419482379512967, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
+      propertyPath: EmissionModule.rateOverDistance.scalar
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8063045656755539217, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4
@@ -1445,6 +1469,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1ce41a466146485fba859433b83f392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!198 &1595813874 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3521464424387001881, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
+  m_PrefabInstance: {fileID: 1764747328}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1764747328
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1517,6 +1546,10 @@ PrefabInstance:
       propertyPath: moveRightKey
       value: 275
       objectReference: {fileID: 0}
+    - target: {fileID: 8681057493557513572, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
+      propertyPath: buildingParticleSystem
+      value: 
+      objectReference: {fileID: 1595813874}
     - target: {fileID: 8830339556231689558, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
       propertyPath: m_Name
       value: MainPlayer (1)
