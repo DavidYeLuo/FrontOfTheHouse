@@ -971,30 +971,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3521464424387001881, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
-      propertyPath: prewarm
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3521464424387001881, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3521464424387001881, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
-      propertyPath: EmissionModule.rateOverDistance.scalar
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4570419482379512967, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
-      propertyPath: prewarm
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4570419482379512967, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4570419482379512967, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
-      propertyPath: EmissionModule.rateOverDistance.scalar
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 8063045656755539217, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4

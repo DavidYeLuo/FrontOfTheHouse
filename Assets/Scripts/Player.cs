@@ -44,6 +44,7 @@ public class Player : MonoBehaviour, IInteractor {
   public KeyCode pauseKey;
 
   private GameObject lastInteractedObject;
+  private bool isPlayingFootprint = false;
 
   // Ensures that each key is handled in the FixedUpdate
   private Queue<InputEvent> inputQueue = new Queue<InputEvent>();
@@ -60,12 +61,23 @@ public class Player : MonoBehaviour, IInteractor {
     // Used to map user input to the xz-plane
     Vector3 h_vector = horizontal * Vector3.right;
     Vector3 v_vector = vertical * Vector3.forward;
+    Vector3 sum_vector = h_vector + v_vector;
 
     rb.AddForce(
-        force * (h_vector + v_vector),
+        force * (sum_vector),
         ForceMode.Force); // Force Implementation
                           // transform.position += force * (h_vector +
                           // v_vector); // Transform Movement Implementation
+
+    if ((sum_vector).sqrMagnitude > 0.1f) {
+      if (!isPlayingFootprint)
+        footprintParticleSystem.Play();
+      isPlayingFootprint = true;
+    } else {
+      if (isPlayingFootprint)
+        footprintParticleSystem.Stop();
+      isPlayingFootprint = false;
+    }
 
     // Interact Button
     RaycastHit hit;
@@ -181,14 +193,13 @@ public class Player : MonoBehaviour, IInteractor {
     Vector3 v_vector = vertical * Vector3.forward;
     Vector3 sum_vector = h_vector + v_vector;
     if (sum_vector == Vector3.zero) {
-      footprintParticleSystem.Stop();
+      // footprintParticleSystem.Stop();
       return;
     }
     transform.rotation = Quaternion.LookRotation(sum_vector.normalized);
 
     // BUG: sometimes the footprint will show up
-    if (!footprintParticleSystem.isPlaying)
-      footprintParticleSystem.Play();
+    // footprintParticleSystem.Play();
   }
   public void Interact(UtensilBox util) {
     if (util.IsSorted()) {
