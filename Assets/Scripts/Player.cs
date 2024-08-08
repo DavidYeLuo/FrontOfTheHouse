@@ -29,6 +29,8 @@ public class Player : MonoBehaviour, IInteractor {
   [Header("Handhold")]
   [SerializeField]
   private GameObject goldenSpoonUtensil;
+  [SerializeField]
+  private GameObject muffinObject;
 
   [Header("Sensory")]
   [SerializeField]
@@ -44,6 +46,7 @@ public class Player : MonoBehaviour, IInteractor {
   public KeyCode pauseKey;
 
   private GameObject lastInteractedObject;
+  private GameObject objectHolding; // null if player isn't holding anything
   private bool isPlayingFootprint = false;
 
   // Ensures that each key is handled in the FixedUpdate
@@ -193,18 +196,14 @@ public class Player : MonoBehaviour, IInteractor {
     Vector3 v_vector = vertical * Vector3.forward;
     Vector3 sum_vector = h_vector + v_vector;
     if (sum_vector == Vector3.zero) {
-      // footprintParticleSystem.Stop();
       return;
     }
     transform.rotation = Quaternion.LookRotation(sum_vector.normalized);
-
-    // BUG: sometimes the footprint will show up
-    // footprintParticleSystem.Play();
   }
   public void Interact(UtensilBox util) {
     if (util.IsSorted()) {
-      // TODO: Handle when user is holding something else
       goldenSpoonUtensil.SetActive(true);
+      objectHolding = goldenSpoonUtensil;
       return;
     }
     Debug.Log("[Interact, Player] Player interacted with utensil box.");
@@ -217,13 +216,21 @@ public class Player : MonoBehaviour, IInteractor {
     buildingParticleSystem.Play();
     Debug.Log(gameObject + " Entered");
   }
+  public void Interact(MuffinBox muffinBox) {
+    Debug.Log("[Interact, Player] Player interacted with Muffin box.");
+    // TODO: Breakdown box after muffinBox is Empty
+    if (muffinBox.IsEmpty() || objectHolding != null)
+      return;
+    muffinBox.RemoveItem();
+    objectHolding = muffinObject;
+    objectHolding.SetActive(true);
+  }
   public void Interact(LandfillCan can) {
-    if (!goldenSpoonUtensil.activeSelf || can.IsFull())
+    if (objectHolding == null || can.IsFull())
       return;
     can.AddItem();
-    goldenSpoonUtensil.SetActive(
-        false); // TODO: Apply to other objects aswell. Currently, it only throw
-                // away the golden spoon.
+    objectHolding.SetActive(false);
+    objectHolding = null;
   }
 }
 
