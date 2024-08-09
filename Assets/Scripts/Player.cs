@@ -201,6 +201,8 @@ public class Player : MonoBehaviour, IInteractor {
     transform.rotation = Quaternion.LookRotation(sum_vector.normalized);
   }
   public void Interact(UtensilBox util) {
+    if (objectHolding != null)
+      return;
     if (util.IsSorted()) {
       goldenSpoonUtensil.SetActive(true);
       objectHolding = goldenSpoonUtensil;
