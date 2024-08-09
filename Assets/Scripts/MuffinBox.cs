@@ -5,16 +5,24 @@ using System;
 
 namespace Interactable {
 public delegate void MuffinBoxHandler(MuffinBoxState muffinBoxState);
+public delegate void MuffinBoxBreakHandler();
 public enum MuffinBoxState { EMPTY, FILLED, FULL }
 public class MuffinBox : MonoBehaviour, IInteractable {
   public event MuffinBoxHandler muffinBoxHandler;
+  public event MuffinBoxBreakHandler breakHandler;
   private MuffinBoxState state;
 
+  public float secondsToBreak;
   [SerializeField]
   private int numItems;
   [SerializeField]
   private int maxCapacity;
 
+  private bool isBroken = false;
+
+  [Header("Aesthetic")]
+  [SerializeField]
+  private GameObject brokenBox;
   [SerializeField]
   private GameObject emptyStateObject;
   [SerializeField]
@@ -50,6 +58,14 @@ public class MuffinBox : MonoBehaviour, IInteractable {
     UpdateItem();
     muffinBoxHandler?.Invoke(state);
   }
+  public void Break() {
+    currentStateObject.SetActive(false);
+    currentStateObject = brokenBox;
+    brokenBox.SetActive(true);
+    isBroken = true;
+    breakHandler?.Invoke();
+  }
+  public bool IsBroken() { return isBroken; }
 
   private void Start() { UpdateItem(); }
 

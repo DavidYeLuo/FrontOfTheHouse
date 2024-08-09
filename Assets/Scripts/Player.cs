@@ -218,9 +218,27 @@ public class Player : MonoBehaviour, IInteractor {
   }
   public void Interact(MuffinBox muffinBox) {
     Debug.Log("[Interact, Player] Player interacted with Muffin box.");
-    // TODO: Breakdown box after muffinBox is Empty
-    if (muffinBox.IsEmpty() || objectHolding != null)
+    if (objectHolding != null) {
       return;
+    }
+    // Pickup broken box
+    if (muffinBox.IsBroken()) {
+      // TODO: When it is broken, we should be able to pick it up
+      Debug.Log("[Interact, Player] Pick up Broken Box");
+      return;
+    }
+    // Breaks the box when muffinbox is empty
+    if (muffinBox.IsEmpty()) {
+      Debug.Log("[Interact, Player] Player interacted with utensil box.");
+      progressBarUI.finishProgressBarHandler += muffinBox.Break;
+      void DeactivateParticleSystem() { buildingParticleSystem.Stop(); }
+      progressBarUI.finishProgressBarHandler +=
+          DeactivateParticleSystem; // Otherwise, the particle will still be
+                                    // active after winning
+      progressBarUI.BeginTask(this.gameObject, muffinBox.secondsToBreak);
+      buildingParticleSystem.Play();
+      return;
+    }
     muffinBox.RemoveItem();
     objectHolding = muffinObject;
     objectHolding.SetActive(true);
