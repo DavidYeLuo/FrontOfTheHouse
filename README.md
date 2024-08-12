@@ -1,5 +1,10 @@
 # Front of the House
 
+## Introduction
+Welcome to the Front of the House project!
+
+This repository contains source code and assets for FOH project, a game about running a restaurant. The player will be playing as if they were working in a restaurant setting. They will be preparing their stations, serving food, refilling supplies and more.
+
 ## Build and Run
 TODO: build and deploy in html5 so users don't need to download Unity.
 
