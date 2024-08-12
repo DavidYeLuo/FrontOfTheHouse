@@ -159,7 +159,7 @@ Transform:
   m_GameObject: {fileID: 1260881943562024339}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -378,7 +378,7 @@ Transform:
   m_GameObject: {fileID: 3986116236175052936}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6031,6 +6031,7 @@ MonoBehaviour:
   progressBarUI: {fileID: 7418567690987666147}
   buildingParticleSystem: {fileID: 3521464424387001881}
   footprintParticleSystem: {fileID: 4570419482379512967}
+  itemSlot: {fileID: 3986116236175052936}
   goldenSpoonUtensil: {fileID: 1619510709549424639}
   muffinObject: {fileID: 1260881943562024339}
   interactionRange: {fileID: 8835578690901692589}

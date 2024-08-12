@@ -27,6 +27,8 @@ public class Player : MonoBehaviour, IInteractor {
   private ParticleSystem footprintParticleSystem;
 
   [Header("Handhold")]
+  [SerializeField, Tooltip("position where the item would be holding")]
+  private GameObject itemSlot;
   [SerializeField]
   private GameObject goldenSpoonUtensil;
   [SerializeField]
@@ -225,13 +227,15 @@ public class Player : MonoBehaviour, IInteractor {
     }
     // Pickup broken box
     if (muffinBox.IsBroken()) {
-      // TODO: When it is broken, we should be able to pick it up
       Debug.Log("[Interact, Player] Pick up Broken Box");
+      muffinBox.Itemize();
+      muffinBox.transform.SetParent(itemSlot.transform);
+
       return;
     }
     // Breaks the box when muffinbox is empty
     if (muffinBox.IsEmpty()) {
-      Debug.Log("[Interact, Player] Player interacted with utensil box.");
+      Debug.Log("[Interact, Player] Player interacted with muffinbox.");
       progressBarUI.finishProgressBarHandler += muffinBox.Break;
       void DeactivateParticleSystem() { buildingParticleSystem.Stop(); }
       progressBarUI.finishProgressBarHandler +=

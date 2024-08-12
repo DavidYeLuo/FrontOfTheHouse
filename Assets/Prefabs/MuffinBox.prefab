@@ -86,6 +86,7 @@ MonoBehaviour:
   emptyStateObject: {fileID: 8985033888682486226}
   filledStateObject: {fileID: 7683552573664148320}
   fullStateObject: {fileID: 7360160163531092227}
+  thisCollider: {fileID: 4762609004324092545}
 --- !u!1 &7360160163531092227
 GameObject:
   m_ObjectHideFlags: 0

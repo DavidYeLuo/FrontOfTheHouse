@@ -30,6 +30,10 @@ public class MuffinBox : MonoBehaviour, IInteractable {
   [SerializeField]
   private GameObject fullStateObject;
 
+  [Header("Other dependencies")]
+  [SerializeField]
+  private Collider thisCollider;
+
   private GameObject currentStateObject;
 
   public int GetNumItems() { return numItems; }
@@ -65,9 +69,16 @@ public class MuffinBox : MonoBehaviour, IInteractable {
     isBroken = true;
     breakHandler?.Invoke();
   }
+  // TODO: Itemize the current object
+  // Objectify it again
+  public void Itemize() { thisCollider.enabled = false; }
+  public void Objectify() { thisCollider.enabled = true; }
   public bool IsBroken() { return isBroken; }
 
-  private void Start() { UpdateItem(); }
+  private void Start() {
+    thisCollider = GetComponent<Collider>();
+    UpdateItem();
+  }
 
   private void UpdateItem() {
     numItems = Math.Max(0, numItems);
