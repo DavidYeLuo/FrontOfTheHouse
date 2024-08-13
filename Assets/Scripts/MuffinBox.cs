@@ -7,7 +7,7 @@ namespace Interactable {
 public delegate void MuffinBoxHandler(MuffinBoxState muffinBoxState);
 public delegate void MuffinBoxBreakHandler();
 public enum MuffinBoxState { EMPTY, FILLED, FULL }
-public class MuffinBox : MonoBehaviour, IInteractable {
+public class MuffinBox : MonoBehaviour, IInteractable, IDroppable {
   public event MuffinBoxHandler muffinBoxHandler;
   public event MuffinBoxBreakHandler breakHandler;
   private MuffinBoxState state;
@@ -99,6 +99,10 @@ public class MuffinBox : MonoBehaviour, IInteractable {
     currentStateObject.SetActive(true);
     // TODO: Add a better indication of how many cookies are in the box.
     // Maybe we can change the color closer to the empty box
+  }
+  public GameObject Drop() {
+    thisCollider.enabled = true;
+    return this.gameObject;
   }
   private void UpdateCapacity() { maxCapacity = Math.Max(0, maxCapacity); }
   public void Accept(IInteractor interactor) { interactor.Interact(this); }

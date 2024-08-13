@@ -45,11 +45,13 @@ public class Player : MonoBehaviour, IInteractor {
   public KeyCode moveUpKey;
   public KeyCode moveDownKey;
   public KeyCode interactKey;
+  public KeyCode dropKey;
   public KeyCode pauseKey;
 
   private GameObject lastInteractedObject;
   private GameObject objectHolding; // null if player isn't holding anything
   private bool isPlayingFootprint = false;
+  private IDroppable droppableObject;
 
   // Ensures that each key is handled in the FixedUpdate
   private Queue<InputEvent> inputQueue = new Queue<InputEvent>();
@@ -125,6 +127,14 @@ public class Player : MonoBehaviour, IInteractor {
           progressBarUI.CancelTask();
         }
       }
+      if (inputEvent.key == dropKey && inputEvent.type == InputType.KEY_DOWN) {
+        GameObject droppedItem;
+        droppedItem = droppableObject?.Drop();
+        droppedItem?.transform.SetParent(null);
+        droppableObject = null;
+      }
+      if (inputEvent.key == dropKey && inputEvent.type == InputType.KEY_UP) {
+      }
     }
   }
   private void OnEnable() {
@@ -161,6 +171,18 @@ public class Player : MonoBehaviour, IInteractor {
     if (Input.GetKeyUp(interactKey)) {
       keyEvent = new InputEvent();
       keyEvent.key = interactKey;
+      keyEvent.type = InputType.KEY_UP;
+      inputQueue.Enqueue(keyEvent);
+    }
+    if (Input.GetKeyDown(dropKey)) {
+      keyEvent = new InputEvent();
+      keyEvent.key = dropKey;
+      keyEvent.type = InputType.KEY_DOWN;
+      inputQueue.Enqueue(keyEvent);
+    }
+    if (Input.GetKeyUp(dropKey)) {
+      keyEvent = new InputEvent();
+      keyEvent.key = dropKey;
       keyEvent.type = InputType.KEY_UP;
       inputQueue.Enqueue(keyEvent);
     }
@@ -230,6 +252,8 @@ public class Player : MonoBehaviour, IInteractor {
       Debug.Log("[Interact, Player] Pick up Broken Box");
       muffinBox.Itemize();
       muffinBox.transform.SetParent(itemSlot.transform);
+
+      droppableObject = muffinBox;
 
       return;
     }

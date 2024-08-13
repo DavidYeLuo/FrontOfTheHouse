@@ -6040,6 +6040,7 @@ MonoBehaviour:
   moveUpKey: 119
   moveDownKey: 115
   interactKey: 106
+  dropKey: 107
   pauseKey: 27
 --- !u!54 &7150040902995997632
 Rigidbody:
