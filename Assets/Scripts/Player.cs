@@ -13,7 +13,7 @@ public class Player : MonoBehaviour, IInteractor {
 
   [Header("Movement")]
   [SerializeField]
-  private float force;
+  private float baseSpeed;
   [Tooltip("Object to apply force to")]
   [SerializeField]
   private Rigidbody rb;
@@ -70,11 +70,10 @@ public class Player : MonoBehaviour, IInteractor {
     Vector3 v_vector = vertical * Vector3.forward;
     Vector3 sum_vector = h_vector + v_vector;
 
-    rb.AddForce(
-        force * (sum_vector),
-        ForceMode.Force); // Force Implementation
-                          // transform.position += force * (h_vector +
-                          // v_vector); // Transform Movement Implementation
+    if (sum_vector != Vector3.zero) {
+      rb.velocity =
+          Math.Max(rb.velocity.magnitude, baseSpeed) * sum_vector.normalized;
+    }
 
     if ((sum_vector).sqrMagnitude > 0.1f) {
       if (!isPlayingFootprint)

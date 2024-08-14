@@ -72,7 +72,6 @@ public class MuffinBox : MonoBehaviour, IInteractable, IDroppable {
   // TODO: Itemize the current object
   // Objectify it again
   public void Itemize() { thisCollider.enabled = false; }
-  public void Objectify() { thisCollider.enabled = true; }
   public bool IsBroken() { return isBroken; }
 
   private void Start() {
