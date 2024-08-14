@@ -14,6 +14,8 @@ public class Player : MonoBehaviour, IInteractor {
   [Header("Movement")]
   [SerializeField]
   private float baseSpeed;
+  [SerializeField]
+  private float sprintModifier;
   [Tooltip("Object to apply force to")]
   [SerializeField]
   private Rigidbody rb;
@@ -45,6 +47,7 @@ public class Player : MonoBehaviour, IInteractor {
   public KeyCode moveUpKey;
   public KeyCode moveDownKey;
   public KeyCode interactKey;
+  public KeyCode sprintKey;
   public KeyCode dropKey;
   public KeyCode pauseKey;
 
@@ -58,6 +61,7 @@ public class Player : MonoBehaviour, IInteractor {
 
   private float horizontal = 0.0f;
   private float vertical = 0.0f;
+  private bool isRunning = false;
 
   private void Start() {
     rb = GetComponent<Rigidbody>();
@@ -70,11 +74,19 @@ public class Player : MonoBehaviour, IInteractor {
     Vector3 v_vector = vertical * Vector3.forward;
     Vector3 sum_vector = h_vector + v_vector;
 
-    if (sum_vector != Vector3.zero) {
+    // Movement implementation
+    if ((sum_vector).sqrMagnitude > 0.1f) {
+      // If the player is moving fast with external force, they have full
+      // control of the direction instead.
+      float moveSpeed = baseSpeed;
+      if (isRunning)
+        moveSpeed *= sprintModifier;
       rb.velocity =
-          Math.Max(rb.velocity.magnitude, baseSpeed) * sum_vector.normalized;
+          Math.Max(rb.velocity.magnitude, moveSpeed) * sum_vector.normalized;
+      // TODO: Might be more fun using force to sprint instead
     }
 
+    // Visual
     if ((sum_vector).sqrMagnitude > 0.1f) {
       if (!isPlayingFootprint)
         footprintParticleSystem.Play();
@@ -209,6 +221,12 @@ public class Player : MonoBehaviour, IInteractor {
     }
     if (Input.GetKeyUp(moveDownKey)) {
       vertical += 1.0f;
+    }
+    if (Input.GetKeyDown(sprintKey)) {
+      isRunning = true;
+    }
+    if (Input.GetKeyUp(sprintKey)) {
+      isRunning = false;
     }
 
     // Looks smoother when rotating in Update than FixedUpdate

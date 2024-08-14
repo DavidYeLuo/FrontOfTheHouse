@@ -6027,6 +6027,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseSpeed: 10
+  sprintModifier: 2
   rb: {fileID: 7150040902995997632}
   progressBarUI: {fileID: 7418567690987666147}
   buildingParticleSystem: {fileID: 3521464424387001881}
@@ -6040,6 +6041,7 @@ MonoBehaviour:
   moveUpKey: 119
   moveDownKey: 115
   interactKey: 106
+  sprintKey: 304
   dropKey: 107
   pauseKey: 27
 --- !u!54 &7150040902995997632

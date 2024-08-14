@@ -1262,6 +1262,10 @@ PrefabInstance:
       value: 273
       objectReference: {fileID: 0}
     - target: {fileID: 8681057493557513572, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
+      propertyPath: sprintKey
+      value: 303
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681057493557513572, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
       propertyPath: interactKey
       value: 257
       objectReference: {fileID: 0}
