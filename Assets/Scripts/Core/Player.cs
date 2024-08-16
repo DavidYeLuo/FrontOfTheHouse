@@ -269,6 +269,9 @@ public class Player : MonoBehaviour, IInteractor {
       Debug.Log("[Interact, Player] Pick up Broken Box");
       muffinBox.Itemize();
       muffinBox.transform.SetParent(itemSlot.transform);
+      // Snap object into the player's hand
+      muffinBox.transform.position = itemSlot.transform.position;
+      muffinBox.transform.rotation = transform.rotation;
 
       droppableObject = muffinBox;
 
