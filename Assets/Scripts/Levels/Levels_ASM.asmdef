@@ -1,0 +1,17 @@
+{
+    "name": "Levels_ASM",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d44df9b786e0f24e9a48564cd8acd5eb",
+        "GUID:97f7bb1bd4f957160add043108a3ba79"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
