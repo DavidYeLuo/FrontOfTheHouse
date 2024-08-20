@@ -143,6 +143,7 @@ public class Player : MonoBehaviour, IInteractor {
         droppedItem = droppableObject?.Drop();
         droppedItem?.transform.SetParent(null);
         droppableObject = null;
+        objectHolding = null;
       }
       if (inputEvent.key == dropKey && inputEvent.type == InputType.KEY_UP) {
       }
