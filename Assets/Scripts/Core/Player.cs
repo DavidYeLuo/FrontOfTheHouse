@@ -31,9 +31,6 @@ public class Player : MonoBehaviour, IInteractor {
   [Header("Handhold")]
   [SerializeField, Tooltip("position where the item would be holding")]
   private GameObject itemSlot;
-  [SerializeField]
-  private GameObject
-      muffinObject; // TODO: Refactor muffinObject out of the player class
 
   [Header("Sensory")]
   [SerializeField]
@@ -139,9 +136,11 @@ public class Player : MonoBehaviour, IInteractor {
         }
       }
       if (inputEvent.key == dropKey && inputEvent.type == InputType.KEY_DOWN) {
+        if (droppableObject == null)
+          return;
         GameObject droppedItem;
-        droppedItem = droppableObject?.Drop();
-        droppedItem?.transform.SetParent(null);
+        droppedItem = droppableObject.Drop();
+        droppedItem.transform.SetParent(null);
         droppableObject = null;
         objectHolding = null;
       }
@@ -247,9 +246,7 @@ public class Player : MonoBehaviour, IInteractor {
       return;
     if (util.IsSorted()) {
       objectHolding = util.GetGoldenSpoon();
-      objectHolding.transform.SetParent(itemSlot.transform);
-      objectHolding.transform.position = itemSlot.transform.position;
-      objectHolding.transform.rotation = itemSlot.transform.rotation;
+      ParentObjToItemSlot(objectHolding);
       return;
     }
     Debug.Log("[Interact, Player] Player interacted with utensil box.");
@@ -271,10 +268,7 @@ public class Player : MonoBehaviour, IInteractor {
     if (muffinBox.IsBroken()) {
       Debug.Log("[Interact, Player] Pick up Broken Box");
       muffinBox.Itemize();
-      muffinBox.transform.SetParent(itemSlot.transform);
-      // Snap object into the player's hand
-      muffinBox.transform.position = itemSlot.transform.position;
-      muffinBox.transform.rotation = transform.rotation;
+      ParentObjToItemSlot(muffinBox.gameObject);
 
       droppableObject = muffinBox;
       objectHolding = muffinBox.gameObject;
@@ -294,10 +288,9 @@ public class Player : MonoBehaviour, IInteractor {
       return;
     }
     muffinBox.RemoveItem();
-    // BUG: Muffin no longer is parented to the player
-    // TODO: Refactor muffinObject out of the player class
-    objectHolding = muffinObject;
-    objectHolding.SetActive(true);
+    GameObject muffin = muffinBox.GetMuffin();
+    ParentObjToItemSlot(muffin);
+    objectHolding = muffin;
   }
   public void Interact(LandfillCan can) {
     if (objectHolding == null || can.IsFull())
@@ -307,6 +300,13 @@ public class Player : MonoBehaviour, IInteractor {
     objectHolding.transform.SetParent(null);
     objectHolding.SetActive(false);
     objectHolding = null;
+  }
+
+  private void ParentObjToItemSlot(GameObject obj) {
+    obj.transform.SetParent(itemSlot.transform);
+    // Snaps object in the item slot
+    obj.transform.position = itemSlot.transform.position;
+    obj.transform.rotation = itemSlot.transform.rotation;
   }
 }
 

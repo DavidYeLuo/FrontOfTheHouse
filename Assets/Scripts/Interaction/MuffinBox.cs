@@ -20,6 +20,10 @@ public class MuffinBox : MonoBehaviour, IInteractable, IDroppable {
 
   private bool isBroken = false;
 
+  [Header("Muffin")]
+  [SerializeField]
+  private GameObject muffin;
+
   [Header("Aesthetic")]
   [SerializeField]
   private GameObject brokenBox;
@@ -47,6 +51,7 @@ public class MuffinBox : MonoBehaviour, IInteractable, IDroppable {
     UpdateItem();
     muffinBoxHandler?.Invoke(state);
   }
+  public GameObject GetMuffin() { return Instantiate(muffin); }
   public void AddItem() {
     numItems++;
     UpdateItem();

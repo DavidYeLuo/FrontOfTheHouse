@@ -82,6 +82,7 @@ MonoBehaviour:
   secondsToBreak: 3
   numItems: 2
   maxCapacity: 2
+  muffin: {fileID: 2928248224953771510, guid: a5e8dda4adbf5111083778646b0e4daa, type: 3}
   brokenBox: {fileID: 8974494521767813171}
   emptyStateObject: {fileID: 8985033888682486226}
   filledStateObject: {fileID: 7683552573664148320}
