@@ -12,6 +12,8 @@ public class UtensilBox : MonoBehaviour, IInteractable {
    Tooltip(
        "Note: Don't change state in the editor. Use the startAsSorted flag.")]
   private BoxState state;
+  [SerializeField]
+  private GameObject goldenSpoon;
   public GameObject unsortedObject;
   public GameObject sortedObject;
   public float secondsToSort;
@@ -28,6 +30,10 @@ public class UtensilBox : MonoBehaviour, IInteractable {
   public void Sort() { SetToSorted(); }
   public void Unsort() { SetToUnsorted(); }
   public void Accept(IInteractor interactor) { interactor.Interact(this); }
+  public GameObject GetGoldenSpoon() {
+    // TODO: Object pooling
+    return GameObject.Instantiate(goldenSpoon);
+  }
 
   private void SetToSorted() {
     state = BoxState.SORTED;

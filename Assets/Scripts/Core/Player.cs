@@ -32,9 +32,8 @@ public class Player : MonoBehaviour, IInteractor {
   [SerializeField, Tooltip("position where the item would be holding")]
   private GameObject itemSlot;
   [SerializeField]
-  private GameObject goldenSpoonUtensil;
-  [SerializeField]
-  private GameObject muffinObject;
+  private GameObject
+      muffinObject; // TODO: Refactor muffinObject out of the player class
 
   [Header("Sensory")]
   [SerializeField]
@@ -55,6 +54,7 @@ public class Player : MonoBehaviour, IInteractor {
   private GameObject objectHolding; // null if player isn't holding anything
   private bool isPlayingFootprint = false;
   private IDroppable droppableObject;
+  // TODO: Add a class that handle objectPooling
 
   // Ensures that each key is handled in the FixedUpdate
   private Queue<InputEvent> inputQueue = new Queue<InputEvent>();
@@ -245,8 +245,10 @@ public class Player : MonoBehaviour, IInteractor {
     if (objectHolding != null)
       return;
     if (util.IsSorted()) {
-      goldenSpoonUtensil.SetActive(true);
-      objectHolding = goldenSpoonUtensil;
+      objectHolding = util.GetGoldenSpoon();
+      objectHolding.transform.SetParent(itemSlot.transform);
+      objectHolding.transform.position = itemSlot.transform.position;
+      objectHolding.transform.rotation = itemSlot.transform.rotation;
       return;
     }
     Debug.Log("[Interact, Player] Player interacted with utensil box.");
@@ -259,6 +261,7 @@ public class Player : MonoBehaviour, IInteractor {
     buildingParticleSystem.Play();
     Debug.Log(gameObject + " Entered");
   }
+  // BUG: Broken Muffing box can't be picked up again after dropped
   public void Interact(MuffinBox muffinBox) {
     Debug.Log("[Interact, Player] Player interacted with Muffin box.");
     if (objectHolding != null) {
@@ -274,6 +277,7 @@ public class Player : MonoBehaviour, IInteractor {
       muffinBox.transform.rotation = transform.rotation;
 
       droppableObject = muffinBox;
+      objectHolding = muffinBox.gameObject;
 
       return;
     }
@@ -290,6 +294,8 @@ public class Player : MonoBehaviour, IInteractor {
       return;
     }
     muffinBox.RemoveItem();
+    // BUG: Muffin no longer is parented to the player
+    // TODO: Refactor muffinObject out of the player class
     objectHolding = muffinObject;
     objectHolding.SetActive(true);
   }
@@ -297,6 +303,8 @@ public class Player : MonoBehaviour, IInteractor {
     if (objectHolding == null || can.IsFull())
       return;
     can.AddItem();
+    // TODO: Object pool items
+    objectHolding.transform.SetParent(null);
     objectHolding.SetActive(false);
     objectHolding = null;
   }
