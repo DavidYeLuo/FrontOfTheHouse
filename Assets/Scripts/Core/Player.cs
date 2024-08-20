@@ -262,7 +262,6 @@ public class Player : MonoBehaviour, IInteractor {
     buildingParticleSystem.Play();
     Debug.Log(gameObject + " Entered");
   }
-  // BUG: Broken Muffing box can't be picked up again after dropped
   public void Interact(MuffinBox muffinBox) {
     Debug.Log("[Interact, Player] Player interacted with Muffin box.");
     if (objectHolding != null) {
