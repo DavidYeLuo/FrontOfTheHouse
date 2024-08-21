@@ -1,6 +1,8 @@
 using UnityEngine;
 using PlayerAction;
 using ObjectDetection;
+using ObjectPool;
+using UnityEngine.Assertions;
 namespace Interactable {
 public delegate void UtensilHandler(bool isSorted);
 public class UtensilBox : MonoBehaviour, IInteractable {
@@ -17,6 +19,10 @@ public class UtensilBox : MonoBehaviour, IInteractable {
   public GameObject unsortedObject;
   public GameObject sortedObject;
   public float secondsToSort;
+  public int startingPoolSize;
+
+  private Pooler pooler;
+  private PoolObject poolGoldenSpoon;
 
   private void Start() {
     if (startAsSorted) {
@@ -24,16 +30,17 @@ public class UtensilBox : MonoBehaviour, IInteractable {
     } else {
       SetToUnsorted();
     }
+    poolGoldenSpoon = goldenSpoon.GetComponent<PoolObject>();
+    Assert.IsNotNull(poolGoldenSpoon); // Fails when golden spoon doesn't have a
+                                       // PoolObject Component attached
+    pooler = new Pooler(startingPoolSize, poolGoldenSpoon);
   }
 
   public bool IsSorted() { return state == BoxState.SORTED; }
   public void Sort() { SetToSorted(); }
   public void Unsort() { SetToUnsorted(); }
   public void Accept(IInteractor interactor) { interactor.Interact(this); }
-  public GameObject GetGoldenSpoon() {
-    // TODO: Object pooling
-    return GameObject.Instantiate(goldenSpoon);
-  }
+  public PoolObject GetGoldenSpoon() { return pooler.Spawn(); }
 
   private void SetToSorted() {
     state = BoxState.SORTED;

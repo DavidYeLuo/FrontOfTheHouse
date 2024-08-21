@@ -19,6 +19,7 @@ public class Pooler : IPool {
     }
   }
   public void Pool(PoolObject obj) {
+    // TODO: Destroy object when the pool size is too big
     pool.Push(obj);
     obj.gameObject.SetActive(false);
   }

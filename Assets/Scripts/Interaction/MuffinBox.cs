@@ -3,6 +3,7 @@ using PlayerAction;
 using ObjectDetection;
 using System;
 using ObjectPool;
+using UnityEngine.Assertions;
 
 namespace Interactable {
 public delegate void MuffinBoxHandler(MuffinBoxState muffinBoxState);
@@ -24,6 +25,9 @@ public class MuffinBox : MonoBehaviour, IInteractable, IDroppable {
   [Header("Muffin")]
   [SerializeField]
   private GameObject muffin;
+  // Intrusive implementation since muffin box must be used with object pooling
+  // Maybe I should've used inheritance to extend the base class to support
+  // backward compatability
   private PoolObject poolMuffin;
   private Pooler muffinPooler;
 
@@ -85,8 +89,8 @@ public class MuffinBox : MonoBehaviour, IInteractable, IDroppable {
 
   private void Awake() {
     poolMuffin = muffin.GetComponent<PoolObject>();
-    if (poolMuffin == null)
-      return;
+    Assert.IsNotNull(poolMuffin); // Fails when PoolObject component isn't
+                                  // attached to the muffin gameobject
     muffinPooler = new Pooler(maxCapacity, poolMuffin);
   }
   private void Start() {

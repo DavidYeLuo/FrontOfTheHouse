@@ -1083,6 +1083,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Utensils
       objectReference: {fileID: 0}
+    - target: {fileID: 4232166686665545759, guid: 61913ca00b40827598b8ff457d4c3a2a, type: 3}
+      propertyPath: startingPoolSize
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6260286425034648550, guid: 61913ca00b40827598b8ff457d4c3a2a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.41

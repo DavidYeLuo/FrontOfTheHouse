@@ -53,7 +53,6 @@ public class Player : MonoBehaviour, IInteractor {
   private PoolObject objectPoolHolding;
   private bool isPlayingFootprint = false;
   private IDroppable droppableObject;
-  // TODO: Add a class that handle objectPooling
 
   // Ensures that each key is handled in the FixedUpdate
   private Queue<InputEvent> inputQueue = new Queue<InputEvent>();
@@ -247,7 +246,8 @@ public class Player : MonoBehaviour, IInteractor {
     if (objectHolding != null)
       return;
     if (util.IsSorted()) {
-      objectHolding = util.GetGoldenSpoon();
+      objectPoolHolding = util.GetGoldenSpoon();
+      objectHolding = objectPoolHolding.gameObject;
       ParentObjToItemSlot(objectHolding);
       return;
     }
@@ -305,6 +305,7 @@ public class Player : MonoBehaviour, IInteractor {
     objectHolding.transform.SetParent(null);
     objectHolding.SetActive(false);
     objectHolding = null;
+    objectPoolHolding = null;
   }
 
   private void ParentObjToItemSlot(GameObject obj) {
