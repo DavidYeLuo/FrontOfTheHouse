@@ -2,6 +2,7 @@ using UnityEngine;
 using PlayerAction;
 using ObjectDetection;
 using System;
+using ObjectPool;
 
 namespace Interactable {
 public delegate void MuffinBoxHandler(MuffinBoxState muffinBoxState);
@@ -23,6 +24,8 @@ public class MuffinBox : MonoBehaviour, IInteractable, IDroppable {
   [Header("Muffin")]
   [SerializeField]
   private GameObject muffin;
+  private PoolObject poolMuffin;
+  private Pooler muffinPooler;
 
   [Header("Aesthetic")]
   [SerializeField]
@@ -52,6 +55,7 @@ public class MuffinBox : MonoBehaviour, IInteractable, IDroppable {
     muffinBoxHandler?.Invoke(state);
   }
   public GameObject GetMuffin() { return Instantiate(muffin); }
+  public PoolObject GetPoolMuffin() { return muffinPooler.Spawn(); }
   public void AddItem() {
     numItems++;
     UpdateItem();
@@ -79,6 +83,12 @@ public class MuffinBox : MonoBehaviour, IInteractable, IDroppable {
   public void Itemize() { thisCollider.enabled = false; }
   public bool IsBroken() { return isBroken; }
 
+  private void Awake() {
+    poolMuffin = muffin.GetComponent<PoolObject>();
+    if (poolMuffin == null)
+      return;
+    muffinPooler = new Pooler(maxCapacity, poolMuffin);
+  }
   private void Start() {
     thisCollider = GetComponent<Collider>();
     UpdateItem();

@@ -5,6 +5,7 @@ using UI;
 using ObjectDetection;
 using System;
 using System.Collections.Generic;
+using ObjectPool;
 
 namespace Player {
 public delegate void PauseHandler();
@@ -49,6 +50,7 @@ public class Player : MonoBehaviour, IInteractor {
 
   private GameObject lastInteractedObject;
   private GameObject objectHolding; // null if player isn't holding anything
+  private PoolObject objectPoolHolding;
   private bool isPlayingFootprint = false;
   private IDroppable droppableObject;
   // TODO: Add a class that handle objectPooling
@@ -288,15 +290,18 @@ public class Player : MonoBehaviour, IInteractor {
       return;
     }
     muffinBox.RemoveItem();
-    GameObject muffin = muffinBox.GetMuffin();
-    ParentObjToItemSlot(muffin);
-    objectHolding = muffin;
+    // GameObject muffin = muffinBox.GetMuffin();
+    PoolObject muffin = muffinBox.GetPoolMuffin();
+    ParentObjToItemSlot(muffin.gameObject);
+    objectHolding = muffin.gameObject;
+    objectPoolHolding = muffin;
   }
   public void Interact(LandfillCan can) {
     if (objectHolding == null || can.IsFull())
       return;
     can.AddItem();
-    // TODO: Object pool items
+    if (objectPoolHolding != null)
+      objectPoolHolding.Destroy();
     objectHolding.transform.SetParent(null);
     objectHolding.SetActive(false);
     objectHolding = null;

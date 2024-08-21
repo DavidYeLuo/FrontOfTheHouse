@@ -1,7 +1,9 @@
 {
     "name": "Interaction_ASM",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:04daa483fb80378c886002eb56c38c77"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
