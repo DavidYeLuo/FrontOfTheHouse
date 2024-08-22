@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 namespace UI {
 public delegate void FinishProgressHandler();
+// This class can be split into two:
+// A progress backend and a UI frontend
 public class ProgressBarUI : MonoBehaviour {
   private static List<ProgressBarUI> instances = new List<ProgressBarUI>();
   public event FinishProgressHandler finishProgressBarHandler;

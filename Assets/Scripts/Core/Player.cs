@@ -253,7 +253,6 @@ public class Player : MonoBehaviour, IInteractor {
     }
     Debug.Log("[Interact, Player] Player interacted with utensil box.");
     progressBarUI.finishProgressBarHandler += util.Sort;
-    void DeactivateParticleSystem() { buildingParticleSystem.Stop(); }
     progressBarUI.finishProgressBarHandler +=
         DeactivateParticleSystem; // Otherwise, the particle will still be
                                   // active after winning
@@ -281,7 +280,6 @@ public class Player : MonoBehaviour, IInteractor {
     if (muffinBox.IsEmpty()) {
       Debug.Log("[Interact, Player] Player interacted with muffinbox.");
       progressBarUI.finishProgressBarHandler += muffinBox.Break;
-      void DeactivateParticleSystem() { buildingParticleSystem.Stop(); }
       progressBarUI.finishProgressBarHandler +=
           DeactivateParticleSystem; // Otherwise, the particle will still be
                                     // active after winning
@@ -314,6 +312,7 @@ public class Player : MonoBehaviour, IInteractor {
     obj.transform.position = itemSlot.transform.position;
     obj.transform.rotation = itemSlot.transform.rotation;
   }
+  private void DeactivateParticleSystem() { buildingParticleSystem.Stop(); }
 }
 
 public enum InputType { KEY_DOWN, KEY_UP }
