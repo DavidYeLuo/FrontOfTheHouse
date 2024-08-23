@@ -96,7 +96,7 @@ public class Player : MonoBehaviour, IInteractor {
     }
 
     // Interact Button
-    RaycastHit hit;
+    RaycastHit[] hit;
     float INTERACTION_RANGE = 3.0f;
     // NOTE: It might be better if we handle key presses in Update() instead
     // and having the logics here
@@ -106,21 +106,31 @@ public class Player : MonoBehaviour, IInteractor {
       inputEvent = inputQueue.Dequeue();
       if (inputEvent.key == interactKey &&
           inputEvent.type == InputType.KEY_DOWN) {
-        if (Physics.Raycast(transform.position, transform.forward, out hit,
-                            INTERACTION_RANGE)) {
-          Debug.DrawLine(transform.position,
-                         transform.position + transform.forward * hit.distance,
-                         Color.green);
+        // hit = Physics.RaycastAll(transform.position, transform.forward, out
+        // hit,
+        //                     INTERACTION_RANGE); // Used for single ray cast
+        hit = Physics.RaycastAll(transform.position, transform.forward,
+                                 INTERACTION_RANGE);
+        if (hit != null) {
+          // Debug.DrawLine(transform.position,
+          //                transform.position + transform.forward *
+          //                hit.distance, Color.green); // Works for single ray
+          //                cast
           Debug.Log("[RayCast, Player] Player raycast hit something.");
 
-          {
+          for (int i = 0; i < hit.Length; i++) {
             IInteractable interactable =
-                hit.collider.GetComponent<IInteractable>();
+                hit[i].collider.GetComponent<IInteractable>();
+            Debug.DrawLine(transform.position,
+                           hit[i].collider.gameObject.transform.position);
+            if (interactable == null)
+              continue;
             if (interactable != null) {
               interactable.Accept(this);
               lastInteractedObject =
-                  hit.collider.gameObject; // Used for cancelling task
+                  hit[i].collider.gameObject; // Used for cancelling task
             }
+            break;
           }
         } else {
           Debug.DrawLine(transform.position,
