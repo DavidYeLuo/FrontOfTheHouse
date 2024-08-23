@@ -7,6 +7,7 @@ public interface IInteractor {
   public void Interact(UtensilBox util);
   public void Interact(LandfillCan can);
   public void Interact(MuffinBox muffinBox);
+  public void Interact(FoodTray foodTray);
 }
 
 // Element in the Visitor Pattern

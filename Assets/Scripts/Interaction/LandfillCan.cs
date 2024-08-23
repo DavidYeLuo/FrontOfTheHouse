@@ -23,7 +23,7 @@ public class LandfillCan : MonoBehaviour, IInteractable {
   [SerializeField]
   private GameObject fullStateObject;
 
-  private GameObject currentStateObject;
+  private GameObject currentStateObject = null;
 
   public int GetNumItems() { return numItems; }
   public int GetCapacity() { return maxCapacity; }

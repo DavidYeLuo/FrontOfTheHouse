@@ -305,6 +305,20 @@ public class Player : MonoBehaviour, IInteractor {
     objectHolding = null;
     objectPoolHolding = null;
   }
+  public void Interact(FoodTray tray) {
+    // BUG: We shouldn't allow utensils to be in the food tray
+    if (objectHolding != null && !tray.IsFull()) {
+      tray.AddItem(objectHolding);
+      // objectHolding.transform.SetParent(null);
+      objectHolding = null;
+      objectPoolHolding = null;
+    } else if (objectHolding == null && !tray.IsEmpty()) {
+      // TODO: grab an item from tray
+      GameObject item = tray.TakeItem(); // TODO: use ObjectPool instead
+      ParentObjToItemSlot(item);
+      objectHolding = item;
+    }
+  }
 
   private void ParentObjToItemSlot(GameObject obj) {
     obj.transform.SetParent(itemSlot.transform);
