@@ -52,7 +52,8 @@ public class LandfillCan : MonoBehaviour, IInteractable {
     numItems = Math.Max(0, numItems);
     numItems = Math.Min(numItems, maxCapacity);
 
-    currentStateObject?.SetActive(false);
+    if (currentStateObject != null)
+      currentStateObject.SetActive(false);
     if (numItems == 0) {
       state = TrashState.EMPTY;
       currentStateObject = emptyStateObject;

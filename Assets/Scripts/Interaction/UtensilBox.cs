@@ -21,7 +21,7 @@ public class UtensilBox : MonoBehaviour, IInteractable {
   public float secondsToSort;
   public int startingPoolSize;
 
-  private static Pooler pooler;
+  private Pooler pooler;
   private PoolObject poolGoldenSpoon;
 
   private void Start() {
@@ -34,8 +34,7 @@ public class UtensilBox : MonoBehaviour, IInteractable {
   private void Awake() {
     poolGoldenSpoon = goldenSpoon.GetComponent<PoolObject>();
     Assert.IsNotNull(poolGoldenSpoon); // Fails when golden spoon doesn't have a
-    if (pooler == null)
-      pooler = new Pooler(startingPoolSize, poolGoldenSpoon);
+    pooler = new Pooler(startingPoolSize, poolGoldenSpoon);
   }
 
   public bool IsSorted() { return state == BoxState.SORTED; }

@@ -29,7 +29,7 @@ public class MuffinBox : MonoBehaviour, IInteractable, IDroppable {
   // Maybe I should've used inheritance to extend the base class to support
   // backward compatability
   private PoolObject poolMuffin;
-  private static Pooler muffinPooler;
+  private Pooler muffinPooler;
 
   [Header("Aesthetic")]
   [SerializeField]
@@ -82,8 +82,6 @@ public class MuffinBox : MonoBehaviour, IInteractable, IDroppable {
     isBroken = true;
     breakHandler?.Invoke();
   }
-  // TODO: Itemize the current object
-  // Objectify it again
   public void Itemize() { thisCollider.enabled = false; }
   public bool IsBroken() { return isBroken; }
 
@@ -91,9 +89,7 @@ public class MuffinBox : MonoBehaviour, IInteractable, IDroppable {
     poolMuffin = muffin.GetComponent<PoolObject>();
     Assert.IsNotNull(poolMuffin); // Fails when PoolObject component isn't
                                   // attached to the muffin gameobject
-    Debug.Log(muffinPooler);
-    if (muffinPooler == null)
-      muffinPooler = new Pooler(maxCapacity, poolMuffin);
+    muffinPooler = new Pooler(maxCapacity, poolMuffin);
   }
   private void Start() {
     thisCollider = GetComponent<Collider>();
@@ -104,7 +100,8 @@ public class MuffinBox : MonoBehaviour, IInteractable, IDroppable {
     numItems = Math.Max(0, numItems);
     numItems = Math.Min(numItems, maxCapacity);
 
-    currentStateObject?.SetActive(false);
+    if (currentStateObject != null)
+      currentStateObject.SetActive(false);
 
     if (numItems == 0) {
       state = MuffinBoxState.EMPTY;

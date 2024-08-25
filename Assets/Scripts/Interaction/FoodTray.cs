@@ -49,7 +49,8 @@ public class FoodTray : MonoBehaviour, IInteractable {
   private void Start() { UpdateItem(); }
 
   private void UpdateItem() {
-    currentStateObject?.SetActive(false);
+    if (currentStateObject != null)
+      currentStateObject.SetActive(false);
     int numItems = trayItems.Count;
     if (numItems == 0) {
       state = FoodTrayState.EMPTY;
