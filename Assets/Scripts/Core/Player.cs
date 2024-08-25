@@ -106,16 +106,9 @@ public class Player : MonoBehaviour, IInteractor {
       inputEvent = inputQueue.Dequeue();
       if (inputEvent.key == interactKey &&
           inputEvent.type == InputType.KEY_DOWN) {
-        // hit = Physics.RaycastAll(transform.position, transform.forward, out
-        // hit,
-        //                     INTERACTION_RANGE); // Used for single ray cast
         hit = Physics.RaycastAll(transform.position, transform.forward,
                                  INTERACTION_RANGE);
         if (hit != null) {
-          // Debug.DrawLine(transform.position,
-          //                transform.position + transform.forward *
-          //                hit.distance, Color.green); // Works for single ray
-          //                cast
           Debug.Log("[RayCast, Player] Player raycast hit something.");
 
           for (int i = 0; i < hit.Length; i++) {
