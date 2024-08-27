@@ -19,7 +19,6 @@ public class ProgressBarUI : MonoBehaviour {
                    // we should turn off a group of gameobject instead
   [SerializeField]
   private GameObject components; // GameObject that represents the progress bar
-                                 // TODO: use a game object instead
 
   private float targetSeconds;
   private float progressSeconds;

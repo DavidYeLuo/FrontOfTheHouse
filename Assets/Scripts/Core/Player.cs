@@ -315,11 +315,11 @@ public class Player : MonoBehaviour, IInteractor {
       // objectHolding.transform.SetParent(null);
       objectHolding = null;
       objectPoolHolding = null;
-    } else if (objectHolding == null && !tray.IsEmpty()) {
-      // TODO: grab an item from tray
-      GameObject item = tray.TakeItem(); // TODO: use ObjectPool instead
-      ParentObjToItemSlot(item);
-      objectHolding = item;
+    } else if (objectHolding == null) {
+      tray.Itemize();
+      ParentObjToItemSlot(tray.gameObject);
+      objectHolding = tray.gameObject;
+      droppableObject = tray;
     }
   }
 

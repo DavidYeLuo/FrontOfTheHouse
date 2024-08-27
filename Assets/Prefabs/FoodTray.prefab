@@ -1502,8 +1502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c2288daf3a4872b696887f4de4766ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numItems: 0
-  maxCapacity: 2
+  thisCollider: {fileID: 7594102149547981845}
   foodMaxStackHeight: 1
   foodHolders:
   - {fileID: 4491097336813451453}

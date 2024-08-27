@@ -4,14 +4,17 @@ using UnityEngine;
 using PlayerAction;
 using System;
 using UnityEngine.Assertions;
+using Interactable;
 
 namespace Interactable {
 public delegate void FoodTrayHandler(FoodTrayState state);
 public enum FoodTrayState { EMPTY, FILLED, FULL }
-public class FoodTray : MonoBehaviour, IInteractable {
+public class FoodTray : MonoBehaviour, IInteractable, IDroppable {
   public event FoodTrayHandler foodTrayHandler;
 
   private FoodTrayState state;
+  [SerializeField]
+  private Collider thisCollider;
 
   [Header("Config")]
   [SerializeField]
@@ -44,6 +47,7 @@ public class FoodTray : MonoBehaviour, IInteractable {
     foodTrayHandler?.Invoke(state);
     return ret;
   }
+  public void Itemize() { thisCollider.enabled = false; }
 
   private void Awake() { trayItems = new List<GameObject>(); }
   private void Start() { UpdateItem(); }
@@ -66,6 +70,10 @@ public class FoodTray : MonoBehaviour, IInteractable {
       trayItems[i].transform.position = foodHolders[i].transform.position;
       trayItems[i].transform.rotation = foodHolders[i].transform.rotation;
     }
+  }
+  public GameObject Drop() {
+    this.thisCollider.enabled = true;
+    return this.gameObject;
   }
   public void Accept(IInteractor interactor) { interactor.Interact(this); }
 }
