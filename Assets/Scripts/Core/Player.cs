@@ -23,7 +23,7 @@ public class Player : MonoBehaviour, IInteractor {
 
   [Header("Interaction")]
   [SerializeField]
-  private ProgressBarUI progressBarUI; // TODO: Abstract UI somewhere else
+  private ProgressBar progressBar; // TODO: Abstract UI somewhere else
   [SerializeField]
   private ParticleSystem buildingParticleSystem;
   [SerializeField]
@@ -136,7 +136,7 @@ public class Player : MonoBehaviour, IInteractor {
           inputEvent.type == InputType.KEY_UP) {
         if (lastInteractedObject != null) {
           buildingParticleSystem.Stop();
-          progressBarUI.CancelTask();
+          progressBar.CancelTask();
         }
       }
       if (inputEvent.key == dropKey && inputEvent.type == InputType.KEY_DOWN) {
@@ -165,7 +165,7 @@ public class Player : MonoBehaviour, IInteractor {
     if (obj != lastInteractedObject?.gameObject)
       return;
     buildingParticleSystem.Stop();
-    progressBarUI
+    progressBar
         .CancelTask(); // NOTE: UI shouldn't be handling the logic but I also
     // didn't wanted to add the progress update in this class
   }
@@ -255,11 +255,11 @@ public class Player : MonoBehaviour, IInteractor {
       return;
     }
     Debug.Log("[Interact, Player] Player interacted with utensil box.");
-    progressBarUI.finishProgressBarHandler += util.Sort;
-    progressBarUI.finishProgressBarHandler +=
+    progressBar.finishProgressBarHandler += util.Sort;
+    progressBar.finishProgressBarHandler +=
         DeactivateParticleSystem; // Otherwise, the particle will still be
                                   // active after winning
-    progressBarUI.BeginTask(this.gameObject, util.secondsToSort);
+    progressBar.BeginTask(util.secondsToSort);
     buildingParticleSystem.Play();
     Debug.Log(gameObject + " Entered");
   }
@@ -282,11 +282,11 @@ public class Player : MonoBehaviour, IInteractor {
     // Breaks the box when muffinbox is empty
     if (muffinBox.IsEmpty()) {
       Debug.Log("[Interact, Player] Player interacted with muffinbox.");
-      progressBarUI.finishProgressBarHandler += muffinBox.Break;
-      progressBarUI.finishProgressBarHandler +=
+      progressBar.finishProgressBarHandler += muffinBox.Break;
+      progressBar.finishProgressBarHandler +=
           DeactivateParticleSystem; // Otherwise, the particle will still be
                                     // active after winning
-      progressBarUI.BeginTask(this.gameObject, muffinBox.secondsToBreak);
+      progressBar.BeginTask(muffinBox.secondsToBreak);
       buildingParticleSystem.Play();
       return;
     }
