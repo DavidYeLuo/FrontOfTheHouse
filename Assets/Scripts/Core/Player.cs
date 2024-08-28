@@ -322,6 +322,20 @@ public class Player : MonoBehaviour, IInteractor {
       droppableObject = tray;
     }
   }
+  public void Interact(SpeedRack speedRack) {
+    if (objectHolding != null && !speedRack.IsFull()) {
+      FoodTray foodTray = objectHolding.GetComponent<FoodTray>();
+      if (foodTray == null)
+        return;
+      speedRack.AddItem(foodTray);
+      objectHolding = null;
+      objectPoolHolding = null;
+    } else if (objectHolding == null) {
+      ParentObjToItemSlot(speedRack.gameObject);
+      objectHolding = speedRack.gameObject;
+      droppableObject = speedRack;
+    }
+  }
 
   private void ParentObjToItemSlot(GameObject obj) {
     obj.transform.SetParent(itemSlot.transform);

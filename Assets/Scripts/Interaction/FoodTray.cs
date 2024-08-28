@@ -16,10 +16,6 @@ public class FoodTray : MonoBehaviour, IInteractable, IDroppable {
   [SerializeField]
   private Collider thisCollider;
 
-  [Header("Config")]
-  [SerializeField]
-  private int foodMaxStackHeight = 1;
-
   [Header("Dependencies")]
   [SerializeField]
   private List<GameObject> foodHolders;
