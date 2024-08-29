@@ -1503,8 +1503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisCollider: {fileID: 7594102149547981845}
-  foodMaxStackHeight: 1
-  foodHolders:
+  itemPlacement:
   - {fileID: 4491097336813451453}
   - {fileID: 718239379389661438}
   - {fileID: 2878113593657653167}

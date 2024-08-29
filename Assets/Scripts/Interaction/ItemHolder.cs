@@ -20,58 +20,59 @@ public class ItemHolder<T> : MonoBehaviour, IDroppable
 
   [Header("Dependencies")]
   [SerializeField]
-  private List<T> foodHolders;
-  private List<T> itemLocations;
+  private List<GameObject> itemPlacement;
+  private List<T> itemList;
 
   [Header("Aesthetic")]
 
   private GameObject currentStateObject = null;
 
-  public int GetNumItems() { return itemLocations.Count; }
-  public bool IsFull() { return itemLocations.Count == foodHolders.Count; }
-  public bool IsEmpty() { return itemLocations.Count == 0; }
+  public int GetNumItems() { return itemList.Count; }
+  public bool IsFull() { return itemList.Count == itemPlacement.Count; }
+  public bool IsEmpty() { return itemList.Count == 0; }
   public void AddItem(T obj) {
-    itemLocations.Add(obj);
+    itemList.Add(obj);
     UpdateItem();
     foodHolderHandler?.Invoke(state);
   }
   public T TakeItem() {
-    if (itemLocations.Count == 0)
+    if (itemList.Count == 0)
       return default(T);
-    int index = itemLocations.Count - 1;
-    T ret = itemLocations[index];
-    itemLocations.RemoveAt(index);
+    int index = itemList.Count - 1;
+    T ret = itemList[index];
+    itemList.RemoveAt(index);
     UpdateItem();
     foodHolderHandler?.Invoke(state);
     return ret;
   }
   public void Itemize() { thisCollider.enabled = false; }
 
-  private void Awake() { itemLocations = new List<T>(); }
+  private void Awake() { itemList = new List<T>(); }
   private void Start() { UpdateItem(); }
 
   private void UpdateItem() {
     if (currentStateObject != null)
       currentStateObject.SetActive(false);
-    int numItems = itemLocations.Count;
+    int numItems = itemList.Count;
     if (numItems == 0) {
       state = ItemHolderState.EMPTY;
-    } else if (numItems == foodHolders.Count) {
+    } else if (numItems == itemPlacement.Count) {
       state = ItemHolderState.FULL;
     } else {
       state = ItemHolderState.FILLED;
     }
     // currentStateObject.SetActive(true);
     // TODO: Update the look of the tray as we add item
-    for (int i = 0; i < itemLocations.Count; i++) {
-      itemLocations[i].transform.SetParent(foodHolders[i].transform);
-      itemLocations[i].transform.position = foodHolders[i].transform.position;
-      itemLocations[i].transform.rotation = foodHolders[i].transform.rotation;
+    for (int i = 0; i < itemList.Count; i++) {
+      itemList[i].transform.SetParent(itemPlacement[i].transform);
+      itemList[i].transform.position = itemPlacement[i].transform.position;
+      itemList[i].transform.rotation = itemPlacement[i].transform.rotation;
     }
   }
   public GameObject Drop() {
     this.thisCollider.enabled = true;
     return this.gameObject;
   }
+  // public void Accept(IInteractor interactor) { interactor.Interact(this); }
 }
 }

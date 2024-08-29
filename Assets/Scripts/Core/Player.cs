@@ -6,6 +6,7 @@ using ObjectDetection;
 using System;
 using System.Collections.Generic;
 using ObjectPool;
+using Food;
 
 namespace Player {
 public delegate void PauseHandler();
@@ -311,7 +312,10 @@ public class Player : MonoBehaviour, IInteractor {
   public void Interact(FoodTray tray) {
     // BUG: We shouldn't allow utensils to be in the food tray
     if (objectHolding != null && !tray.IsFull()) {
-      tray.AddItem(objectHolding);
+      Muffin muffin = objectHolding.GetComponent<Muffin>();
+      if (muffin == null)
+        return;
+      tray.AddItem(muffin);
       // objectHolding.transform.SetParent(null);
       objectHolding = null;
       objectPoolHolding = null;

@@ -1,10 +1,7 @@
 {
-    "name": "Interaction_ASM",
+    "name": "FoodEntities_ASM",
     "rootNamespace": "",
-    "references": [
-        "GUID:04daa483fb80378c886002eb56c38c77",
-        "GUID:dabd4081a69a14c2bb7d96708d856a6c"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

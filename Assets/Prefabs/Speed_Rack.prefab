@@ -762,10 +762,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisCollider: {fileID: 6046382342784374940}
-  foodHolders:
-  - {fileID: 2418920524494147468}
-  - {fileID: 9042412694652569577}
-  - {fileID: 5436689595943914969}
+  itemPlacement:
+  - {fileID: 2061289709800396560}
+  - {fileID: 2955544328661462242}
+  - {fileID: 9000233767115288708}
 --- !u!1 &8174989147517396826
 GameObject:
   m_ObjectHideFlags: 0
