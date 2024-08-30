@@ -470,9 +470,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf75007901683ab7a6a957fb67337d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraOffset: 10
-  transitionTime: 0.5
-  player: {fileID: 567867215}
+  levelHelper:
+    player: {fileID: 567867215}
+    cam: {fileID: 1736246235}
+    gameManager: {fileID: 2001171991}
   speedrack: {fileID: 2829129318253031376}
 --- !u!1001 &567867214
 PrefabInstance:
