@@ -3,9 +3,13 @@ using PlayerAction;
 using ObjectDetection;
 using ObjectPool;
 using UnityEngine.Assertions;
+using Entity;
 namespace Interactable {
 public delegate void UtensilHandler(bool isSorted);
-public class UtensilBox : MonoBehaviour, IInteractable {
+public class UtensilBox : MonoBehaviour,
+                          IInteractable,
+                          IDroppable,
+                          IPickupItem {
   public event UtensilHandler isUtensilBoxSortedHandler;
   public enum BoxState { SORTED, UNSORTED }
 
@@ -55,5 +59,9 @@ public class UtensilBox : MonoBehaviour, IInteractable {
     unsortedObject.SetActive(true);
     isUtensilBoxSortedHandler?.Invoke(false);
   }
+
+  public GameObject Drop() { return this.gameObject; }
+
+  public GameObject GetGameObject() { return this.gameObject; }
 }
 }
