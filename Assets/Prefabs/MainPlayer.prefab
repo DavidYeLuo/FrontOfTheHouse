@@ -5802,7 +5802,8 @@ MonoBehaviour:
   moveDownKey: 115
   interactKey: 106
   sprintKey: 304
-  dropKey: 107
+  pickupKey: 107
+  dropKey: 108
   pauseKey: 27
 --- !u!54 &7150040902995997632
 Rigidbody:

@@ -1,7 +1,9 @@
 {
     "name": "FoodEntities_ASM",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:a224e75e6983fe2c38558b9f4488ebf3"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

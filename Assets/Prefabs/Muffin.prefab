@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6456759009641898287}
   - component: {fileID: 8438016505129616129}
   - component: {fileID: 7692248805685993897}
+  - component: {fileID: 2680589983832130747}
   - component: {fileID: 3664819468854831450}
-  - component: {fileID: 2099839471385368961}
   m_Layer: 0
   m_Name: Muffin
   m_TagString: Untagged
@@ -85,6 +85,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2680589983832130747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2928248224953771510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1ca96722276b2108979912a3e5d73f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3664819468854831450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,17 +107,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba54c20317371e36f826b0d1944cfdb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2099839471385368961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2928248224953771510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1ca96722276b2108979912a3e5d73f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

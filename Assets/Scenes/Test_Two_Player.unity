@@ -1434,7 +1434,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8681057493557513572, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
       propertyPath: dropKey
-      value: 258
+      value: 259
       objectReference: {fileID: 0}
     - target: {fileID: 8681057493557513572, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
       propertyPath: pauseKey
@@ -1443,6 +1443,10 @@ PrefabInstance:
     - target: {fileID: 8681057493557513572, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
       propertyPath: moveUpKey
       value: 273
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681057493557513572, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
+      propertyPath: pickupKey
+      value: 258
       objectReference: {fileID: 0}
     - target: {fileID: 8681057493557513572, guid: bf3aa83321cdff6db830b4163579bff4, type: 3}
       propertyPath: sprintKey

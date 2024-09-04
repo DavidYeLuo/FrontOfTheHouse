@@ -4,12 +4,13 @@ using ObjectDetection;
 using System;
 using ObjectPool;
 using UnityEngine.Assertions;
+using Entity;
 
 namespace Interactable {
 public delegate void MuffinBoxHandler(MuffinBoxState muffinBoxState);
 public delegate void MuffinBoxBreakHandler();
 public enum MuffinBoxState { EMPTY, FILLED, FULL }
-public class MuffinBox : MonoBehaviour, IInteractable, IDroppable {
+public class MuffinBox : MonoBehaviour, IInteractable, IDroppable, IPickupItem {
   public event MuffinBoxHandler muffinBoxHandler;
   public event MuffinBoxBreakHandler breakHandler;
   private MuffinBoxState state;
@@ -123,5 +124,10 @@ public class MuffinBox : MonoBehaviour, IInteractable, IDroppable {
   }
   private void UpdateCapacity() { maxCapacity = Math.Max(0, maxCapacity); }
   public void Accept(IInteractor interactor) { interactor.Interact(this); }
+
+  public GameObject GetGameObject() {
+    Itemize(); // Disables the collider
+    return this.gameObject;
+  }
 }
 }

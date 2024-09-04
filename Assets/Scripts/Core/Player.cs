@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using ObjectPool;
 using Food;
+using Entity;
 
 namespace Player {
 public delegate void PauseHandler();
@@ -46,6 +47,7 @@ public class Player : MonoBehaviour, IInteractor {
   public KeyCode moveDownKey;
   public KeyCode interactKey;
   public KeyCode sprintKey;
+  public KeyCode pickupKey;
   public KeyCode dropKey;
   public KeyCode pauseKey;
 
@@ -99,6 +101,7 @@ public class Player : MonoBehaviour, IInteractor {
     // Interact Button
     RaycastHit[] hit;
     float INTERACTION_RANGE = 3.0f;
+    float PICKUP_RANGE = 3.0f;
     // NOTE: It might be better if we handle key presses in Update() instead
     // and having the logics here
 
@@ -151,6 +154,33 @@ public class Player : MonoBehaviour, IInteractor {
       }
       if (inputEvent.key == dropKey && inputEvent.type == InputType.KEY_UP) {
       }
+      if (inputEvent.key == pickupKey &&
+          inputEvent.type == InputType.KEY_DOWN) {
+        hit = Physics.RaycastAll(transform.position, transform.forward,
+                                 PICKUP_RANGE);
+        if (hit != null) {
+          for (int i = 0; i < hit.Length; i++) {
+            IPickupItem pickupItem =
+                hit[i].collider.GetComponent<IPickupItem>();
+            Debug.DrawLine(transform.position,
+                           hit[i].collider.gameObject.transform.position);
+            if (pickupItem == null || objectHolding != null)
+              continue;
+            objectHolding = pickupItem.GetGameObject();
+            ParentObjToItemSlot(objectHolding);
+            if (pickupItem is IDroppable) {
+              IDroppable droppable = pickupItem as IDroppable;
+              droppableObject = droppable;
+            }
+            lastInteractedObject = objectHolding;
+
+            break;
+          }
+        }
+        if (inputEvent.key == pickupKey &&
+            inputEvent.type == InputType.KEY_UP) {
+        }
+      }
     }
   }
   private void OnEnable() {
@@ -199,6 +229,18 @@ public class Player : MonoBehaviour, IInteractor {
     if (Input.GetKeyUp(dropKey)) {
       keyEvent = new InputEvent();
       keyEvent.key = dropKey;
+      keyEvent.type = InputType.KEY_UP;
+      inputQueue.Enqueue(keyEvent);
+    }
+    if (Input.GetKeyDown(pickupKey)) {
+      keyEvent = new InputEvent();
+      keyEvent.key = pickupKey;
+      keyEvent.type = InputType.KEY_DOWN;
+      inputQueue.Enqueue(keyEvent);
+    }
+    if (Input.GetKeyUp(pickupKey)) {
+      keyEvent = new InputEvent();
+      keyEvent.key = pickupKey;
       keyEvent.type = InputType.KEY_UP;
       inputQueue.Enqueue(keyEvent);
     }
