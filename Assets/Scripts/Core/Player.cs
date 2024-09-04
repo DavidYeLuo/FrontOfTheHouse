@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using ObjectPool;
 using Food;
 using Entity;
+using UnityEngine.Assertions;
 
 namespace Player {
 public delegate void PauseHandler();
@@ -362,10 +363,12 @@ public class Player : MonoBehaviour, IInteractor {
       objectHolding = null;
       objectPoolHolding = null;
     } else if (objectHolding == null) {
-      tray.Itemize();
-      ParentObjToItemSlot(tray.gameObject);
-      objectHolding = tray.gameObject;
+      Muffin muffin = tray.RemoveItem();
+      if (muffin == null)
+        return;
+      objectHolding = muffin.gameObject;
       droppableObject = tray;
+      ParentObjToItemSlot(objectHolding);
     }
   }
   public void Interact(SpeedRack speedRack) {
@@ -377,9 +380,12 @@ public class Player : MonoBehaviour, IInteractor {
       objectHolding = null;
       objectPoolHolding = null;
     } else if (objectHolding == null) {
-      ParentObjToItemSlot(speedRack.gameObject);
-      objectHolding = speedRack.gameObject;
-      droppableObject = speedRack;
+      FoodTray foodTray = speedRack.RemoveItem();
+      if (foodTray == null)
+        return;
+      objectHolding = foodTray.gameObject;
+      droppableObject = foodTray;
+      ParentObjToItemSlot(objectHolding);
     }
   }
 

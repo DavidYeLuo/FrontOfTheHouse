@@ -35,6 +35,13 @@ public class ItemHolder<T> : MonoBehaviour, IDroppable
     UpdateItem();
     foodHolderHandler?.Invoke(state);
   }
+  public T RemoveItem() {
+    if (itemList.Count == 0)
+      return null;
+    T ret = itemList[itemList.Count - 1];
+    itemList.Remove(ret);
+    return ret;
+  }
   public ItemHolderState GetState() { return state; }
   // LIFO - Returns the last item the player inserted
   public T PeekTopItem() {
