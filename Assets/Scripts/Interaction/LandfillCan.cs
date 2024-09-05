@@ -10,7 +10,7 @@ public enum TrashState { EMPTY, FILLED, FULL }
 public class LandfillCan : MonoBehaviour,
                            IInteractable,
                            IPickupItem,
-                           IDroppable {
+                           IDropItem {
   public event LandfillHandler onStateChange;
 
   private TrashState state;
@@ -80,13 +80,13 @@ public class LandfillCan : MonoBehaviour,
 
   public void Accept(IInteractor interactor) { interactor.Interact(this); }
 
-  public GameObject Drop() {
+  public GameObject DropItem() {
     thisCollider.enabled = true;
     rb.isKinematic = false;
     return this.gameObject;
   }
 
-  public GameObject GetGameObject() {
+  public GameObject PickupItem() {
     thisCollider.enabled = false;
     rb.isKinematic = true;
     return this.gameObject;

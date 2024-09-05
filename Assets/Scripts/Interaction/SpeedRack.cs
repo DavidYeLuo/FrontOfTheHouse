@@ -11,10 +11,10 @@ using Entity;
 namespace Interactable {
 public class SpeedRack : ItemHolder<FoodTray>,
                          IInteractable,
-                         IDroppable,
+                         IDropItem,
                          IPickupItem {
   public void Accept(IInteractor interactor) { interactor.Interact(this); }
-  public GameObject GetGameObject() {
+  public GameObject PickupItem() {
     rb.isKinematic = true;
     return this.gameObject;
   }

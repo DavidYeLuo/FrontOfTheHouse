@@ -9,7 +9,7 @@ public delegate void UtensilHandler(bool isSorted);
 [RequireComponent(typeof(Rigidbody))]
 public class UtensilBox : MonoBehaviour,
                           IInteractable,
-                          IDroppable,
+                          IDropItem,
                           IPickupItem {
   public event UtensilHandler isUtensilBoxSortedHandler;
   public enum BoxState { SORTED, UNSORTED }
@@ -67,13 +67,13 @@ public class UtensilBox : MonoBehaviour,
     isUtensilBoxSortedHandler?.Invoke(false);
   }
 
-  public GameObject Drop() {
+  public GameObject DropItem() {
     thisCollider.enabled = true;
     rb.isKinematic = false;
     return this.gameObject;
   }
 
-  public GameObject GetGameObject() {
+  public GameObject PickupItem() {
     thisCollider.enabled = false;
     rb.isKinematic = true;
     return this.gameObject;

@@ -1,6 +1,6 @@
 using UnityEngine;
 namespace PlayerAction {
-public interface IDroppable {
-  public GameObject Drop();
+public interface IDropItem {
+  public GameObject DropItem();
 }
 }

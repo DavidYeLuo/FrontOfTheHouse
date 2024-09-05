@@ -56,7 +56,7 @@ public class Player : MonoBehaviour, IInteractor {
   private GameObject objectHolding; // null if player isn't holding anything
   private PoolObject objectPoolHolding;
   private bool isPlayingFootprint = false;
-  private IDroppable droppableObject;
+  private IDropItem droppableObject;
 
   // Ensures that each key is handled in the FixedUpdate
   private Queue<InputEvent> inputQueue = new Queue<InputEvent>();
@@ -148,7 +148,7 @@ public class Player : MonoBehaviour, IInteractor {
         if (droppableObject == null)
           return;
         GameObject droppedItem;
-        droppedItem = droppableObject.Drop();
+        droppedItem = droppableObject.DropItem();
         droppedItem.transform.SetParent(null);
         droppableObject = null;
         objectHolding = null;
@@ -167,13 +167,13 @@ public class Player : MonoBehaviour, IInteractor {
                            hit[i].collider.gameObject.transform.position);
             if (pickupItem == null || objectHolding != null)
               continue;
-            objectHolding = pickupItem.GetGameObject();
+            objectHolding = pickupItem.PickupItem();
             ParentObjToItemSlot(objectHolding);
             objectHolding.transform.position =
                 itemSlot.transform.position +
                 itemSlot.transform.forward * pickupItem.GetZOffset();
-            if (pickupItem is IDroppable) {
-              IDroppable droppable = pickupItem as IDroppable;
+            if (pickupItem is IDropItem) {
+              IDropItem droppable = pickupItem as IDropItem;
               droppableObject = droppable;
             }
             lastInteractedObject = objectHolding;

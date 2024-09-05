@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Entity {
 public interface IPickupItem {
-  public GameObject GetGameObject();
+  public GameObject PickupItem();
   public float GetZOffset() { return 0.0f; }
 }
 }

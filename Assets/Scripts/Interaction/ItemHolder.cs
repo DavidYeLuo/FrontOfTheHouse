@@ -11,7 +11,7 @@ public delegate void ItemHolderHandler(ItemHolderState state);
 public enum ItemHolderState { EMPTY, FILLED, FULL }
 ;
 [RequireComponent(typeof(Rigidbody))]
-public class ItemHolder<T> : MonoBehaviour, IDroppable
+public class ItemHolder<T> : MonoBehaviour, IDropItem
     where T : Component {
   public event ItemHolderHandler foodHolderHandler;
 
@@ -89,7 +89,7 @@ public class ItemHolder<T> : MonoBehaviour, IDroppable
       itemList[i].transform.rotation = itemPlacement[i].transform.rotation;
     }
   }
-  public virtual GameObject Drop() {
+  public virtual GameObject DropItem() {
     rb.isKinematic = false;
     return this.gameObject;
   }
