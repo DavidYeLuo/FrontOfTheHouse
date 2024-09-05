@@ -169,6 +169,9 @@ public class Player : MonoBehaviour, IInteractor {
               continue;
             objectHolding = pickupItem.GetGameObject();
             ParentObjToItemSlot(objectHolding);
+            objectHolding.transform.position =
+                itemSlot.transform.position +
+                itemSlot.transform.forward * pickupItem.GetZOffset();
             if (pickupItem is IDroppable) {
               IDroppable droppable = pickupItem as IDroppable;
               droppableObject = droppable;
@@ -392,8 +395,8 @@ public class Player : MonoBehaviour, IInteractor {
   private void ParentObjToItemSlot(GameObject obj) {
     obj.transform.SetParent(itemSlot.transform);
     // Snaps object in the item slot
-    obj.transform.position = itemSlot.transform.position;
     obj.transform.rotation = itemSlot.transform.rotation;
+    obj.transform.position = itemSlot.transform.position;
   }
   private void DeactivateParticleSystem() { buildingParticleSystem.Stop(); }
 }

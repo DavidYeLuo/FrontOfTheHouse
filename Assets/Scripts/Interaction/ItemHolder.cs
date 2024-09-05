@@ -10,13 +10,14 @@ namespace Interactable {
 public delegate void ItemHolderHandler(ItemHolderState state);
 public enum ItemHolderState { EMPTY, FILLED, FULL }
 ;
+[RequireComponent(typeof(Rigidbody))]
 public class ItemHolder<T> : MonoBehaviour, IDroppable
     where T : Component {
   public event ItemHolderHandler foodHolderHandler;
 
   private ItemHolderState state;
   [SerializeField]
-  private Collider thisCollider;
+  protected Collider thisCollider;
 
   [Header("Dependencies")]
   [SerializeField]
@@ -26,6 +27,7 @@ public class ItemHolder<T> : MonoBehaviour, IDroppable
   [Header("Aesthetic")]
 
   private GameObject currentStateObject = null;
+  protected Rigidbody rb;
 
   public int GetNumItems() { return itemList.Count; }
   public bool IsFull() { return itemList.Count == itemPlacement.Count; }
@@ -62,7 +64,10 @@ public class ItemHolder<T> : MonoBehaviour, IDroppable
   }
   public void Itemize() { thisCollider.enabled = false; }
 
-  private void Awake() { itemList = new List<T>(); }
+  private void Awake() {
+    itemList = new List<T>();
+    rb = GetComponent<Rigidbody>();
+  }
   private void Start() { UpdateItem(); }
 
   private void UpdateItem() {
@@ -84,8 +89,8 @@ public class ItemHolder<T> : MonoBehaviour, IDroppable
       itemList[i].transform.rotation = itemPlacement[i].transform.rotation;
     }
   }
-  public GameObject Drop() {
-    this.thisCollider.enabled = true;
+  public virtual GameObject Drop() {
+    rb.isKinematic = false;
     return this.gameObject;
   }
   // public void Accept(IInteractor interactor) { interactor.Interact(this); }

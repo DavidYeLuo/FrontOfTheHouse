@@ -6,6 +6,7 @@ using UnityEngine.Assertions;
 using Entity;
 namespace Interactable {
 public delegate void UtensilHandler(bool isSorted);
+[RequireComponent(typeof(Rigidbody))]
 public class UtensilBox : MonoBehaviour,
                           IInteractable,
                           IDroppable,
@@ -28,6 +29,11 @@ public class UtensilBox : MonoBehaviour,
   private Pooler pooler;
   private PoolObject poolGoldenSpoon;
 
+  private Rigidbody rb;
+  [Header("Dependencies")]
+  [SerializeField]
+  private Collider thisCollider;
+
   private void Start() {
     if (startAsSorted) {
       SetToSorted();
@@ -39,6 +45,7 @@ public class UtensilBox : MonoBehaviour,
     poolGoldenSpoon = goldenSpoon.GetComponent<PoolObject>();
     Assert.IsNotNull(poolGoldenSpoon); // Fails when golden spoon doesn't have a
     pooler = new Pooler(startingPoolSize, poolGoldenSpoon);
+    rb = GetComponent<Rigidbody>();
   }
 
   public bool IsSorted() { return state == BoxState.SORTED; }
@@ -60,8 +67,16 @@ public class UtensilBox : MonoBehaviour,
     isUtensilBoxSortedHandler?.Invoke(false);
   }
 
-  public GameObject Drop() { return this.gameObject; }
+  public GameObject Drop() {
+    thisCollider.enabled = true;
+    rb.isKinematic = false;
+    return this.gameObject;
+  }
 
-  public GameObject GetGameObject() { return this.gameObject; }
+  public GameObject GetGameObject() {
+    thisCollider.enabled = false;
+    rb.isKinematic = true;
+    return this.gameObject;
+  }
 }
 }

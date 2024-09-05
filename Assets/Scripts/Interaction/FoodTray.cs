@@ -15,7 +15,13 @@ public class FoodTray : ItemHolder<Muffin>,
                         IPickupItem {
   public void Accept(IInteractor interactor) { interactor.Interact(this); }
 
+  public override GameObject Drop() {
+    thisCollider.enabled = true;
+    rb.isKinematic = false;
+    return this.gameObject;
+  }
   public GameObject GetGameObject() {
+    rb.isKinematic = true;
     Itemize();
     return this.gameObject;
   }

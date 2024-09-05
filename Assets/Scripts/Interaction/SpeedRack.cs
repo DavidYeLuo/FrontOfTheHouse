@@ -14,6 +14,10 @@ public class SpeedRack : ItemHolder<FoodTray>,
                          IDroppable,
                          IPickupItem {
   public void Accept(IInteractor interactor) { interactor.Interact(this); }
-  public GameObject GetGameObject() { return this.gameObject; }
+  public GameObject GetGameObject() {
+    rb.isKinematic = true;
+    return this.gameObject;
+  }
+  public float GetZOffset() { return 0.5f; }
 }
 }

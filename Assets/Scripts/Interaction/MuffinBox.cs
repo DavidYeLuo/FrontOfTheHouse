@@ -10,6 +10,7 @@ namespace Interactable {
 public delegate void MuffinBoxHandler(MuffinBoxState muffinBoxState);
 public delegate void MuffinBoxBreakHandler();
 public enum MuffinBoxState { EMPTY, FILLED, FULL }
+[RequireComponent(typeof(Rigidbody))]
 public class MuffinBox : MonoBehaviour, IInteractable, IDroppable, IPickupItem {
   public event MuffinBoxHandler muffinBoxHandler;
   public event MuffinBoxBreakHandler breakHandler;
@@ -22,6 +23,7 @@ public class MuffinBox : MonoBehaviour, IInteractable, IDroppable, IPickupItem {
   private int maxCapacity;
 
   private bool isBroken = false;
+  private Rigidbody rb;
 
   [Header("Muffin")]
   [SerializeField]
@@ -88,6 +90,7 @@ public class MuffinBox : MonoBehaviour, IInteractable, IDroppable, IPickupItem {
 
   private void Awake() {
     poolMuffin = muffin.GetComponent<PoolObject>();
+    rb = GetComponent<Rigidbody>();
     Assert.IsNotNull(poolMuffin); // Fails when PoolObject component isn't
                                   // attached to the muffin gameobject
     muffinPooler = new Pooler(maxCapacity, poolMuffin);
@@ -120,12 +123,14 @@ public class MuffinBox : MonoBehaviour, IInteractable, IDroppable, IPickupItem {
   }
   public GameObject Drop() {
     thisCollider.enabled = true;
+    rb.isKinematic = false;
     return this.gameObject;
   }
   private void UpdateCapacity() { maxCapacity = Math.Max(0, maxCapacity); }
   public void Accept(IInteractor interactor) { interactor.Interact(this); }
 
   public GameObject GetGameObject() {
+    rb.isKinematic = true;
     Itemize(); // Disables the collider
     return this.gameObject;
   }

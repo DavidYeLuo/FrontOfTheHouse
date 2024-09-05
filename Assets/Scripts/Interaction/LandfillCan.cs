@@ -2,10 +2,15 @@ using UnityEngine;
 using PlayerAction;
 using ObjectDetection;
 using System;
+using Entity;
 namespace Interactable {
 public delegate void LandfillHandler(TrashState state);
 public enum TrashState { EMPTY, FILLED, FULL }
-public class LandfillCan : MonoBehaviour, IInteractable {
+[RequireComponent(typeof(Rigidbody))]
+public class LandfillCan : MonoBehaviour,
+                           IInteractable,
+                           IPickupItem,
+                           IDroppable {
   public event LandfillHandler onStateChange;
 
   private TrashState state;
@@ -24,7 +29,12 @@ public class LandfillCan : MonoBehaviour, IInteractable {
   private GameObject fullStateObject;
 
   private GameObject currentStateObject = null;
+  private Rigidbody rb;
+  [Header("Dependency")]
+  [SerializeField]
+  private Collider thisCollider;
 
+  private void Awake() { rb = GetComponent<Rigidbody>(); }
   public int GetNumItems() { return numItems; }
   public int GetCapacity() { return maxCapacity; }
   public bool IsFull() { return numItems == maxCapacity; }
@@ -69,5 +79,18 @@ public class LandfillCan : MonoBehaviour, IInteractable {
   private void UpdateCapacity() { maxCapacity = Math.Max(0, maxCapacity); }
 
   public void Accept(IInteractor interactor) { interactor.Interact(this); }
+
+  public GameObject Drop() {
+    thisCollider.enabled = true;
+    rb.isKinematic = false;
+    return this.gameObject;
+  }
+
+  public GameObject GetGameObject() {
+    thisCollider.enabled = false;
+    rb.isKinematic = true;
+    return this.gameObject;
+  }
+  public float GetZOffset() { return 0.5f; }
 }
 }
