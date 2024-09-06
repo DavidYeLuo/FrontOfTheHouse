@@ -29,12 +29,16 @@ public class SecondLevel : MonoBehaviour {
   }
   private void OnEnable() {
     speedrack.foodHolderHandler += WinWhenSpeedRackHasMuffinTrays;
-    levelHelper.player.pauseHandler += levelHelper.gameManager.TogglePause;
+    foreach (Player.Player player in levelHelper.players) {
+      player.pauseHandler += levelHelper.gameManager.TogglePause;
+    }
   }
 
   private void OnDisable() {
     speedrack.foodHolderHandler -= WinWhenSpeedRackHasMuffinTrays;
-    levelHelper.player.pauseHandler -= levelHelper.gameManager.TogglePause;
+    foreach (Player.Player player in levelHelper.players) {
+      player.pauseHandler -= levelHelper.gameManager.TogglePause;
+    }
   }
 }
 }

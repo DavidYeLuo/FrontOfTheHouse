@@ -1131,7 +1131,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelHelper:
-    player: {fileID: 219575682}
+    players:
+    - {fileID: 219575682}
     cam: {fileID: 1072788728}
     gameManager: {fileID: 1044318696}
   speedrack: {fileID: 444379853}

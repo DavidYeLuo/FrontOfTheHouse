@@ -3,6 +3,7 @@ using Interactable;
 using System.Collections;
 using System;
 using UnityEngine.Assertions;
+using System.Collections.Generic;
 
 namespace Level {
 // When using this class, we should Init
@@ -17,7 +18,7 @@ public class Level {
 
   [Header("Dependencies")]
   [SerializeField]
-  public Player.Player player;
+  public List<Player.Player> players;
 
   public Camera cam;
   public GameManager gameManager;
@@ -26,13 +27,15 @@ public class Level {
   public void Init() {
     gameManager = GameManager.Instance();
     cam = Camera.main;
-    Assert.IsNotNull(player);
+    Assert.IsNotNull(players);
     Assert.IsNotNull(cam);
     Assert.IsNotNull(gameManager);
   }
 
   public void SetLockPlayerInput(bool isLocked) {
-    player.enabled = !isLocked; // Enables/Disables obj
+    foreach (Player.Player player in players) {
+      player.enabled = !isLocked; // Enables/Disables obj
+    }
   }
 
   private IEnumerator SetLockPlayerInputCoroutine(bool isLocked) {

@@ -24,12 +24,16 @@ public class FirstLevel : MonoBehaviour {
 
   private void OnEnable() {
     utensilBox.isUtensilBoxSortedHandler += WinWhenUtensilBoxIsSorted;
-    levelHelper.player.pauseHandler += levelHelper.gameManager.TogglePause;
+    foreach (Player.Player player in levelHelper.players) {
+      player.pauseHandler += levelHelper.gameManager.TogglePause;
+    }
   }
 
   private void OnDisable() {
     utensilBox.isUtensilBoxSortedHandler -= WinWhenUtensilBoxIsSorted;
-    levelHelper.player.pauseHandler -= levelHelper.gameManager.TogglePause;
+    foreach (Player.Player player in levelHelper.players) {
+      player.pauseHandler -= levelHelper.gameManager.TogglePause;
+    }
   }
 }
 }
