@@ -84,7 +84,7 @@ MonoBehaviour:
   emptyStateObject: {fileID: 5527928480215638427}
   filledStateObject: {fileID: 6669540044513493657}
   fullStateObject: {fileID: 3902504998243971882}
-  thisCollider: {fileID: 0}
+  thisCollider: {fileID: 1728258167366364506}
 --- !u!54 &1928598946244955906
 Rigidbody:
   m_ObjectHideFlags: 0
