@@ -317,13 +317,6 @@ public class Player : MonoBehaviour, IInteractor {
     }
     // Pickup broken box
     if (muffinBox.IsBroken()) {
-      Debug.Log("[Interact, Player] Pick up Broken Box");
-      muffinBox.Itemize();
-      ParentObjToItemSlot(muffinBox.gameObject);
-
-      droppableObject = muffinBox;
-      objectHolding = muffinBox.gameObject;
-
       return;
     }
     // Breaks the box when muffinbox is empty

@@ -1049,6 +1049,15 @@ MonoBehaviour:
     cam: {fileID: 1072788728}
     gameManager: {fileID: 1044318696}
   speedrack: {fileID: 444379853}
+  guestPrefab: {fileID: 6654351484475702462, guid: c8cf4ed9b48ada37bad422b86d63ae78, type: 3}
+  spawnPoint: {x: -10, y: 1, z: 2}
+  objectOfInterests:
+  - {fileID: 1465141080}
+--- !u!1 &1465141080 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7639869814698632463, guid: 1f32e7e55f6f9d68e808d93554ae8814, type: 3}
+  m_PrefabInstance: {fileID: 2108900882}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1613863099
 GameObject:
   m_ObjectHideFlags: 0
