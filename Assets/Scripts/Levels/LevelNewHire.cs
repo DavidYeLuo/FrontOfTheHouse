@@ -3,6 +3,7 @@ using Interactable;
 using System.Collections;
 using System.Collections.Generic;
 using NPC;
+using PlayerAction;
 
 namespace Level {
 public class LevelNewHire : MonoBehaviour {
@@ -18,13 +19,15 @@ public class LevelNewHire : MonoBehaviour {
   private Vector3 spawnPoint;
   [SerializeField]
   private List<GameObject> objectOfInterests;
+  [SerializeField]
+  private List<Elevator> exits;
 
   private void Awake() { levelHelper.Init(); }
   private void Start() {
     StartCoroutine(levelHelper.ZoomInToPlayerTransition(
         Level.DEFAULT_CAMERA_OFFSET, Level.DEFAULT_TRANSITION_TIME));
     Guest guest = Instantiate(guestPrefab, spawnPoint, Quaternion.identity);
-    guest.AddListOfInterests(objectOfInterests);
+    guest.Init(GuestGoal.EXPLORE, objectOfInterests, exits);
   }
   private void WinWhenSpeedRackHasMuffinTrays(ItemHolderState state) {
     if (state != ItemHolderState.FILLED)

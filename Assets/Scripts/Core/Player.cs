@@ -384,6 +384,7 @@ public class Player : MonoBehaviour, IInteractor {
       ParentObjToItemSlot(objectHolding);
     }
   }
+  public void Interact(Elevator elevator) {}
 
   private void ParentObjToItemSlot(GameObject obj) {
     obj.transform.SetParent(itemSlot.transform);

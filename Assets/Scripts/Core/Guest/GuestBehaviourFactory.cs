@@ -6,9 +6,10 @@ namespace GuestBehaviour {
 public class GuestBehaviourFactory {
   public IGuestTick GetGuestPathTowardGameObject(GameObject movingObject,
                                                  GameObject objectToReach,
-                                                 float moveSpeed) {
-    return new GuestPathTowardGameObject(movingObject, objectToReach,
-                                         moveSpeed);
+                                                 float moveSpeed,
+                                                 float stopDistance) {
+    return new GuestPathTowardGameObject(movingObject, objectToReach, moveSpeed,
+                                         stopDistance);
   }
   public IGuestTick GetGuestIdle() { return new GuestIdle(); }
 }

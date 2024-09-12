@@ -9,6 +9,7 @@ public interface IInteractor {
   public void Interact(MuffinBox muffinBox);
   public void Interact(FoodTray foodTray);
   public void Interact(SpeedRack speedRack);
+  public void Interact(Elevator elevator);
 }
 
 // Element in the Visitor Pattern

@@ -2,7 +2,8 @@
     "name": "Guest_ASM",
     "rootNamespace": "",
     "references": [
-        "GuestBehaviour_ASM"
+        "GuestBehaviour_ASM",
+        "Interaction_ASM"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

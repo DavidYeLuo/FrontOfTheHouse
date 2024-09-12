@@ -132,7 +132,7 @@ MeshRenderer:
   m_GameObject: {fileID: 480934837013104233}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -228,6 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
+  stopDistance: 3
 --- !u!1 &1421418261477882817
 GameObject:
   m_ObjectHideFlags: 0
