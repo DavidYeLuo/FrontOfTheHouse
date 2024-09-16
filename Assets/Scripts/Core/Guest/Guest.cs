@@ -22,6 +22,7 @@ public class Guest : MonoBehaviour {
   public float moveSpeed = 3.0f;
   [Tooltip("When moving toward gameobject, this is how far it will stop")]
   public float stopDistance = 3.0f;
+  public GameObject itemSlot;
 
   private List<GameObject> listOfInterests = new List<GameObject>();
   private List<Elevator> listOfExits = new List<Elevator>();
@@ -123,6 +124,12 @@ public class Guest : MonoBehaviour {
       throw new System.Exception("Unkown goal: " + goal);
     }
   }
+  public void Equip(GameObject obj) {
+    obj.transform.SetParent(itemSlot.transform);
+    // Snaps object in the item slot
+    obj.transform.rotation = itemSlot.transform.rotation;
+    obj.transform.position = itemSlot.transform.position;
+  }
   private abstract class Transition {
     public Guest guest;
     public GuestGoal nextGoal;
@@ -168,7 +175,9 @@ public class Guest : MonoBehaviour {
     public override bool IsMet() {
       if (muffinTray.IsEmpty())
         return false;
-      muffinTray.RemoveItem();
+      Muffin muffin = muffinTray.RemoveItem();
+      guest.Equip(muffin.gameObject);
+
       return true;
     }
   }

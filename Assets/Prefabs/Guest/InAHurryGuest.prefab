@@ -229,6 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3
   stopDistance: 3
+  itemSlot: {fileID: 4159534725232699374}
 --- !u!1 &1421418261477882817
 GameObject:
   m_ObjectHideFlags: 0
