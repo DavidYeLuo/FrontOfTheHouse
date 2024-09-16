@@ -3,7 +3,8 @@
     "rootNamespace": "",
     "references": [
         "GuestBehaviour_ASM",
-        "Interaction_ASM"
+        "Interaction_ASM",
+        "FoodEntities_ASM"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

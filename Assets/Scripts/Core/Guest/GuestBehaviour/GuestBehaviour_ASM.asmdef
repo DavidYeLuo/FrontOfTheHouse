@@ -1,3 +1,17 @@
 {
-	"name": "GuestBehaviour_ASM"
+    "name": "GuestBehaviour_ASM",
+    "rootNamespace": "",
+    "references": [
+        "GUID:dabd4081a69a14c2bb7d96708d856a6c",
+        "GUID:97f7bb1bd4f957160add043108a3ba79"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

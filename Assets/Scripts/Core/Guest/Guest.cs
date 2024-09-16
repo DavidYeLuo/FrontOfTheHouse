@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using GuestBehaviour;
 using UnityEngine.Assertions;
-using PlayerAction; // needed for Elevator
+using PlayerAction;
+using Interactable; // needed for Elevator
+using Food;
 
 namespace NPC {
-public enum GuestGoal { EXPLORE, TALK, HUNGRY, LEAVE }
+public enum GuestGoal { EXPLORE, TALK, HUNGRY, LEAVE, GRAB_FOOD, AT_ELEVATOR }
 public class Guest : MonoBehaviour {
   public static GuestGoal GetDefaultGoal() { return GuestGoal.EXPLORE; }
   private const float CONDITION_MARGIN_OF_ERROR = 0.25f;
@@ -21,22 +23,42 @@ public class Guest : MonoBehaviour {
   [Tooltip("When moving toward gameobject, this is how far it will stop")]
   public float stopDistance = 3.0f;
 
-  private List<GameObject> listOfInterest = new List<GameObject>();
+  private List<GameObject> listOfInterests = new List<GameObject>();
   private List<Elevator> listOfExits = new List<Elevator>();
 
+  private List<FoodTray> listOfFoodTrays = new List<FoodTray>();
   private AbstractTransitionFactory transitionFactory =
       new AbstractTransitionFactory();
   private Transition currentTransition;
 
-  public void Init(GuestGoal goal) { SetGoal(goal); }
+  private FoodTray foodTrayOfInterest = null;
+
+  public void Init(GuestGoal goal) {
+    SetGoal(goal);
+    listOfInterests.ForEach((interest) => {
+      FoodTray foodTray = interest.GetComponent<FoodTray>();
+      if (foodTray != null)
+        listOfFoodTrays.Add(foodTray);
+    });
+  }
   public void Init(GuestGoal goal, List<GameObject> listOfInterest,
                    List<Elevator> listOfExits) {
-    listOfInterest.ForEach((obj) => this.listOfInterest.Add(obj));
+    listOfInterest.ForEach((obj) => this.listOfInterests.Add(obj));
     listOfExits.ForEach((obj) => this.listOfExits.Add(obj));
+    listOfInterests.ForEach((interest) => {
+      FoodTray foodTray = interest.GetComponent<FoodTray>();
+      if (foodTray != null)
+        listOfFoodTrays.Add(foodTray);
+    });
     SetGoal(goal);
   }
   public void AddListOfInterests(List<GameObject> listOfInterest) {
-    listOfInterest.ForEach((obj) => this.listOfInterest.Add(obj));
+    listOfInterest.ForEach((obj) => this.listOfInterests.Add(obj));
+    listOfInterests.ForEach((interest) => {
+      FoodTray foodTray = interest.GetComponent<FoodTray>();
+      if (foodTray != null)
+        listOfFoodTrays.Add(foodTray);
+    });
     // Update State
     SetGoal(goal);
   }
@@ -53,19 +75,25 @@ public class Guest : MonoBehaviour {
     switch (goal) {
     case GuestGoal.EXPLORE:
       // Nothing interesting in the level? Just start talking
-      if (listOfInterest.Count == 0) {
+      if (listOfInterests.Count == 0) {
         SetGoal(GuestGoal.LEAVE);
         break;
       }
 
-      rng = (int)Random.Range(0, listOfInterest.Count);
-      Assert.AreNotEqual(rng, listOfInterest.Count);
-      GameObject objectOfInterest = listOfInterest[rng];
-      behaviour = behaviourFactory.GetGuestPathTowardGameObject(
-          this.gameObject, objectOfInterest, moveSpeed, stopDistance);
-      currentTransition = transitionFactory.GetWhenCloseDistance(
-          this, GuestGoal.LEAVE, objectOfInterest.transform.position,
-          stopDistance + CONDITION_MARGIN_OF_ERROR);
+      rng = (int)Random.Range(0, listOfInterests.Count);
+      foodTrayOfInterest = listOfFoodTrays[rng];
+      if (foodTrayOfInterest != null) {
+        behaviour = behaviourFactory.GetGuestPathTowardGameObject(
+            this.gameObject, foodTrayOfInterest.gameObject, moveSpeed,
+            stopDistance);
+        GuestGoal transitionGoal = GuestGoal.GRAB_FOOD;
+        currentTransition = transitionFactory.GetWhenCloseDistance(
+            this, transitionGoal, foodTrayOfInterest.transform.position,
+            stopDistance + CONDITION_MARGIN_OF_ERROR);
+        // TODO: WAIT if the foodtray is empty
+      } else {
+        SetGoal(GuestGoal.LEAVE);
+      }
 
       // TODO: interact with the object
       break;
@@ -77,13 +105,22 @@ public class Guest : MonoBehaviour {
       behaviour = behaviourFactory.GetGuestPathTowardGameObject(
           this.gameObject, elevator.gameObject, moveSpeed, stopDistance);
       currentTransition = transitionFactory.GetWhenCloseDistance(
-          this, GuestGoal.LEAVE, elevator.transform.position,
+          this, GuestGoal.AT_ELEVATOR, elevator.transform.position,
           stopDistance + CONDITION_MARGIN_OF_ERROR);
 
       // TODO: interact with the object
       break;
     case GuestGoal.HUNGRY:
       break;
+    case GuestGoal.GRAB_FOOD:
+      behaviour = behaviourFactory.GetGuestGrabFood();
+      currentTransition = transitionFactory.GetWhenGrabMuffin(
+          this, GuestGoal.LEAVE, foodTrayOfInterest);
+      break;
+    case GuestGoal.AT_ELEVATOR:
+      break;
+    default:
+      throw new System.Exception("Unkown goal: " + goal);
     }
   }
   private abstract class Transition {
@@ -103,6 +140,10 @@ public class Guest : MonoBehaviour {
       return new TransitionWhenCloseDistance(guest, goalTransition, targetPoint,
                                              distance);
     }
+    public Transition GetWhenGrabMuffin(Guest guest, GuestGoal goalTransition,
+                                        ItemHolder<Muffin> foodHolder) {
+      return new TransitionWhenGrabMuffin(guest, goalTransition, foodHolder);
+    }
   }
   private class TransitionWhenCloseDistance : Transition {
     private float distance;
@@ -115,6 +156,20 @@ public class Guest : MonoBehaviour {
     }
     public override bool IsMet() {
       return Vector3.Distance(guest.transform.position, targetPoint) < distance;
+    }
+  }
+  private class TransitionWhenGrabMuffin : Transition {
+    private ItemHolder<Muffin> muffinTray;
+    public TransitionWhenGrabMuffin(Guest guest, GuestGoal goalTransition,
+                                    ItemHolder<Muffin> foodHolder)
+        : base(guest, goalTransition) {
+      muffinTray = foodHolder;
+    }
+    public override bool IsMet() {
+      if (muffinTray.IsEmpty())
+        return false;
+      muffinTray.RemoveItem();
+      return true;
     }
   }
 }

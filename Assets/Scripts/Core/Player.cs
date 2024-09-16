@@ -355,6 +355,7 @@ public class Player : MonoBehaviour, IInteractor {
       if (muffin == null)
         return;
       tray.AddItem(muffin);
+      Debug.Log(tray.IsEmpty()); // TODO: remove
       // objectHolding.transform.SetParent(null);
       objectHolding = null;
       objectPoolHolding = null;
