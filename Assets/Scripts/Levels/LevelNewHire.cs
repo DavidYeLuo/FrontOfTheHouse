@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using NPC;
 using PlayerAction;
+using ObjectPool;
 
 namespace Level {
 public class LevelNewHire : MonoBehaviour {
@@ -22,12 +23,20 @@ public class LevelNewHire : MonoBehaviour {
   [SerializeField]
   private List<Elevator> exits;
 
+  public int maxGuestPoolSize = 1;
+  Pooler guestPooler;
+
   private void Awake() { levelHelper.Init(); }
   private void Start() {
     StartCoroutine(levelHelper.ZoomInToPlayerTransition(
         Level.DEFAULT_CAMERA_OFFSET, Level.DEFAULT_TRANSITION_TIME));
-    Guest guest = Instantiate(guestPrefab, spawnPoint, Quaternion.identity);
-    guest.Init(GuestGoal.EXPLORE, objectOfInterests, exits);
+    guestPooler = new Pooler(20, guestPrefab);
+    // Guest guest = Instantiate(guestPrefab, spawnPoint, Quaternion.identity);
+    Guest firstGuest = guestPooler.Spawn() as Guest;
+    firstGuest.gameObject.transform.position = spawnPoint;
+    firstGuest.gameObject.transform.rotation = Quaternion.identity;
+
+    firstGuest.Init(GuestGoal.EXPLORE, objectOfInterests, exits);
   }
   private void WinWhenSpeedRackHasMuffinTrays(ItemHolderState state) {
     if (state != ItemHolderState.FILLED)

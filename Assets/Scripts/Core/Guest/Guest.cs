@@ -6,10 +6,11 @@ using UnityEngine.Assertions;
 using PlayerAction;
 using Interactable; // needed for Elevator
 using Food;
+using ObjectPool;
 
 namespace NPC {
 public enum GuestGoal { EXPLORE, TALK, HUNGRY, LEAVE, GRAB_FOOD, AT_ELEVATOR }
-public class Guest : MonoBehaviour {
+public class Guest : PoolObject {
   public static GuestGoal GetDefaultGoal() { return GuestGoal.EXPLORE; }
   private const float CONDITION_MARGIN_OF_ERROR = 0.25f;
   private IGuestTick GetDefaultBehaviour() {
@@ -119,6 +120,7 @@ public class Guest : MonoBehaviour {
           this, GuestGoal.LEAVE, foodTrayOfInterest);
       break;
     case GuestGoal.AT_ELEVATOR:
+      Destroy();
       break;
     default:
       throw new System.Exception("Unkown goal: " + goal);

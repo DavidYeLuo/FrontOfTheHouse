@@ -4,7 +4,8 @@
     "references": [
         "GuestBehaviour_ASM",
         "Interaction_ASM",
-        "FoodEntities_ASM"
+        "FoodEntities_ASM",
+        "Pooler_ASM"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
