@@ -85,7 +85,10 @@ public class Guest : PoolObject {
       rng = (int)Random.Range(0, listOfInterests.Count);
       foodTrayOfInterest = listOfFoodTrays[rng];
       if (foodTrayOfInterest != null) {
-        behaviour = behaviourFactory.GetGuestPathTowardGameObject(
+        // behaviour = behaviourFactory.GetGuestPathTowardGameObject(
+        //     this.gameObject, foodTrayOfInterest.gameObject, moveSpeed,
+        //     stopDistance);
+        behaviour = behaviourFactory.GetGuestPathTowardNavmesh(
             this.gameObject, foodTrayOfInterest.gameObject, moveSpeed,
             stopDistance);
         GuestGoal transitionGoal = GuestGoal.GRAB_FOOD;
@@ -104,7 +107,9 @@ public class Guest : PoolObject {
     case GuestGoal.LEAVE:
       rng = (int)Random.Range(0, listOfExits.Count);
       Elevator elevator = listOfExits[rng];
-      behaviour = behaviourFactory.GetGuestPathTowardGameObject(
+      // behaviour = behaviourFactory.GetGuestPathTowardGameObject(
+      //     this.gameObject, elevator.gameObject, moveSpeed, stopDistance);
+      behaviour = behaviourFactory.GetGuestPathTowardNavmesh(
           this.gameObject, elevator.gameObject, moveSpeed, stopDistance);
       currentTransition = transitionFactory.GetWhenCloseDistance(
           this, GuestGoal.AT_ELEVATOR, elevator.transform.position,

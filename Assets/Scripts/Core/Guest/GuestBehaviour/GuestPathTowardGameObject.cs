@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace GuestBehaviour {
 public class GuestPathTowardGameObject : IGuestTick {
-  private GameObject movingGuest;
-  private GameObject objectToReach;
-  private float speed;
-  private float stopDistance;
+  protected GameObject movingGuest;
+  protected GameObject objectToReach;
+  protected float speed;
+  protected float stopDistance;
   public GuestPathTowardGameObject(GameObject movingObject,
                                    GameObject objectToReach, float speed,
                                    float stopDistance) {
@@ -16,7 +16,7 @@ public class GuestPathTowardGameObject : IGuestTick {
     this.speed = speed;
     this.stopDistance = stopDistance;
   }
-  public void Tick() {
+  public virtual void Tick() {
     float distance = Vector3.Distance(movingGuest.transform.position,
                                       objectToReach.transform.position);
     if (distance < stopDistance)
