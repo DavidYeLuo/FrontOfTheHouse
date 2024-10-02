@@ -10,7 +10,10 @@ using ObjectPool;
 
 namespace NPC {
 public enum GuestGoal { EXPLORE, TALK, HUNGRY, LEAVE, GRAB_FOOD, AT_ELEVATOR }
+public delegate void GuestLeaveEvent(Guest guest);
 public class Guest : PoolObject {
+  public event GuestLeaveEvent OnGuestLeave;
+
   public static GuestGoal GetDefaultGoal() { return GuestGoal.EXPLORE; }
   private const float CONDITION_MARGIN_OF_ERROR = 0.25f;
   private IGuestTick GetDefaultBehaviour() {

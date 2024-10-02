@@ -5,8 +5,10 @@ using UnityEngine;
 
 namespace CustomTimer {
 public delegate void TimeUpEvent();
+public delegate void TimeStartEvent(float durationInSeconds);
 public class Timer : MonoBehaviour {
   public event TimeUpEvent timeUpEvent;
+  public event TimeStartEvent timeStartEvent;
 
   private Timing timing;
   private WorkingTimer workingTimer;
@@ -25,6 +27,7 @@ public class Timer : MonoBehaviour {
   public void WaitForSeconds(float seconds) {
     workingTimer.SetTimer(seconds);
     timing = workingTimer;
+    timeStartEvent?.Invoke(seconds);
   }
 
   // NOTE: switch to nulltiming AND invokes the timeUpEvent
