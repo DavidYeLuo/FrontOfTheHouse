@@ -6,6 +6,8 @@ using NPC;
 using PlayerAction;
 using ObjectPool;
 using CustomTimer;
+using UnityEngine.UI;
+using UI;
 
 namespace Level {
 public class LevelNewHireSurvival : MonoBehaviour {
@@ -21,9 +23,11 @@ public class LevelNewHireSurvival : MonoBehaviour {
 
   [SerializeField]
   private Level levelHelper;
-  public Timer preBreakfastTimer;
-  public Timer postBreakfastTimer;
-  public Timer postLunchTimer;
+  public Timer timelineTimer;
+  [SerializeField]
+  private TimelineSizeAdjuster timelineDisplay;
+
+  [Space]
 
   [SerializeField]
   private Guest guestPrefab;
@@ -44,7 +48,8 @@ public class LevelNewHireSurvival : MonoBehaviour {
 
   private void Awake() {
     levelHelper.Init();
-    // guestSpawnTimer = gameObject.AddComponent<Timer>();
+    timelineDisplay.Adjust(secondsBeforeBreakfast, secondsBeforeLunch,
+                           secondsBeforeEndOfService);
   }
   private IEnumerator Start() {
     StartCoroutine(levelHelper.ZoomInToPlayerTransition(
@@ -56,13 +61,12 @@ public class LevelNewHireSurvival : MonoBehaviour {
     waitUntilLunch = new WaitForSeconds(secondsBeforeLunch);
     waitUntilServiceEnd = new WaitForSeconds(secondsBeforeEndOfService);
 
-    preBreakfastTimer.WaitForSeconds(secondsBeforeBreakfast);
+    timelineTimer.WaitForSeconds(secondsBeforeBreakfast + secondsBeforeLunch +
+                                 secondsBeforeLunch);
     yield return waitUntilBreakfast;
     SpawnGuest();
-    postBreakfastTimer.WaitForSeconds(secondsBeforeLunch);
     yield return waitUntilLunch;
     SpawnGuest();
-    postLunchTimer.WaitForSeconds(secondsBeforeEndOfService);
     yield return waitUntilServiceEnd;
     if (areGuestsSatisfied)
       Debug.Log("You Win!");
