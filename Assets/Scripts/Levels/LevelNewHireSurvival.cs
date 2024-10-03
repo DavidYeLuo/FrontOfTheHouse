@@ -62,7 +62,7 @@ public class LevelNewHireSurvival : MonoBehaviour {
     waitUntilServiceEnd = new WaitForSeconds(secondsBeforeEndOfService);
 
     timelineTimer.WaitForSeconds(secondsBeforeBreakfast + secondsBeforeLunch +
-                                 secondsBeforeLunch);
+                                 secondsBeforeEndOfService);
     yield return waitUntilBreakfast;
     SpawnGuest();
     yield return waitUntilLunch;

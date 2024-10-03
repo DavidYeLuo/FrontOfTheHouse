@@ -17,13 +17,16 @@ public class ProgressBar : MonoBehaviour {
   private float targetSeconds;
   private float progressSeconds;
 
-  [MenuItem("UI/ProgressBarUI/CancelAllTasks")]
-  public static void CancelAllTasks() {
-    Debug.Log("Cancelling all tasks");
-    foreach (ProgressBar item in instances) {
-      item.CancelTask();
-    }
-  }
+  // BUG: Can't build the game because Unity can't recognize MenuItem.
+  // Makes sense because it only works in the editor.
+  // If we want this to work again, then we should place it to Assets/Editor/
+  // directory [MenuItem("UI/ProgressBarUI/CancelAllTasks")] public static void
+  // CancelAllTasks() {
+  //   Debug.Log("Cancelling all tasks");
+  //   foreach (ProgressBar item in instances) {
+  //     item.CancelTask();
+  //   }
+  // }
   public void BeginTask(float targetSeconds) {
     this.targetSeconds = targetSeconds;
     beginProgressBarHandler?.Invoke(targetSeconds);
