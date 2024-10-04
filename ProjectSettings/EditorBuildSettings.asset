@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 9ba08d99b6239a56aa4f7f89e3766175
+  - enabled: 1
     path: Assets/Scenes/FirstPrototype/FirstLevel.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
-    guid: 9ba08d99b6239a56aa4f7f89e3766175
+    path: Assets/Scenes/NewHire_ShallowEllum_Survival.unity
+    guid: 9fa855fd823daa8c9a340131497b8a23
   m_configObjects: {}
