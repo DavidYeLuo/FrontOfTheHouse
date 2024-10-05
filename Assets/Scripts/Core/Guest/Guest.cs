@@ -183,7 +183,10 @@ public class Guest : PoolObject {
       muffinTray = foodHolder;
     }
     public override bool IsMet() {
-      if (muffinTray.IsEmpty())
+      if (muffinTray.IsEmpty() ||
+          Vector3.Distance(muffinTray.gameObject.transform.position,
+                           guest.gameObject.transform.position) >
+              guest.stopDistance)
         return false;
       Muffin muffin = muffinTray.RemoveItem();
       guest.Equip(muffin.gameObject);
