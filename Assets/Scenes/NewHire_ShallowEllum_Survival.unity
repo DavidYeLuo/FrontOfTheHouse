@@ -654,6 +654,7 @@ GameObject:
   - component: {fileID: 896612510}
   - component: {fileID: 896612509}
   - component: {fileID: 896612513}
+  - component: {fileID: 896612514}
   m_Layer: 8
   m_Name: GuestArea
   m_TagString: Untagged
@@ -779,6 +780,27 @@ MonoBehaviour:
   m_MinRegionArea: 4
   m_NavMeshData: {fileID: 23800000, guid: d63776c28218fafd887bbb7766ebcaaa, type: 2}
   m_BuildHeightMesh: 0
+--- !u!95 &896612514
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896612508}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1044318695
 PrefabInstance:
   m_ObjectHideFlags: 0
