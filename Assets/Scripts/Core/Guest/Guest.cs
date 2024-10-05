@@ -54,6 +54,7 @@ public class Guest : PoolObject {
       FoodTray foodTray = interest.GetComponent<FoodTray>();
       if (foodTray != null)
         listOfFoodTrays.Add(foodTray);
+      Debug.Log($"foodTray: {foodTray}");
     });
     SetGoal(goal);
   }
