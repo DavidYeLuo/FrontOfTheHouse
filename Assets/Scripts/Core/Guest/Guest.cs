@@ -98,12 +98,9 @@ public class Guest : PoolObject {
         currentTransition = transitionFactory.GetWhenCloseDistance(
             this, transitionGoal, foodTrayOfInterest.transform.position,
             stopDistance + CONDITION_MARGIN_OF_ERROR);
-        // TODO: WAIT if the foodtray is empty
       } else {
         SetGoal(GuestGoal.LEAVE);
       }
-
-      // TODO: interact with the object
       break;
     case GuestGoal.TALK:
       break;
@@ -117,8 +114,6 @@ public class Guest : PoolObject {
       currentTransition = transitionFactory.GetWhenCloseDistance(
           this, GuestGoal.AT_ELEVATOR, elevator.transform.position,
           stopDistance + CONDITION_MARGIN_OF_ERROR);
-
-      // TODO: interact with the object
       break;
     case GuestGoal.HUNGRY:
       break;
@@ -128,6 +123,7 @@ public class Guest : PoolObject {
           this, GuestGoal.LEAVE, foodTrayOfInterest);
       break;
     case GuestGoal.AT_ELEVATOR:
+      OnGuestLeave?.Invoke(this);
       Destroy();
       break;
     default:
