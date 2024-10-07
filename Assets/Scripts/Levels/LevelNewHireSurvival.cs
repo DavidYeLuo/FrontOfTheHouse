@@ -26,6 +26,7 @@ public class LevelNewHireSurvival : MonoBehaviour {
   public Timer timelineTimer;
   [SerializeField]
   private TimelineSizeAdjuster timelineDisplay;
+  public TimelineAPI timelineVisual;
 
   [Space]
 
@@ -48,8 +49,11 @@ public class LevelNewHireSurvival : MonoBehaviour {
 
   private void Awake() {
     levelHelper.Init();
-    timelineDisplay.Adjust(secondsBeforeBreakfast, secondsBeforeLunch,
-                           secondsBeforeEndOfService);
+    // timelineDisplay.Adjust(secondsBeforeBreakfast, secondsBeforeLunch,
+    //                        secondsBeforeEndOfService);
+    timelineVisual.TimelineTimer = timelineTimer;
+    timelineVisual.TimelineDisplay.Adjust(
+        secondsBeforeBreakfast, secondsBeforeLunch, secondsBeforeEndOfService);
   }
   private IEnumerator Start() {
     StartCoroutine(levelHelper.ZoomInToPlayerTransition(

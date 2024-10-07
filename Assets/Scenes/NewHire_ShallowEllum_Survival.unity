@@ -1290,6 +1290,7 @@ MonoBehaviour:
   levelHelper:
     players:
     - {fileID: 219575682}
+    timeLineAdjuster: {fileID: 0}
     cam: {fileID: 1072788728}
     gameManager: {fileID: 1044318696}
   timelineTimer: {fileID: 221271196}
@@ -1925,10 +1926,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3062271120145190710, guid: 2972e5ffec16d977688da5660bc2c1f6, type: 3}
-      propertyPath: timer
-      value: 
-      objectReference: {fileID: 221271196}
     - target: {fileID: 4033931183384398879, guid: 2972e5ffec16d977688da5660bc2c1f6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

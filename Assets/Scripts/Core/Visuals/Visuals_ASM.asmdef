@@ -1,3 +1,16 @@
 {
-	"name": "Visuals_ASM"
+    "name": "Visuals_ASM",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d44df9b786e0f24e9a48564cd8acd5eb"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

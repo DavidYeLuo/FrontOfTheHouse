@@ -4,6 +4,7 @@ using System.Collections;
 using System;
 using UnityEngine.Assertions;
 using System.Collections.Generic;
+using UI;
 
 namespace Level {
 // When using this class, we should Init
@@ -19,6 +20,7 @@ public class Level {
   [Header("Dependencies")]
   [SerializeField]
   public List<Player.Player> players;
+  public TimelineSizeAdjuster timeLineAdjuster;
 
   public Camera cam;
   public GameManager gameManager;
