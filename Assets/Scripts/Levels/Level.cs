@@ -5,6 +5,7 @@ using System;
 using UnityEngine.Assertions;
 using System.Collections.Generic;
 using UI;
+using CustomTimer;
 
 namespace Level {
 // When using this class, we should Init
@@ -20,7 +21,7 @@ public class Level {
   [Header("Dependencies")]
   [SerializeField]
   public List<Player.Player> players;
-  public TimelineSizeAdjuster timeLineAdjuster;
+  public TimelineAPI timelineAPI;
 
   public Camera cam;
   public GameManager gameManager;
@@ -32,6 +33,14 @@ public class Level {
     Assert.IsNotNull(players);
     Assert.IsNotNull(cam);
     Assert.IsNotNull(gameManager);
+  }
+
+  public void AdjustTimeline(Timer timer, float secondsBeforeBreakfast,
+                             float secondsBeforeLunch,
+                             float secondsBeforeEndOfService) {
+    timelineAPI.TimelineTimer = timer;
+    timelineAPI.TimelineDisplay.Adjust(
+        secondsBeforeBreakfast, secondsBeforeLunch, secondsBeforeEndOfService);
   }
 
   public void SetLockPlayerInput(bool isLocked) {
