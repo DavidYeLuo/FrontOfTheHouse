@@ -70,6 +70,11 @@ public class Player : MonoBehaviour, IInteractor {
     buildingParticleSystem.Stop();
   }
   private void FixedUpdate() {
+    // This fixes occasional residual inputs when user presses up the key
+    // causing the horizontal/veritcal to be unbalanced
+    // TODO: Find an easier way to stablize the input
+    horizontal = Mathf.Max(-1.0f, horizontal);
+    vertical = Mathf.Max(-1.0f, vertical);
 
     // Used to map user input to the xz-plane
     Vector3 h_vector = horizontal * Vector3.right;
