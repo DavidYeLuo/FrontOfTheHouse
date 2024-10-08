@@ -334,10 +334,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Speed_Rack
       objectReference: {fileID: 0}
-    - target: {fileID: 8096874593876537308, guid: 4e91c6a2b6b41477d84e030a7f86a658, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8730372148637923531, guid: 4e91c6a2b6b41477d84e030a7f86a658, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.25
