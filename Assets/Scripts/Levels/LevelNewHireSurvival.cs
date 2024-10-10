@@ -19,6 +19,12 @@ public class LevelNewHireSurvival : MonoBehaviour {
   [SerializeField]
   private float secondsBeforeEndOfService;
 
+  // TODO: Add number of spawns for each service
+  [SerializeField]
+  private AnimationCurve breakfastSpawnFreq;
+  [SerializeField]
+  private AnimationCurve lunchSpawnFreq;
+
   [Header("Dependencies")]
 
   [SerializeField]
@@ -58,6 +64,8 @@ public class LevelNewHireSurvival : MonoBehaviour {
     waitUntilBreakfast = new WaitForSeconds(secondsBeforeBreakfast);
     waitUntilLunch = new WaitForSeconds(secondsBeforeLunch);
     waitUntilServiceEnd = new WaitForSeconds(secondsBeforeEndOfService);
+
+    levelHelper.GetDiscreteSampleBaseOnAnimCurve(10, breakfastSpawnFreq);
 
     timelineTimer.WaitForSeconds(secondsBeforeBreakfast + secondsBeforeLunch +
                                  secondsBeforeEndOfService);
