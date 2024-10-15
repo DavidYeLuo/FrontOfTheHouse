@@ -89,10 +89,6 @@ public class Level {
     yield return null;
   }
 
-  public struct TimeDiffFreq {
-    public List<int> freqList;
-    public List<int> timeDiffList;
-  }
   // Creates a list containing the number of spawn after a certain time frame
   public TimeDiffFreq GetDiscreteSampleBaseOnAnimCurve(int numOfSamples,
                                                        AnimationCurve curve) {
@@ -121,5 +117,9 @@ public class Level {
     }
     return res;
   }
+}
+public struct TimeDiffFreq {
+  public List<int> freqList;
+  public List<int> timeDiffList;
 }
 }
