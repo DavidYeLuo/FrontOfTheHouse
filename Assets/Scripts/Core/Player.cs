@@ -73,8 +73,8 @@ public class Player : MonoBehaviour, IInteractor {
     // This fixes occasional residual inputs when user presses up the key
     // causing the horizontal/veritcal to be unbalanced
     // TODO: Find an easier way to stablize the input
-    horizontal = Mathf.Max(-1.0f, horizontal);
-    vertical = Mathf.Max(-1.0f, vertical);
+    horizontal = Mathf.Clamp(horizontal, -1.0f, 1.0f);
+    vertical = Mathf.Clamp(vertical, -1.0f, 1.0f);
 
     // Used to map user input to the xz-plane
     Vector3 h_vector = horizontal * Vector3.right;
