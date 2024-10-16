@@ -1417,12 +1417,12 @@ MonoBehaviour:
     gameManager: {fileID: 1044318696}
   timelineTimer: {fileID: 221271196}
   guestPrefab: {fileID: 6654351484475702462, guid: c8cf4ed9b48ada37bad422b86d63ae78, type: 3}
-  spawnPoint: {x: 0, y: 0, z: 0}
+  spawnPoint: {x: -10, y: 1, z: 2}
   objectOfInterests:
   - {fileID: 1465141080}
   exits:
   - {fileID: 1922184580}
-  maxGuestPoolSize: 1
+  maxGuestPoolSize: 30
 --- !u!1 &1465141080 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7639869814698632463, guid: 1f32e7e55f6f9d68e808d93554ae8814, type: 3}
