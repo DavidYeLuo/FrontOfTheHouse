@@ -35,6 +35,9 @@ public class Level {
     Assert.IsNotNull(gameManager);
   }
 
+  // TODO: Add a new method to use list instead of three floats
+  // NOTE: Not a good practice because it breaks user space but I'm the only
+  // developer atm
   public void AdjustTimeline(Timer timer, float secondsBeforeBreakfast,
                              float secondsBeforeLunch,
                              float secondsBeforeEndOfService) {

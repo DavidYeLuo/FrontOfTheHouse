@@ -6,6 +6,10 @@ using CustomTimer;
 using UnityEngine.Assertions;
 
 namespace UI {
+/// This class is a class that allows modification toward its subcomponents
+/// NOTE: Currently doesn't follow OOP but can be changed to a facade pattern
+/// Not sure if it is a good idea to switch to facade since there isn't much
+/// complexity yet
 public class TimelineAPI : MonoBehaviour {
   [SerializeField]
   private TimerVisual timerVisual;

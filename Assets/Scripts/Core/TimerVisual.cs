@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace CustomTimer {
+/// This class represents the visual of a timer.
 public class TimerVisual : MonoBehaviour {
   public event TimeUpEvent timeUpEvent;
   [field:SerializeField]

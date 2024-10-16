@@ -6,6 +6,7 @@ using UnityEngine;
 namespace CustomTimer {
 public delegate void TimeUpEvent();
 public delegate void TimeStartEvent(float durationInSeconds);
+/// This class is the inner working of a clock that will notify when its done.
 public class Timer : MonoBehaviour {
   public event TimeUpEvent timeUpEvent;
   public event TimeStartEvent timeStartEvent;

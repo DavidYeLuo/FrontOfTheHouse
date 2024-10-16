@@ -13,6 +13,11 @@ using Level;
 namespace LevelTest {
 public class LevelWaveSpawnTester : MonoBehaviour {
   [Header("Settings")]
+  // TODO: Use a list of the new scriptable object instead see the
+  // TimelineSizeAdjuster class
+  // NOTE: Might be more useful if we extend the scriptable object to also
+  // accomodate with the spawner We can try using an interface for this added
+  // functionality
   [SerializeField]
   private float secondsBeforeBreakfast;
   [SerializeField]
