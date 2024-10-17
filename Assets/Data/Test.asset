@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b64f406cdf12c35ab172a3bed600ba, type: 3}
+  m_Name: Test
+  m_EditorClassIdentifier: 
+  <UIColor>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+  <NumberOfGuestSpawns>k__BackingField: 10
+  <DurationInSeconds>k__BackingField: 3
+  <SpawnDistribution>k__BackingField:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  <GuestPrefab>k__BackingField: {fileID: 910107005482997377, guid: 9cbb0c2d761bdd903b3b1d498041dc07, type: 3}
+  <WaitTime>k__BackingField: 4
