@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using CustomTimer;
 
 namespace Level {
 public delegate void WaveBegin();
@@ -11,7 +13,52 @@ public class WaveManager : MonoBehaviour {
   [field:SerializeField]
   public List<WaveDetail> WaveList { get; private set; }
 
-  public IEnumerator Start() { yield return Begin(); }
+  [SerializeField]
+  private Image uiTimelineTemplate;
+  [SerializeField]
+  private GameObject uiTimelineHolder;
+  [SerializeField]
+  private TimerVisual timerVisual;
+  public Timer timer;
+  private float totalTime;
+  [SerializeField]
+  private bool selfInit = false;
+
+  public IEnumerator Start() {
+    if (selfInit) {
+      UpdateWaveUI();
+      onWaveBegin?.Invoke();
+      timerVisual.timer = timer;
+      timerVisual.enabled = true;
+      timerVisual.StartTimer(totalTime);
+      yield return Begin();
+      timerVisual.enabled = false;
+      onWaveEnded?.Invoke();
+    }
+    yield return null;
+  }
+  public void UpdateWaveUI() {
+    float baseHeight = uiTimelineTemplate.rectTransform.sizeDelta.y;
+    float baseWidth = uiTimelineTemplate.rectTransform.sizeDelta.x;
+    float totalTime = 0.0f;
+    foreach (WaveDetail waveDetail in WaveList) {
+      totalTime += waveDetail.DurationInSeconds + waveDetail.WaitTime;
+    }
+    this.totalTime = totalTime;
+    Debug.Log($"Total time: {totalTime}");
+    foreach (WaveDetail waveDetail in WaveList) {
+      GameObject instance = Instantiate(uiTimelineTemplate.gameObject);
+      Image instanceImage = instance.GetComponent<Image>();
+      float ratio =
+          (waveDetail.DurationInSeconds + waveDetail.WaitTime) / totalTime;
+
+      instanceImage.rectTransform.sizeDelta =
+          new Vector2(baseWidth * ratio, baseHeight);
+      Debug.Log($"Ratio: {ratio}");
+      instanceImage.color = waveDetail.UIColor;
+      instance.transform.SetParent(uiTimelineHolder.transform);
+    }
+  }
   public IEnumerator Begin() {
     TimeDiffFreq timeDiffFreq;
     for (int i = 0; i < WaveList.Count; i++) {
