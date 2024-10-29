@@ -91,35 +91,6 @@ public class Level {
 
     yield return null;
   }
-
-  // Creates a list containing the number of spawn after a certain time frame
-  public TimeDiffFreq GetDiscreteSampleBaseOnAnimCurve(int numOfSamples,
-                                                       AnimationCurve curve) {
-    List<int> freqList = new List<int>();
-    List<int> timeDiffList = new List<int>();
-    TimeDiffFreq res = new TimeDiffFreq();
-    res.freqList = freqList;
-    res.timeDiffList = timeDiffList;
-
-    int spawnCount = 0;
-    int prevCount = 0;
-
-    int timeFrame = 0;
-    int prevFrame = 0;
-    for (int i = 0; i <= 100; i++) {
-      prevCount = spawnCount;
-      spawnCount = (int)(curve.Evaluate(0.01f * i) * numOfSamples);
-      int difference = spawnCount - prevCount;
-      timeFrame++;
-      if (difference == 0)
-        continue;
-      freqList.Add(difference);
-
-      timeDiffList.Add(timeFrame - prevFrame);
-      prevFrame = timeFrame;
-    }
-    return res;
-  }
 }
 public struct TimeDiffFreq {
   public List<int> freqList;

@@ -232,7 +232,7 @@ MonoBehaviour:
   uiTimelineHolder: {fileID: 6007103317191207727}
   timerVisual: {fileID: 6516427680266911396}
   timer: {fileID: 1382629069518703233}
-  selfInit: 1
+  selfInit: 0
 --- !u!114 &6516427680266911396
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -61,6 +61,8 @@ public class LevelWaveSpawnTester : MonoBehaviour {
     levelHelper.AdjustTimeline(timelineTimer, secondsBeforeBreakfast,
                                secondsBeforeLunch, secondsBeforeEndOfService);
   }
+  // NOTE: Breaking changes: Creating guest spawns is now handled in
+  // WaveManager.cs
   private IEnumerator Start() {
     StartCoroutine(levelHelper.ZoomInToPlayerTransition(
         Level.Level.DEFAULT_CAMERA_OFFSET,
@@ -71,46 +73,47 @@ public class LevelWaveSpawnTester : MonoBehaviour {
     waitUntilLunch = new WaitForSeconds(secondsBeforeLunch);
     waitUntilServiceEnd = new WaitForSeconds(secondsBeforeEndOfService);
 
-    levelHelper.GetDiscreteSampleBaseOnAnimCurve(10, breakfastSpawnFreq);
+    // levelHelper.GetDiscreteSampleBaseOnAnimCurve(10, breakfastSpawnFreq);
 
     timelineTimer.WaitForSeconds(secondsBeforeBreakfast + secondsBeforeLunch +
                                  secondsBeforeEndOfService);
     List<Guest> spawnedGuests = new List<Guest>();
-    TimeDiffFreq timeDiffFreq =
-        levelHelper.GetDiscreteSampleBaseOnAnimCurve(10, breakfastSpawnFreq);
-    Guest currentSpawnedGuest;
-    int numGuestsWhoLeft = 0;
-    void incrementCounter(Guest _guest) { numGuestsWhoLeft++; }
-    for (int i = 0; i < maxGuestPoolSize; i++) {
-      currentSpawnedGuest = SpawnGuest();
-      spawnedGuests.Add(currentSpawnedGuest);
-      currentSpawnedGuest.OnGuestLeave += incrementCounter;
-      currentSpawnedGuest.gameObject.SetActive(false);
-    }
-    int numSpawns = 0;
-    float FRAC = 1 / 100.0f;
-    for (int i = 0; i < timeDiffFreq.freqList.Count; i++) {
-      Debug.Log(timeDiffFreq.timeDiffList[i]);
-      yield return new WaitForSeconds(timeDiffFreq.timeDiffList[i] * FRAC *
-                                      secondsBeforeBreakfast);
-      for (int freq = 0; freq < timeDiffFreq.freqList[i]; freq++) {
-        spawnedGuests[numSpawns].gameObject.SetActive(true);
-        numSpawns++;
-      }
-    }
-
-    // Spawns for the lunch
-    timeDiffFreq =
-        levelHelper.GetDiscreteSampleBaseOnAnimCurve(10, lunchSpawnFreq);
-    for (int i = 0; i < timeDiffFreq.freqList.Count; i++) {
-      Debug.Log(timeDiffFreq.timeDiffList[i]);
-      yield return new WaitForSeconds(timeDiffFreq.timeDiffList[i] * FRAC *
-                                      secondsBeforeBreakfast);
-      for (int freq = 0; freq < timeDiffFreq.freqList[i]; freq++) {
-        spawnedGuests[numSpawns].gameObject.SetActive(true);
-        numSpawns++;
-      }
-    }
+    //
+    // TimeDiffFreq timeDiffFreq =
+    //     levelHelper.GetDiscreteSampleBaseOnAnimCurve(10, breakfastSpawnFreq);
+    // Guest currentSpawnedGuest;
+    // int numGuestsWhoLeft = 0;
+    // void incrementCounter(Guest _guest) { numGuestsWhoLeft++; }
+    // for (int i = 0; i < maxGuestPoolSize; i++) {
+    //   currentSpawnedGuest = SpawnGuest();
+    //   spawnedGuests.Add(currentSpawnedGuest);
+    //   currentSpawnedGuest.OnGuestLeave += incrementCounter;
+    //   currentSpawnedGuest.gameObject.SetActive(false);
+    // }
+    // int numSpawns = 0;
+    // float FRAC = 1 / 100.0f;
+    // for (int i = 0; i < timeDiffFreq.freqList.Count; i++) {
+    //   Debug.Log(timeDiffFreq.timeDiffList[i]);
+    //   yield return new WaitForSeconds(timeDiffFreq.timeDiffList[i] * FRAC *
+    //                                   secondsBeforeBreakfast);
+    //   for (int freq = 0; freq < timeDiffFreq.freqList[i]; freq++) {
+    //     spawnedGuests[numSpawns].gameObject.SetActive(true);
+    //     numSpawns++;
+    //   }
+    // }
+    //
+    // // Spawns for the lunch
+    // timeDiffFreq =
+    //     levelHelper.GetDiscreteSampleBaseOnAnimCurve(10, lunchSpawnFreq);
+    // for (int i = 0; i < timeDiffFreq.freqList.Count; i++) {
+    //   Debug.Log(timeDiffFreq.timeDiffList[i]);
+    //   yield return new WaitForSeconds(timeDiffFreq.timeDiffList[i] * FRAC *
+    //                                   secondsBeforeBreakfast);
+    //   for (int freq = 0; freq < timeDiffFreq.freqList[i]; freq++) {
+    //     spawnedGuests[numSpawns].gameObject.SetActive(true);
+    //     numSpawns++;
+    //   }
+    // }
 
     // yield return waitUntilBreakfast;
     // currentSpawnedGuest = SpawnGuest();
@@ -122,11 +125,12 @@ public class LevelWaveSpawnTester : MonoBehaviour {
     // spawnedGuests.Add(currentSpawnedGuest);
     // yield return waitUntilServiceEnd;
     // areGuestsSatisfied = numGuestsWhoLeft == 2 ? true : false;
-    if (areGuestsSatisfied)
-      Debug.Log("You Win!");
-    else
-      Debug.Log("You Lose!");
-    spawnedGuests.ForEach((_guest) => _guest.OnGuestLeave -= incrementCounter);
+    // if (areGuestsSatisfied)
+    //   Debug.Log("You Win!");
+    // else
+    //   Debug.Log("You Lose!");
+    // spawnedGuests.ForEach((_guest) => _guest.OnGuestLeave -=
+    // incrementCounter); yield return null;
     yield return null;
   }
   private Guest SpawnGuest() {

@@ -19,17 +19,9 @@ public class LevelNewHireSurvival : MonoBehaviour {
   [SerializeField]
   private float secondsBeforeEndOfService;
 
-  // TODO: Add number of spawns for each service
-  [SerializeField]
-  private AnimationCurve breakfastSpawnFreq;
-  [SerializeField]
-  private AnimationCurve lunchSpawnFreq;
-
   [Header("Dependencies")]
-
   [SerializeField]
   private Level levelHelper;
-  public Timer timelineTimer;
 
   [Space]
 
@@ -44,50 +36,23 @@ public class LevelNewHireSurvival : MonoBehaviour {
 
   public int maxGuestPoolSize = 1;
   Pooler guestPooler;
+  [Header("Prefabs")]
+  [SerializeField]
+  private WaveManager waveManager;
+  private WaveManager _waveManager;
 
-  private bool areGuestsSatisfied = false;
-  private WaitForSeconds waitUntilBreakfast;
-  private WaitForSeconds waitUntilLunch;
-  private WaitForSeconds waitUntilServiceEnd;
-
-  private void Awake() {
-    levelHelper.Init();
-    levelHelper.AdjustTimeline(timelineTimer, secondsBeforeBreakfast,
-                               secondsBeforeLunch, secondsBeforeEndOfService);
-  }
+  private void Awake() { levelHelper.Init(); }
   private IEnumerator Start() {
     StartCoroutine(levelHelper.ZoomInToPlayerTransition(
         Level.DEFAULT_CAMERA_OFFSET, Level.DEFAULT_TRANSITION_TIME));
     guestPooler = new Pooler(maxGuestPoolSize, guestPrefab);
-    // Guest guest = Instantiate(guestPrefab, spawnPoint, Quaternion.identity);
-
-    waitUntilBreakfast = new WaitForSeconds(secondsBeforeBreakfast);
-    waitUntilLunch = new WaitForSeconds(secondsBeforeLunch);
-    waitUntilServiceEnd = new WaitForSeconds(secondsBeforeEndOfService);
-
-    levelHelper.GetDiscreteSampleBaseOnAnimCurve(10, breakfastSpawnFreq);
-
-    timelineTimer.WaitForSeconds(secondsBeforeBreakfast + secondsBeforeLunch +
-                                 secondsBeforeEndOfService);
     List<Guest> spawnedGuests = new List<Guest>();
     Guest currentSpawnedGuest;
-    int numGuestsWhoLeft = 0;
-    void incrementCounter(Guest _guest) { numGuestsWhoLeft++; }
-    yield return waitUntilBreakfast;
-    currentSpawnedGuest = SpawnGuest();
-    currentSpawnedGuest.OnGuestLeave += incrementCounter;
-    spawnedGuests.Add(currentSpawnedGuest);
-    yield return waitUntilLunch;
-    currentSpawnedGuest = SpawnGuest();
-    currentSpawnedGuest.OnGuestLeave += incrementCounter;
-    spawnedGuests.Add(currentSpawnedGuest);
-    yield return waitUntilServiceEnd;
-    areGuestsSatisfied = numGuestsWhoLeft == 2 ? true : false;
-    if (areGuestsSatisfied)
-      Debug.Log("You Win!");
-    else
-      Debug.Log("You Lose!");
-    spawnedGuests.ForEach((_guest) => _guest.OnGuestLeave -= incrementCounter);
+    _waveManager = Instantiate(waveManager);
+    _waveManager.onWaveBeat += SpawnNGuest;
+    // StartCoroutine(_waveManager.Begin());
+    _waveManager.Begin();
+    return null;
   }
   private Guest SpawnGuest() {
     Debug.Log("Spawning Guest");
@@ -97,6 +62,11 @@ public class LevelNewHireSurvival : MonoBehaviour {
 
     firstGuest.Init(GuestGoal.EXPLORE, objectOfInterests, exits);
     return firstGuest;
+  }
+  private void SpawnNGuest(int n) {
+    for (int i = 0; i < n; i++) {
+      SpawnGuest();
+    }
   }
   private void OnEnable() {
     foreach (Player.Player player in levelHelper.players) {

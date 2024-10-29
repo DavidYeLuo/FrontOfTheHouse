@@ -6,10 +6,24 @@ using CustomTimer;
 
 namespace Level {
 public delegate void WaveBegin();
+public delegate void WaveBeat(int freq); // Happens in crucial Waves
 public delegate void WaveEnd();
+/// Given a WaveList that contains timefreq, beat at the crucial time and also
+/// telling the freq
+///
+/// Terms:
+/// time -> 1% elapse in the duration
+/// freq -> the number of
+/// spawns should happen
 public class WaveManager : MonoBehaviour {
   public event WaveBegin onWaveBegin;
   public event WaveEnd onWaveEnded;
+  public event WaveBeat onWaveBeat;
+
+  [Tooltip("Set to false if this gameobject is used as a component")]
+  [SerializeField]
+  private bool isStandAlone = false;
+
   [field:SerializeField]
   public List<WaveDetail> WaveList { get; private set; }
 
@@ -21,21 +35,23 @@ public class WaveManager : MonoBehaviour {
   private TimerVisual timerVisual;
   public Timer timer;
   private float totalTime;
-  [SerializeField]
-  private bool selfInit = false;
 
-  public IEnumerator Start() {
-    if (selfInit) {
-      UpdateWaveUI();
-      onWaveBegin?.Invoke();
-      timerVisual.timer = timer;
-      timerVisual.enabled = true;
-      timerVisual.StartTimer(totalTime);
-      yield return Begin();
-      timerVisual.enabled = false;
-      onWaveEnded?.Invoke();
+  private IEnumerator Start() {
+    if (isStandAlone) {
+      yield return _Begin();
     }
     yield return null;
+  }
+  public void Begin() { StartCoroutine(_Begin()); }
+  private IEnumerator _Begin() {
+    UpdateWaveUI();
+    onWaveBegin?.Invoke();
+    timerVisual.timer = timer;
+    timerVisual.enabled = true;
+    timerVisual.StartTimer(totalTime);
+    yield return ProcessBeginWaveBeats();
+    timerVisual.enabled = false;
+    onWaveEnded?.Invoke();
   }
   public void UpdateWaveUI() {
     float baseHeight = uiTimelineTemplate.rectTransform.sizeDelta.y;
@@ -59,7 +75,7 @@ public class WaveManager : MonoBehaviour {
       instance.transform.SetParent(uiTimelineHolder.transform);
     }
   }
-  public IEnumerator Begin() {
+  private IEnumerator ProcessBeginWaveBeats() {
     TimeDiffFreq timeDiffFreq;
     for (int i = 0; i < WaveList.Count; i++) {
       WaveDetail currentWaveDetail = WaveList[i];
@@ -67,20 +83,14 @@ public class WaveManager : MonoBehaviour {
           currentWaveDetail.NumberOfGuestSpawns,
           currentWaveDetail.SpawnDistribution);
 
-      int numSpawns = 0;
       float FRAC = 1 / 100.0f;
       for (int time = 0; time < timeDiffFreq.freqList.Count; time++) {
         Debug.Log(timeDiffFreq.timeDiffList[time]);
         yield return new WaitForSeconds(timeDiffFreq.timeDiffList[time] * FRAC *
                                         currentWaveDetail.DurationInSeconds);
-        for (int freq = 0; freq < timeDiffFreq.freqList[time]; freq++) {
-          Instantiate(currentWaveDetail.GuestPrefab);
-          // spawnedGuests[numSpawns].gameObject.SetActive(true);
-          numSpawns++;
-        }
+        onWaveBeat?.Invoke(timeDiffFreq.freqList[time]);
       }
       yield return new WaitForSeconds(currentWaveDetail.WaitTime);
-      Debug.Log($"Count is: {numSpawns}");
     }
     yield return null;
   }
