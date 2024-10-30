@@ -122,5 +122,10 @@ public class WaveManager : MonoBehaviour {
     }
     return res;
   }
+  public int GetTotalFreq() {
+    int total = 0;
+    WaveList.ForEach((waveList) => { total += waveList.NumberOfGuestSpawns; });
+    return total;
+  }
 }
 }

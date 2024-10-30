@@ -41,7 +41,7 @@ public class LevelNewHire : MonoBehaviour {
     StartCoroutine(levelHelper.ZoomInToPlayerTransition(
         Level.DEFAULT_CAMERA_OFFSET, Level.DEFAULT_TRANSITION_TIME));
     _waveManager = Instantiate(waveManager);
-    guestPooler = new Pooler(10, guestPrefab);
+    guestPooler = new Pooler(_waveManager.GetTotalFreq(), guestPrefab);
     void SpawnNGuest(int n) {
       Debug.Log(n);
       for (int i = 0; i < n; i++)
