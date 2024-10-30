@@ -29,6 +29,10 @@ public class LevelNewHire : MonoBehaviour {
 
   Timer guestSpawnTimer;
 
+  [SerializeField]
+  private WaveManager waveManager;
+  private WaveManager _waveManager;
+
   private void Awake() {
     levelHelper.Init();
     guestSpawnTimer = gameObject.AddComponent<Timer>();
@@ -36,21 +40,27 @@ public class LevelNewHire : MonoBehaviour {
   private IEnumerator Start() {
     StartCoroutine(levelHelper.ZoomInToPlayerTransition(
         Level.DEFAULT_CAMERA_OFFSET, Level.DEFAULT_TRANSITION_TIME));
-    // guestPooler = new Pooler(20, guestPrefab);
-    // // Guest guest = Instantiate(guestPrefab, spawnPoint,
-    // Quaternion.identity); guestSpawnTimer.WaitForSeconds(5.0f); yield return
-    // new WaitForSeconds(5.1f); guestSpawnTimer.WaitForSeconds(3.0f); yield
-    // return new WaitForSeconds(3.1f); guestSpawnTimer.WaitForSeconds(2.0f);
+    _waveManager = Instantiate(waveManager);
+    guestPooler = new Pooler(10, guestPrefab);
+    void SpawnNGuest(int n) {
+      Debug.Log(n);
+      for (int i = 0; i < n; i++)
+        SpawnGuest();
+    }
+    _waveManager.onWaveBeat += SpawnNGuest;
+    _waveManager.Begin();
+
     return null;
   }
-  // private void SpawnGuest() {
-  //   Debug.Log("Spawning Guest");
-  //   Guest firstGuest = guestPooler.Spawn() as Guest;
-  //   firstGuest.gameObject.transform.position = spawnPoint;
-  //   firstGuest.gameObject.transform.rotation = Quaternion.identity;
-  //
-  //   firstGuest.Init(GuestGoal.EXPLORE, objectOfInterests, exits);
-  // }
+
+  private void SpawnGuest() {
+    Debug.Log("Spawning Guest");
+    Guest firstGuest = guestPooler.Spawn() as Guest;
+    firstGuest.gameObject.transform.position = spawnPoint;
+    firstGuest.gameObject.transform.rotation = Quaternion.identity;
+
+    firstGuest.Init(GuestGoal.EXPLORE, objectOfInterests, exits);
+  }
   private void WinWhenSpeedRackHasMuffinTrays(ItemHolderState state) {
     if (state != ItemHolderState.FILLED)
       return;

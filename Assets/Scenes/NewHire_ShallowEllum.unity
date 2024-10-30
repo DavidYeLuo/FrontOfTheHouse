@@ -1220,6 +1220,7 @@ MonoBehaviour:
   levelHelper:
     players:
     - {fileID: 219575682}
+    timelineAPI: {fileID: 0}
     cam: {fileID: 1072788728}
     gameManager: {fileID: 1044318696}
   speedrack: {fileID: 444379853}
@@ -1230,6 +1231,7 @@ MonoBehaviour:
   exits:
   - {fileID: 1922184580}
   maxGuestPoolSize: 1
+  waveManager: {fileID: 3324916221546781811, guid: 5bc7a19817a9c3383a1fd4f95c276530, type: 3}
 --- !u!1 &1465141080 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7639869814698632463, guid: 1f32e7e55f6f9d68e808d93554ae8814, type: 3}

@@ -47,9 +47,8 @@ public class LevelNewHireSurvival : MonoBehaviour {
         Level.DEFAULT_CAMERA_OFFSET, Level.DEFAULT_TRANSITION_TIME));
     guestPooler = new Pooler(maxGuestPoolSize, guestPrefab);
     List<Guest> spawnedGuests = new List<Guest>();
-    Guest currentSpawnedGuest;
     _waveManager = Instantiate(waveManager);
-    _waveManager.onWaveBeat += SpawnNGuest;
+    _waveManager.onWaveBeat += SpawnNGuest; // We should unsubscribe this
     // StartCoroutine(_waveManager.Begin());
     _waveManager.Begin();
     return null;
