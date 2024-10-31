@@ -10,34 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88b64f406cdf12c35ab172a3bed600ba, type: 3}
-  m_Name: WaitForThreeSeconds
+  m_Name: LunchPrep
   m_EditorClassIdentifier: 
-  <UIColor>k__BackingField: {r: 0.30816707, g: 0.98632956, b: 0, a: 1}
+  <label>k__BackingField: Morning Prep
+  <UIColor>k__BackingField: {r: 1, g: 0.93979645, b: 0, a: 1}
   <NumberOfGuestSpawns>k__BackingField: 0
   <DurationInSeconds>k__BackingField: 0
   <SpawnDistribution>k__BackingField:
     serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -0.018252045
-      value: -0.0035841465
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.981748
-      value: -0.0035841465
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
+    m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   <GuestPrefab>k__BackingField: {fileID: 0}
-  <WaitTime>k__BackingField: 3
+  <WaitTime>k__BackingField: 240

@@ -6,7 +6,11 @@ namespace Level {
 [CreateAssetMenu(fileName = "Wave", menuName = "Level/Wave")]
 public class WaveDetail : ScriptableObject {
   [field:SerializeField]
-  public Color UIColor { get; private set; }
+  public string label { get; private set; }
+  [field:SerializeField]
+  public Color UIColor {
+    get; private set;
+  }
   [field:SerializeField]
   public int NumberOfGuestSpawns {
     get; private set;

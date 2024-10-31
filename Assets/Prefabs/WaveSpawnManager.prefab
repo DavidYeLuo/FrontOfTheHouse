@@ -225,14 +225,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa0b2a28b6a5fa019bc5a7c2ea085da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isStandAlone: 0
   <WaveList>k__BackingField:
+  - {fileID: 11400000, guid: b2457c39f28613ea5a4c506eccbc2483, type: 2}
   - {fileID: 11400000, guid: 798d6c6a7ed86e837b0a44d5a1a96c37, type: 2}
   - {fileID: 11400000, guid: 7b3fbec17039a74a3a65ab7718fd4b0f, type: 2}
+  - {fileID: 11400000, guid: 798d6c6a7ed86e837b0a44d5a1a96c37, type: 2}
+  - {fileID: 11400000, guid: d2484212cf8715aca8c4092e405b8ec0, type: 2}
+  - {fileID: 11400000, guid: 8d129024f911155b9963e4093c635d61, type: 2}
+  - {fileID: 11400000, guid: 2e53a2c89fe2968778735bdb9801b1bd, type: 2}
+  - {fileID: 11400000, guid: 7b3fbec17039a74a3a65ab7718fd4b0f, type: 2}
+  - {fileID: 11400000, guid: 2e53a2c89fe2968778735bdb9801b1bd, type: 2}
+  - {fileID: 11400000, guid: d26b17fecac8e91e5853ca171db4cfc8, type: 2}
   uiTimelineTemplate: {fileID: 8783132073327665163}
   uiTimelineHolder: {fileID: 6007103317191207727}
   timerVisual: {fileID: 6516427680266911396}
   timer: {fileID: 1382629069518703233}
-  selfInit: 0
 --- !u!114 &6516427680266911396
 MonoBehaviour:
   m_ObjectHideFlags: 0
