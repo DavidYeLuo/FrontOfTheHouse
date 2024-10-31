@@ -20,6 +20,8 @@ public class WaveManager : MonoBehaviour {
   public event WaveEnd onWaveEnded;
   public event WaveBeat onWaveBeat;
 
+  public bool terminateOnWaveEnd = true;
+
   [Tooltip("Set to false if this gameobject is used as a component")]
   [SerializeField]
   private bool isStandAlone = false;
@@ -52,6 +54,12 @@ public class WaveManager : MonoBehaviour {
     yield return ProcessBeginWaveBeats();
     timerVisual.enabled = false;
     onWaveEnded?.Invoke();
+    if (terminateOnWaveEnd) {
+      /// unsubscribe events
+      onWaveBeat = null;
+      onWaveEnded = null;
+      onWaveBegin = null;
+    }
   }
   public void UpdateWaveUI() {
     float baseHeight = uiTimelineTemplate.rectTransform.sizeDelta.y;

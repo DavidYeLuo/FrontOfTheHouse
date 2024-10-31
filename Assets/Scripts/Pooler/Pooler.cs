@@ -4,14 +4,18 @@ using UnityEngine;
 
 namespace ObjectPool {
 public class Pooler : IPool {
-  private int size;
+  public int size {
+    get { return pool.Count; }
+  }
+  public int capacity { get; private set; }
   private Stack<PoolObject> pool;
   private PoolObject originalObjRef;
 
   public Pooler(int size, PoolObject obj) {
     originalObjRef = obj;
+    this.capacity = size;
     pool = new Stack<PoolObject>();
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < capacity; i++) {
       PoolObject newObj = InstantiateObject();
       newObj.gameObject.SetActive(false);
       newObj.pool = this;
@@ -19,7 +23,12 @@ public class Pooler : IPool {
     }
   }
   public void Pool(PoolObject obj) {
-    // TODO: Destroy object when the pool size is too big
+    // Destroy object when the pool size is too big
+    if (size >= capacity) {
+      // NOTE: Untested code
+      MonoBehaviour.Destroy(obj);
+      return;
+    }
     pool.Push(obj);
     obj.gameObject.SetActive(false);
   }

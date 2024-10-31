@@ -15,7 +15,7 @@ MonoBehaviour:
   <label>k__BackingField: Lunch Service
   <UIColor>k__BackingField: {r: 1, g: 0, b: 0, a: 1}
   <NumberOfGuestSpawns>k__BackingField: 10
-  <DurationInSeconds>k__BackingField: 180
+  <DurationInSeconds>k__BackingField: 90
   <SpawnDistribution>k__BackingField:
     serializedVersion: 2
     m_Curve:
