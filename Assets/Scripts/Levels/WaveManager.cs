@@ -73,6 +73,9 @@ public class WaveManager : MonoBehaviour {
       Debug.Log($"Ratio: {ratio}");
       instanceImage.color = waveDetail.UIColor;
       instance.transform.SetParent(uiTimelineHolder.transform);
+      instanceImage.rectTransform.localScale =
+          Vector3.one; // Fixes a bug that setting its parent transform will
+                       // change the image scale
     }
   }
   private IEnumerator ProcessBeginWaveBeats() {
