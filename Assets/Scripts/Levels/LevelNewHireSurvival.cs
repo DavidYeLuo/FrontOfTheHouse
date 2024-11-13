@@ -43,15 +43,15 @@ public class LevelNewHireSurvival : MonoBehaviour {
 
   private void Awake() { levelHelper.Init(); }
   private IEnumerator Start() {
-    StartCoroutine(levelHelper.ZoomInToPlayerTransition(
-        Level.DEFAULT_CAMERA_OFFSET, Level.DEFAULT_TRANSITION_TIME));
+    yield return levelHelper.ZoomInToPlayerTransition(
+        Level.DEFAULT_CAMERA_OFFSET, Level.DEFAULT_TRANSITION_TIME);
     guestPooler = new Pooler(maxGuestPoolSize, guestPrefab);
     List<Guest> spawnedGuests = new List<Guest>();
     _waveManager = Instantiate(waveManager);
     _waveManager.onWaveBeat += SpawnNGuest; // We should unsubscribe this
     // StartCoroutine(_waveManager.Begin());
     _waveManager.Begin();
-    return null;
+    yield return null;
   }
   private Guest SpawnGuest() {
     Debug.Log("Spawning Guest");

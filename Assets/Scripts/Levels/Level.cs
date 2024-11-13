@@ -6,6 +6,7 @@ using UnityEngine.Assertions;
 using System.Collections.Generic;
 using UI;
 using CustomTimer;
+using CameraEffects;
 
 namespace Level {
 // When using this class, we should Init
@@ -64,6 +65,10 @@ public class Level {
             .position; // For returning the camera where it needs to be in case
 
     cam.transform.position -= cameraOffset * cam.transform.forward;
+    /// Disabling CameraFollower to prevent it from override the zoom in effect
+    CameraFollower camFollower = cam.GetComponent<CameraFollower>();
+    if (camFollower != null)
+      camFollower.enabled = false;
 
     // Start Cutscene
     // BUG: when disabling playerscript, it prevents the user to pause in mid
@@ -88,6 +93,9 @@ public class Level {
                                    // Might not be needed.
     // player.enabled = true;         // Disables input while in cutscene
     yield return SetLockPlayerInputCoroutine(false);
+    /// Disabling CameraFollower to prevent it from override the zoom in effect
+    /// Now we can enable it to allow the camera to follow the player
+    camFollower.enabled = true;
 
     yield return null;
   }

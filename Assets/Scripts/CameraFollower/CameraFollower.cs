@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace CameraFollower {
+namespace CameraEffects {
 public enum CameraOffsetStrategy {
   STATIC_OFFSET,
   LINEAR_OFFSET,
