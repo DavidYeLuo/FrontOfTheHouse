@@ -65,10 +65,14 @@ public class Player : MonoBehaviour, IInteractor {
   private float vertical = 0.0f;
   private bool isRunning = false;
 
+  public static int Count { get; private set; }
+
   private void Start() {
+    Count++;
     rb = GetComponent<Rigidbody>();
     buildingParticleSystem.Stop();
   }
+  private void OnDestroy() { Count--; }
   private void FixedUpdate() {
     // This fixes occasional residual inputs when user presses up the key
     // causing the horizontal/veritcal to be unbalanced

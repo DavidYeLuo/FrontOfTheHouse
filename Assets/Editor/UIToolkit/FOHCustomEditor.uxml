@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:GroupBox style="flex-direction: row; flex-wrap: wrap;">
+        <ui:Label tabindex="-1" text="PlayerCount:" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PlayerCountLabel" />
+        <ui:Label tabindex="-1" text="0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PlayerCount" />
+    </ui:GroupBox>
+    <ui:Button text="Refresh" parse-escape-sequences="true" display-tooltip-when-elided="true" name="HelloWorldButton" />
+</ui:UXML>

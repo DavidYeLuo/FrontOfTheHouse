@@ -12,7 +12,8 @@ public class BuildCLI {
     buildPlayerOptions.target = BuildTarget.StandaloneLinux64;
     // buildPlayerOptions.options =
     //     BuildOptions.CleanBuildCache | BuildOptions.StrictMode;
-    buildPlayerOptions.options = BuildOptions.StrictMode;
+    buildPlayerOptions.options =
+        BuildOptions.StrictMode | BuildOptions.Development;
     BuildPipeline.BuildPlayer(buildPlayerOptions);
   }
 }
