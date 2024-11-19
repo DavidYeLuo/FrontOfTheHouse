@@ -232,6 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95dc6e387966988ee9147dd0f536a2cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  threshHold: 2
   snapPoints:
   - {fileID: 384742492}
   - {fileID: 13503935}

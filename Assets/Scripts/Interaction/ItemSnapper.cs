@@ -7,6 +7,7 @@ using UnityEngine.Assertions;
 
 namespace Interactable {
 public class ItemSnapper : MonoBehaviour {
+  public float threshHold = 2.0f;
   [SerializeField]
   private List<GameObject> snapPoints;
   private void Awake() {
@@ -27,6 +28,9 @@ public class ItemSnapper : MonoBehaviour {
         shortestSqrMagnitude = sqrMagnitude;
         closestSnapPoint = snapPoints[i];
       }
+      if (Vector3.Distance(closestSnapPoint.transform.position,
+                           c.transform.position) > threshHold)
+        return;
       c.transform.position = closestSnapPoint.transform.position;
     }
   }
