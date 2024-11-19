@@ -44,6 +44,13 @@ public class ItemHolder<T> : MonoBehaviour, IDropItem
     itemList.Remove(ret);
     return ret;
   }
+  public T RemoveItem(T item) {
+    if (itemList.Contains(item)) {
+      itemList.Remove(item);
+      return item;
+    }
+    return null;
+  }
   public ItemHolderState GetState() { return state; }
   // LIFO - Returns the last item the player inserted
   public T PeekTopItem() {
