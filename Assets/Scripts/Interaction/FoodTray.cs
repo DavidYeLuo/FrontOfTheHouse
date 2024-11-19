@@ -12,7 +12,8 @@ namespace Interactable {
 public class FoodTray : ItemHolder<Muffin>,
                         IInteractable,
                         IDropItem,
-                        IPickupItem {
+                        IPickupItem,
+                        IItemSnap {
   public void Accept(IInteractor interactor) { interactor.Interact(this); }
 
   public override GameObject DropItem() {
