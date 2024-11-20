@@ -14,6 +14,9 @@ public class FoodTray : ItemHolder<Muffin>,
                         IDropItem,
                         IPickupItem,
                         IItemSnap {
+  [Header("Item Snapping")]
+  public Vector3 bottomSnapPoint;
+  public List<IItemSnap.SnapCategories> snapCategories;
   public void Accept(IInteractor interactor) { interactor.Interact(this); }
 
   public override GameObject DropItem() {
@@ -25,6 +28,16 @@ public class FoodTray : ItemHolder<Muffin>,
     rb.isKinematic = true;
     Itemize();
     return this.gameObject;
+  }
+  public Vector3 GetBottomSnapPoint() { return bottomSnapPoint; }
+  public List<IItemSnap.SnapCategories> GetCategories() {
+    return snapCategories;
+  }
+  private void OnDrawGizmosSelected() {
+    Gizmos.color = Color.green;
+    Vector3 direction = transform.TransformDirection(bottomSnapPoint);
+    Gizmos.DrawRay(transform.position, direction);
+    Gizmos.DrawWireSphere(transform.position + bottomSnapPoint, 0.1f);
   }
 }
 }

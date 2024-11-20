@@ -233,6 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   threshHold: 2
+  matchSnapCategories: 00000000
   snapPoints:
   - {fileID: 384742492}
   - {fileID: 13503935}
