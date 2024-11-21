@@ -5,11 +5,10 @@ using PlayerAction;
 using System;
 using UnityEngine.Assertions;
 using Interactable;
-using Food;
 using Entity;
 
 namespace Interactable {
-public class FoodTray : ItemHolder<Muffin>,
+public class FoodTray : ItemHolder<Food>,
                         IInteractable,
                         IDropItem,
                         IPickupItem,

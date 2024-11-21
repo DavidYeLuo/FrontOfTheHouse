@@ -6,7 +6,6 @@ using ObjectDetection;
 using System;
 using System.Collections.Generic;
 using ObjectPool;
-using Food;
 using Entity;
 using UnityEngine.Assertions;
 
@@ -361,19 +360,19 @@ public class Player : MonoBehaviour, IInteractor {
   public void Interact(FoodTray tray) {
     // BUG: We shouldn't allow utensils to be in the food tray
     if (objectHolding != null && !tray.IsFull()) {
-      Muffin muffin = objectHolding.GetComponent<Muffin>();
-      if (muffin == null)
+      Food food = objectHolding.GetComponent<Food>();
+      if (food == null)
         return;
-      tray.AddItem(muffin);
+      tray.AddItem(food);
       Debug.Log(tray.IsEmpty()); // TODO: remove
       // objectHolding.transform.SetParent(null);
       objectHolding = null;
       objectPoolHolding = null;
     } else if (objectHolding == null) {
-      Muffin muffin = tray.RemoveItem();
-      if (muffin == null)
+      Food food = tray.RemoveItem();
+      if (food == null)
         return;
-      objectHolding = muffin.gameObject;
+      objectHolding = food.gameObject;
       droppableObject = tray;
       ParentObjToItemSlot(objectHolding);
     }

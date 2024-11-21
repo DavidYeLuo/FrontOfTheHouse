@@ -5,7 +5,6 @@ using GuestBehaviour;
 using UnityEngine.Assertions;
 using PlayerAction;
 using Interactable; // needed for Elevator
-using Food;
 using ObjectPool;
 
 namespace NPC {
@@ -154,8 +153,9 @@ public class Guest : PoolObject {
       return new TransitionWhenCloseDistance(guest, goalTransition, targetPoint,
                                              distance);
     }
-    public Transition GetWhenGrabMuffin(Guest guest, GuestGoal goalTransition,
-                                        ItemHolder<Muffin> foodHolder) {
+    public Transition
+    GetWhenGrabMuffin(Guest guest, GuestGoal goalTransition,
+                      ItemHolder<Interactable.Food> foodHolder) {
       return new TransitionWhenGrabMuffin(guest, goalTransition, foodHolder);
     }
   }
@@ -173,9 +173,9 @@ public class Guest : PoolObject {
     }
   }
   private class TransitionWhenGrabMuffin : Transition {
-    private ItemHolder<Muffin> muffinTray;
+    private ItemHolder<Interactable.Food> muffinTray;
     public TransitionWhenGrabMuffin(Guest guest, GuestGoal goalTransition,
-                                    ItemHolder<Muffin> foodHolder)
+                                    ItemHolder<Interactable.Food> foodHolder)
         : base(guest, goalTransition) {
       muffinTray = foodHolder;
     }
@@ -185,7 +185,7 @@ public class Guest : PoolObject {
                            guest.gameObject.transform.position) >
               guest.stopDistance)
         return false;
-      Muffin muffin = muffinTray.RemoveItem();
+      Interactable.Food muffin = muffinTray.RemoveItem();
       guest.Equip(muffin.gameObject);
 
       return true;
