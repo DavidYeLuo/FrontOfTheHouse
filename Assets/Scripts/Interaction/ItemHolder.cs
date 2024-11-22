@@ -23,6 +23,7 @@ public class ItemHolder<T> : MonoBehaviour, IDropItem
   [SerializeField]
   private List<GameObject> itemPlacement;
   private List<T> itemList;
+
   /// Should only be used as accessor
   /// Mutating the state of the list isn't recommeded
   protected List<T> ItemList {
