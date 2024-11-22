@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1ca96722276b2108979912a3e5d73f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  foodInfo: {fileID: 11400000, guid: 68f45c39a687748ad83c2dc423a2465b, type: 2}
 --- !u!114 &3664819468854831450
 MonoBehaviour:
   m_ObjectHideFlags: 0
