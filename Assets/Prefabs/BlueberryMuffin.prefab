@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2680589983832130747}
   - component: {fileID: 3664819468854831450}
   m_Layer: 0
-  m_Name: Muffin
+  m_Name: BlueberryMuffin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
