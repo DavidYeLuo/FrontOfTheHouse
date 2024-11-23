@@ -18,11 +18,22 @@ public class FoodTray : ItemHolder<Food>,
   public List<IItemSnap.SnapCategories> snapCategories;
   public void Accept(IInteractor interactor) { interactor.Interact(this); }
 
-  public int CountFoodCategories(List<FoodCategory> matchCategories) {
+  public int CountByFoodCategories(List<FoodCategory> matchCategories) {
     int count = 0;
     List<Food> foodList = this.ItemList;
     foreach (var food in foodList) {
       if (food.ContainsCategory(matchCategories)) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  public int CountById(FoodID id) {
+    int count = 0;
+    List<Food> foodList = this.ItemList;
+    foreach (var food in foodList) {
+      if (food.Is(id)) {
         count++;
       }
     }
