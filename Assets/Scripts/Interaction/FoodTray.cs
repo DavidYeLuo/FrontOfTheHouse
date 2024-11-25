@@ -13,6 +13,13 @@ public class FoodTray : ItemHolder<Food>,
                         IDropItem,
                         IPickupItem,
                         IItemSnap {
+  [SerializeField]
+  private FoodTrayInfo foodTrayInfo;
+  public string FoodTrayName { get => foodTrayInfo.foodTrayName; }
+  public FoodTrayID ID { get => foodTrayInfo.foodTrayId; }
+  public List<FoodTrayCategory> FoodTrayCategories {
+    get => foodTrayInfo.foodTrayCategories;
+  }
   [Header("Item Snapping")]
   public Vector3 bottomSnapPoint;
   public List<IItemSnap.SnapCategories> snapCategories;

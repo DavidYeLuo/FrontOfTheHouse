@@ -1517,6 +1517,7 @@ MonoBehaviour:
   - {fileID: 5991460118155586415}
   - {fileID: 5550089535997012311}
   - {fileID: 1887878141565550130}
+  foodTrayInfo: {fileID: 0}
   bottomSnapPoint: {x: 0, y: -0.5, z: 0}
   snapCategories: 00000000
 --- !u!54 &5702567438217626470
