@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4348490055297744365}
   - component: {fileID: 8656076550163234775}
   m_Layer: 0
-  m_Name: MuffinBox
+  m_Name: BaseMuffinBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,7 +83,7 @@ MonoBehaviour:
   secondsToBreak: 3
   numItems: 2
   maxCapacity: 2
-  muffin: {fileID: 2928248224953771510, guid: a5e8dda4adbf5111083778646b0e4daa, type: 3}
+  muffin: {fileID: 0}
   brokenBox: {fileID: 8974494521767813171}
   emptyStateObject: {fileID: 8985033888682486226}
   filledStateObject: {fileID: 7683552573664148320}
