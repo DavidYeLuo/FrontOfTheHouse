@@ -1446,6 +1446,7 @@ GameObject:
   - component: {fileID: 7594102149547981845}
   - component: {fileID: 4203711907936782440}
   - component: {fileID: 5702567438217626470}
+  - component: {fileID: 2376017561889618079}
   m_Layer: 0
   m_Name: BaseFoodTray
   m_TagString: Untagged
@@ -1547,6 +1548,52 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2376017561889618079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7639869814698632463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c9efedfba478a9080bf11be2be783a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useEditorScale: 0
+  HoverScale: {x: 0, y: 0, z: 0}
+  OriginalScale: {x: 0, y: 0, z: 0}
+  _OnHoverEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2376017561889618079}
+        m_TargetAssemblyTypeName: Interactable.ItemHover, Interaction_ASM
+        m_MethodName: SetToHoverScale
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _OnHoverExit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2376017561889618079}
+        m_TargetAssemblyTypeName: Interactable.ItemHover, Interaction_ASM
+        m_MethodName: ResetScale
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  Visual: {fileID: 5296323873299686356}
 --- !u!1 &8542062058833319064
 GameObject:
   m_ObjectHideFlags: 0

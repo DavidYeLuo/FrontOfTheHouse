@@ -64,6 +64,8 @@ public class Player : MonoBehaviour, IInteractor {
   private float vertical = 0.0f;
   private bool isRunning = false;
 
+  private IHover hovering = null;
+
   public static int Count { get; private set; }
 
   private void Start() {
@@ -116,29 +118,44 @@ public class Player : MonoBehaviour, IInteractor {
     // and having the logics here
 
     InputEvent inputEvent;
+    hit = Physics.RaycastAll(transform.position, transform.forward,
+                             INTERACTION_RANGE);
+    IInteractable interactable = null;
+    GameObject interactableGameObject = null;
+    IHover hoverable = null;
+
+    if (hit != null) {
+      for (int i = 0; i < hit.Length; i++) {
+        interactable = hit[i].collider.GetComponent<IInteractable>();
+        Debug.DrawLine(transform.position,
+                       hit[i].collider.gameObject.transform.position);
+        if (interactable == null)
+          continue;
+        interactableGameObject = hit[i].collider.gameObject;
+
+        hoverable = hit[i].collider.GetComponent<IHover>();
+        if (hoverable == null)
+          break;
+        if (hovering == null) {
+          hovering = hoverable;
+          hovering.OnHoverEnter();
+        }
+        break;
+      }
+    }
+    if (hoverable == null && hovering != null) {
+      hovering.OnHoverExit();
+      hovering = null;
+    }
+
     while (inputQueue.Count > 0) {
       inputEvent = inputQueue.Dequeue();
       if (inputEvent.key == interactKey &&
           inputEvent.type == InputType.KEY_DOWN) {
-        hit = Physics.RaycastAll(transform.position, transform.forward,
-                                 INTERACTION_RANGE);
-        if (hit != null) {
-          Debug.Log("[RayCast, Player] Player raycast hit something.");
-
-          for (int i = 0; i < hit.Length; i++) {
-            IInteractable interactable =
-                hit[i].collider.GetComponent<IInteractable>();
-            Debug.DrawLine(transform.position,
-                           hit[i].collider.gameObject.transform.position);
-            if (interactable == null)
-              continue;
-            if (interactable != null) {
-              interactable.Accept(this);
-              lastInteractedObject =
-                  hit[i].collider.gameObject; // Used for cancelling task
-            }
-            break;
-          }
+        if (interactable != null) {
+          interactable.Accept(this);
+          lastInteractedObject =
+              interactableGameObject; // Used for cancelling task
         } else {
           Debug.DrawLine(transform.position,
                          transform.position +

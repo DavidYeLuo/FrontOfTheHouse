@@ -378,10 +378,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7790542104027262416, guid: f5cc0744b172de5a7896bacda410aec9, type: 3}
-      propertyPath: m_Name
-      value: BlueberryMuffinBox (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 3176662172363751141, guid: f5cc0744b172de5a7896bacda410aec9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4
@@ -421,6 +417,10 @@ PrefabInstance:
     - target: {fileID: 3176662172363751141, guid: f5cc0744b172de5a7896bacda410aec9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7790542104027262416, guid: f5cc0744b172de5a7896bacda410aec9, type: 3}
+      propertyPath: m_Name
+      value: BlueberryMuffinBox (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -779,10 +779,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7790542104027262416, guid: f5cc0744b172de5a7896bacda410aec9, type: 3}
-      propertyPath: m_Name
-      value: BlueberryMuffinBox (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 3176662172363751141, guid: f5cc0744b172de5a7896bacda410aec9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2
@@ -822,6 +818,10 @@ PrefabInstance:
     - target: {fileID: 3176662172363751141, guid: f5cc0744b172de5a7896bacda410aec9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7790542104027262416, guid: f5cc0744b172de5a7896bacda410aec9, type: 3}
+      propertyPath: m_Name
+      value: BlueberryMuffinBox (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -872,10 +872,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7790542104027262416, guid: f5cc0744b172de5a7896bacda410aec9, type: 3}
-      propertyPath: m_Name
-      value: BlueberryMuffinBox
-      objectReference: {fileID: 0}
     - target: {fileID: 3176662172363751141, guid: f5cc0744b172de5a7896bacda410aec9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -915,6 +911,10 @@ PrefabInstance:
     - target: {fileID: 3176662172363751141, guid: f5cc0744b172de5a7896bacda410aec9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7790542104027262416, guid: f5cc0744b172de5a7896bacda410aec9, type: 3}
+      propertyPath: m_Name
+      value: BlueberryMuffinBox
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
