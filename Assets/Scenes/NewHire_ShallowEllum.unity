@@ -1533,6 +1533,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: MuffinFoodTray
       objectReference: {fileID: 0}
+    - target: {fileID: 8529292139840664576, guid: 9117b9b5191e1c1c08547ca939d95847, type: 3}
+      propertyPath: _OnHoverExit.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8529292139840664576, guid: 9117b9b5191e1c1c08547ca939d95847, type: 3}
+      propertyPath: _OnHoverEnter.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

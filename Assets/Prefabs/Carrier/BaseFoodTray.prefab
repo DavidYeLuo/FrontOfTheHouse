@@ -1578,6 +1578,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2376017561889618079}
+        m_TargetAssemblyTypeName: Interactable.ItemHover, Interaction_ASM
+        m_MethodName: SetToHighlightMaterial
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _OnHoverExit:
     m_PersistentCalls:
       m_Calls:
@@ -1593,7 +1605,38 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2376017561889618079}
+        m_TargetAssemblyTypeName: Interactable.ItemHover, Interaction_ASM
+        m_MethodName: SetToOriginalMaterial
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  highlightMaterial: {fileID: 2100000, guid: 0f50cdc5ca22d4f6abf50fe951797c38, type: 2}
   Visual: {fileID: 5296323873299686356}
+  targetRendererList:
+  - {fileID: 7706367049146635357}
+  - {fileID: 4621196102585377688}
+  - {fileID: 92219124839713657}
+  - {fileID: 2242918372828129990}
+  - {fileID: 2555070047223933087}
+  - {fileID: 6588937504867037699}
+  - {fileID: 7827263957704251971}
+  - {fileID: 1242075550627176998}
+  - {fileID: 578762529180758739}
+  - {fileID: 7626596487207312807}
+  - {fileID: 8180342487883729421}
+  - {fileID: 3928565956759769287}
+  - {fileID: 4976218961943929525}
+  - {fileID: 13370921710790511}
+  - {fileID: 7935157483919017743}
+  - {fileID: 2882859157148025127}
+  - {fileID: 7855292693116740649}
 --- !u!1 &8542062058833319064
 GameObject:
   m_ObjectHideFlags: 0
