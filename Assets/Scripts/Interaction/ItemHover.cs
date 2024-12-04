@@ -23,11 +23,9 @@ public class ItemHover : MonoBehaviour, IHover {
   [SerializeField]
   private UnityEvent _OnHoverExit;
 
-  public Material highlightMaterial;
-  private List<Material> highlightMaterials;
-  private List<Material> originalMaterial;
-  private List<Material[]> d_HighlightMaterials;
-  private List<Material[]> d_OriginalMaterials;
+  public Material hoverMaterial;
+  private List<Material[]> hoverMaterials;
+  private List<Material[]> originalMaterials;
 
   [Header("Dependency")]
   public GameObject Visual;
@@ -40,27 +38,19 @@ public class ItemHover : MonoBehaviour, IHover {
     HoverScale = new Vector3(1.1f, 1.1f, 1.1f);
     OriginalScale = transform.localScale;
 
-    // TODO: generate a highlight material
-    originalMaterial = new List<Material>();
-    highlightMaterials = new List<Material>();
-    foreach (var targetRenderer in targetRendererList) {
-      Color previousColor = targetRenderer.material.color;
-      originalMaterial.Add(targetRenderer.material);
-      targetRenderer.material = highlightMaterial;
-      targetRenderer.material.SetColor("_BaseColor", previousColor);
-      // targetRenderer.material.SetFloat("_Thickness", 3.0f);
-      highlightMaterials.Add(targetRenderer.material);
-    }
-    d_OriginalMaterials = new List<Material[]>();
-    d_HighlightMaterials = new List<Material[]>();
+    originalMaterials = new List<Material[]>();
+    hoverMaterials = new List<Material[]>();
     for (int i = 0; i < targetRendererList.Count; i++) {
-      d_OriginalMaterials.Add(
-          new Material[] { originalMaterial[i], originalMaterial[i] });
-      d_HighlightMaterials.Add(
-          new Material[] { originalMaterial[i], highlightMaterial });
-      targetRendererList[i].materials = d_OriginalMaterials[i];
+      Material originalMaterial = targetRendererList[i].material;
+      Material copyHoverMaterial = new Material(hoverMaterial);
+      copyHoverMaterial.SetColor("_BaseColor", Color.black);
+      copyHoverMaterial.SetFloat("_Thickness", 3.0f);
+
+      originalMaterials.Add(new Material[] { originalMaterial });
+      hoverMaterials.Add(
+          new Material[] { originalMaterial, copyHoverMaterial });
     }
-    if (highlightMaterial == null)
+    if (hoverMaterial == null)
       Debug.LogWarning(
           $"Id: {this.gameObject.name}, Highlight material in ItemHover.cs is null. Calling SetHighlight Material is going to be crash.");
   }
@@ -73,24 +63,14 @@ public class ItemHover : MonoBehaviour, IHover {
   public void SetToHoverScale() { Visual.transform.localScale = HoverScale; }
 
   public void ResetScale() { Visual.transform.localScale = OriginalScale; }
-  public void SetToHighlightMaterial() {
-    for (int i = 0; i < targetRendererList.Count; i++) {
-      targetRendererList[i].material = highlightMaterials[i];
-    }
-  }
-  public void SetToOriginalMaterial() {
-    for (int i = 0; i < targetRendererList.Count; i++) {
-      targetRendererList[i].material = originalMaterial[i];
-    }
-  }
   public void AddOutlineMaterial() {
     for (int i = 0; i < targetRendererList.Count; i++) {
-      targetRendererList[i].materials = d_HighlightMaterials[i];
+      targetRendererList[i].materials = hoverMaterials[i];
     }
   }
   public void RemoveOutlineMaterial() {
     for (int i = 0; i < targetRendererList.Count; i++) {
-      targetRendererList[i].materials = d_OriginalMaterials[i];
+      targetRendererList[i].materials = originalMaterials[i];
     }
   }
 }
