@@ -5,6 +5,8 @@ using UnityEngine.Events;
 using Interactable;
 
 namespace Interactable {
+
+public class ItemHoverConfig : ScriptableObject {}
 // This game object should be at the top of the hierarchy along with collider
 // This is because the player will raycast to try to find the IHover component
 // to call OnHover events
@@ -24,6 +26,8 @@ public class ItemHover : MonoBehaviour, IHover {
   public Material highlightMaterial;
   private List<Material> highlightMaterials;
   private List<Material> originalMaterial;
+  private List<Material[]> d_HighlightMaterials;
+  private List<Material[]> d_OriginalMaterials;
 
   [Header("Dependency")]
   public GameObject Visual;
@@ -47,8 +51,14 @@ public class ItemHover : MonoBehaviour, IHover {
       // targetRenderer.material.SetFloat("_Thickness", 3.0f);
       highlightMaterials.Add(targetRenderer.material);
     }
+    d_OriginalMaterials = new List<Material[]>();
+    d_HighlightMaterials = new List<Material[]>();
     for (int i = 0; i < targetRendererList.Count; i++) {
-      targetRendererList[i].material = originalMaterial[i];
+      d_OriginalMaterials.Add(
+          new Material[] { originalMaterial[i], originalMaterial[i] });
+      d_HighlightMaterials.Add(
+          new Material[] { originalMaterial[i], highlightMaterial });
+      targetRendererList[i].materials = d_OriginalMaterials[i];
     }
     if (highlightMaterial == null)
       Debug.LogWarning(
@@ -71,6 +81,16 @@ public class ItemHover : MonoBehaviour, IHover {
   public void SetToOriginalMaterial() {
     for (int i = 0; i < targetRendererList.Count; i++) {
       targetRendererList[i].material = originalMaterial[i];
+    }
+  }
+  public void AddOutlineMaterial() {
+    for (int i = 0; i < targetRendererList.Count; i++) {
+      targetRendererList[i].materials = d_HighlightMaterials[i];
+    }
+  }
+  public void RemoveOutlineMaterial() {
+    for (int i = 0; i < targetRendererList.Count; i++) {
+      targetRendererList[i].materials = d_OriginalMaterials[i];
     }
   }
 }

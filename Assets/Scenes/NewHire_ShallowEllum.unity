@@ -1141,6 +1141,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4368817639240870288, guid: 9117b9b5191e1c1c08547ca939d95847, type: 3}
   m_PrefabInstance: {fileID: 2108900882}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1465141081 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8529292139840664576, guid: 9117b9b5191e1c1c08547ca939d95847, type: 3}
+  m_PrefabInstance: {fileID: 2108900882}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465141080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c9efedfba478a9080bf11be2be783a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1613863099
 GameObject:
   m_ObjectHideFlags: 0
@@ -1540,6 +1551,66 @@ PrefabInstance:
     - target: {fileID: 8529292139840664576, guid: 9117b9b5191e1c1c08547ca939d95847, type: 3}
       propertyPath: _OnHoverEnter.m_PersistentCalls.m_Calls.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8529292139840664576, guid: 9117b9b5191e1c1c08547ca939d95847, type: 3}
+      propertyPath: _OnHoverExit.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8529292139840664576, guid: 9117b9b5191e1c1c08547ca939d95847, type: 3}
+      propertyPath: _OnHoverEnter.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8529292139840664576, guid: 9117b9b5191e1c1c08547ca939d95847, type: 3}
+      propertyPath: _OnHoverExit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1465141081}
+    - target: {fileID: 8529292139840664576, guid: 9117b9b5191e1c1c08547ca939d95847, type: 3}
+      propertyPath: _OnHoverEnter.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1465141081}
+    - target: {fileID: 8529292139840664576, guid: 9117b9b5191e1c1c08547ca939d95847, type: 3}
+      propertyPath: _OnHoverExit.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8529292139840664576, guid: 9117b9b5191e1c1c08547ca939d95847, type: 3}
+      propertyPath: _OnHoverEnter.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8529292139840664576, guid: 9117b9b5191e1c1c08547ca939d95847, type: 3}
+      propertyPath: _OnHoverExit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RemoveOutlineMaterial
+      objectReference: {fileID: 0}
+    - target: {fileID: 8529292139840664576, guid: 9117b9b5191e1c1c08547ca939d95847, type: 3}
+      propertyPath: _OnHoverExit.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: RemoveOutlineMaterial
+      objectReference: {fileID: 0}
+    - target: {fileID: 8529292139840664576, guid: 9117b9b5191e1c1c08547ca939d95847, type: 3}
+      propertyPath: _OnHoverEnter.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AddOutlineMaterial
+      objectReference: {fileID: 0}
+    - target: {fileID: 8529292139840664576, guid: 9117b9b5191e1c1c08547ca939d95847, type: 3}
+      propertyPath: _OnHoverEnter.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: AddOutlineMaterial
+      objectReference: {fileID: 0}
+    - target: {fileID: 8529292139840664576, guid: 9117b9b5191e1c1c08547ca939d95847, type: 3}
+      propertyPath: _OnHoverEnter.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: AddOutlineMaterial
+      objectReference: {fileID: 0}
+    - target: {fileID: 8529292139840664576, guid: 9117b9b5191e1c1c08547ca939d95847, type: 3}
+      propertyPath: _OnHoverExit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Interactable.ItemHover, Interaction_ASM
+      objectReference: {fileID: 0}
+    - target: {fileID: 8529292139840664576, guid: 9117b9b5191e1c1c08547ca939d95847, type: 3}
+      propertyPath: _OnHoverEnter.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: Interactable.ItemHover, Interaction_ASM
+      objectReference: {fileID: 0}
+    - target: {fileID: 8529292139840664576, guid: 9117b9b5191e1c1c08547ca939d95847, type: 3}
+      propertyPath: _OnHoverExit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8529292139840664576, guid: 9117b9b5191e1c1c08547ca939d95847, type: 3}
+      propertyPath: _OnHoverEnter.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
