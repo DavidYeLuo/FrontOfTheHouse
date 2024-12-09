@@ -1,12 +1,7 @@
 {
-    "name": "Interaction_ASM",
+    "name": "CustomShader_ASM",
     "rootNamespace": "",
-    "references": [
-        "GUID:04daa483fb80378c886002eb56c38c77",
-        "GUID:dabd4081a69a14c2bb7d96708d856a6c",
-        "GUID:a224e75e6983fe2c38558b9f4488ebf3",
-        "GUID:399b3595f19d8d44e8581c58f1c65319"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
