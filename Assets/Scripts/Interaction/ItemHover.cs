@@ -67,9 +67,8 @@ public class ItemHover : MonoBehaviour, IHover {
     MeshFilter mFilter = outlineObject.AddComponent<MeshFilter>();
     MeshRenderer mRenderer = outlineObject.AddComponent<MeshRenderer>();
     mFilter.mesh = mesh;
-    SmoothMeshGenerator.SmoothMesh(
-        mFilter); // Using the inverted hull method, this will prevent
-                  // sharp
+    SmoothMeshGenerator.SmoothMesh(mFilter); // Using the inverted hull method,
+                                             // this will prevent sharp
 
     mRenderer.material = hoverMaterial;
 
@@ -95,5 +94,7 @@ public class ItemHover : MonoBehaviour, IHover {
     //   outlineObjects[i].SetActive(false);
     // }
   }
+  public void AddSelectOutlineLayer() {}
+  public void RemoveSelectOutlineLayer() {}
 }
 }
